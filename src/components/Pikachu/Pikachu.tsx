@@ -1,7 +1,6 @@
-// src/components/Pikachu.tsx
 import React, { useState, useEffect } from 'react';
-import './Pikachu.css'; // 피카츄 스타일
-import type { PikachuProps } from './PikachuType';
+import './Pikachu.css';
+import type { PikachuProps } from '../../types/PikachuType';
 
 const Pikachu: React.FC<PikachuProps> = ({ isJumping }) => {
   const [frame, setFrame] = useState(0); // 애니메이션 프레임
@@ -11,10 +10,14 @@ const Pikachu: React.FC<PikachuProps> = ({ isJumping }) => {
     let animationInterval: number;
     if (!isJumping) {
       animationInterval = setInterval(() => {
-        setFrame((prevFrame) => (prevFrame + 1) % 4); // 2프레임 애니메이션 가정
-      }, 200); // 150ms마다 프레임 변경
+        // 지정된 시간 주기에 따라 반복 실행되는 동작 = interval을 생성
+        setFrame((prevFrame) => (prevFrame + 1) % 4);
+        // 4프레임 애니메이션 가정
+      }, 200); // 200ms마다 프레임 변경
     }
     return () => clearInterval(animationInterval);
+    // 클린업 함수
+    // setInterval로 생성된 interval을 제거해 메모리 누수 방지
   }, [isJumping]);
 
   const pikachuClass = `pikachu pikachu-frame-${frame} ${isJumping ? 'jumping' : ''}`;
