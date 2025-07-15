@@ -5,6 +5,6 @@ export interface GameStateType {
   isGameOver: boolean;
   isJumping: boolean;
   score: number;
-  pikachuBottom: number;
   obstacles: ObstacleType[]; // Now reusing the Obstacle type
+  pikachuBottom: number;
 }

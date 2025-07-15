@@ -11,18 +11,18 @@
 
 /* 2프레임 애니메이션 예시 */
 .pikachu-frame-0 {
-  background-image: url('/public/assets/runkachu-0.png');
+  background-image: url('/assets/runkachu-0.png');
 }
 .pikachu-frame-1 {
-  background-image: url('/public/assets/runkachu-1.png');
+  background-image: url('/assets/runkachu-1.png');
 }
 .pikachu-frame-2 {
-  background-image: url('/public/assets/runkachu-2.png');
+  background-image: url('/assets/runkachu-2.png');
 }
 .pikachu-frame-3 {
-  background-image: url('/public/assets/runkachu-3.png');
+  background-image: url('/assets/runkachu-3.png');
 }
 
 .pikachu.jumping {
-  bottom: 80px; /* 점프 높이 */
+  background-image: url('/assets/runkachu-1.png');
 }
