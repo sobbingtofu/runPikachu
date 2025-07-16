@@ -4,7 +4,7 @@ import Pikachu from './components/Pikachu/Pikachu';
 import useGameLogic from './hooks/useGameLogic';
 
 function App() {
-  const { gameState, gameContainerRef } = useGameLogic(); // 커스텀 훅 임포트
+  const { gameState } = useGameLogic(); // 커스텀 훅 임포트
   const {
     isGameStarted,
     isGameOver,
