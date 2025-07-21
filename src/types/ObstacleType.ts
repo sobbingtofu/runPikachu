@@ -1,5 +1,8 @@
 export interface ObstacleType {
-  id: number;
-  left: number;
-  type: 'cactus' | 'bird';
+  id: string;
+  positionX: number;
+  positionY: number;
+  width: number;
+  height: number;
+  scoreAdded?: boolean;
 }

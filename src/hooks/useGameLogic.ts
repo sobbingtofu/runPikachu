@@ -9,6 +9,8 @@ const JUMP_HEIGHT = 100; // 최대 점프 높이 (px)
 const JUMP_SPEED = 8; // 점프 시 프레임당 상승 속도 (px)
 const FALL_SPEED = 8; // 낙하 시 프레임당 하강 속도 (px)
 
+const GAME_AREA_WIDTH = 800; // 게임 영역의 너비 (px)
+
 const useGameLogic = () => {
   const [gameState, setGameState] = useState<GameStateType>({
     isGameStarted: false,
@@ -186,7 +188,7 @@ const useGameLogic = () => {
     };
   }, [gameState.isJumping, setGameState]);
 
-  return { gameState };
+  return { gameState, GAME_AREA_WIDTH };
 };
 
 export default useGameLogic;
