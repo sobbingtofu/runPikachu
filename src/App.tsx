@@ -1,5 +1,3 @@
-// src/App.tsx
-import React from 'react';
 import './App.css';
 import Pikachu from './components/Pikachu/Pikachu';
 import useGameLogic from './hooks/useGameLogic';
