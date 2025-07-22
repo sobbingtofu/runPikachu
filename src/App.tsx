@@ -1,13 +1,15 @@
 import './App.css';
 import Pikachu from './components/Pikachu/Pikachu';
-import useGameLogic from './hooks/useGameLogic';
+import useGameLogic from './hooks/useGameFundamnetals';
 import Obstacle from './components/Obstacle/Obstacle';
+import usePikachuJump from './hooks/usePikachuJump';
 
 function App() {
-  const { gameState, GAME_AREA_WIDTH } = useGameLogic();
-
+  const gamelogic = useGameLogic();
+  usePikachuJump(gamelogic);
+  const { gameFundamentals, pikachuState } = gamelogic;
   const gameAreaStyle = {
-    width: `${GAME_AREA_WIDTH}px`,
+    width: `${gamelogic.GAME_AREA_WIDTH}px`,
     height: '200px',
     backgroundColor: '#87ceeb',
     position: 'relative' as 'relative',
@@ -18,16 +20,16 @@ function App() {
   return (
     <div className='App'>
       <h1>Run Pikachu!</h1>
-      <p>{`게임시작: ${gameState.isGameStarted}`}</p>
-      <p>{`게임오버: ${gameState.isGameOver}`}</p>
-      <p>{`쩜프중: ${gameState.isJumping}`}</p>
+      <p>{`게임시작: ${gameFundamentals.isGameStarted}`}</p>
+      <p>{`게임오버: ${gameFundamentals.isGameOver}`}</p>
+      <p>{`쩜프중: ${pikachuState.isJumping}`}</p>
       <div className='game-area' style={gameAreaStyle}>
         <Pikachu
-          isJumping={gameState.isJumping}
-          pikachuBottom={gameState.pikachuBottom}
+          isJumping={pikachuState.isJumping}
+          pikachuBottom={gameFundamentals.pikachuValueY}
         />
 
-        {gameState.obstacles.map((obstacle) => (
+        {gameFundamentals.obstacles.map((obstacle) => (
           <Obstacle
             id={obstacle.id}
             key={obstacle.id}
