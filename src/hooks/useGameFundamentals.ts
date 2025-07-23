@@ -6,7 +6,7 @@ import type { PikachuType } from '../types/PikachuType';
 const INITIAL_GROUND_Y_VALUE = 0; // 지면 위치 고정 Y값
 const GAME_AREA_WIDTH = 800; // 게임 영역의 너비 (px)
 
-const useGameLogic = () => {
+const useGameFundamentals = () => {
   const [gameFundamentals, setGameFundamentals] =
     useState<GameFundamentalsType>({
       isGameStarted: false,
@@ -120,4 +120,4 @@ const useGameLogic = () => {
   };
 };
 
-export default useGameLogic;
+export default useGameFundamentals;

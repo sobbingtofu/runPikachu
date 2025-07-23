@@ -1,7 +1,7 @@
 // 점프에 따른 상승 및 하강 애니메이션 - requestAnimationFrame 루프기반
 
 import { useEffect } from 'react';
-import useGameLogic from './useGameFundamnetals';
+import useGameFundamentals from './useGameFundamentals';
 
 const usePikachuJump = ({
   INITIAL_GROUND_Y_VALUE,
@@ -11,7 +11,7 @@ const usePikachuJump = ({
   jumpAnimationFrameIdRef,
   currentPikachuYRef,
   canJumpRef,
-}: ReturnType<typeof useGameLogic>) => {
+}: ReturnType<typeof useGameFundamentals>) => {
   const JUMP_HEIGHT = 150; // 최대 점프 높이 (px)
   const JUMP_SPEED = 8; // 점프 시 프레임당 상승 속도 (px)
   const FALL_SPEED = 8; // 낙하 시 프레임당 하강 속도 (px)

@@ -1,11 +1,11 @@
 import './App.css';
 import Pikachu from './components/Pikachu/Pikachu';
-import useGameLogic from './hooks/useGameFundamnetals';
+import useGameFundamentals from './hooks/useGameFundamentals';
 import Obstacle from './components/Obstacle/Obstacle';
 import usePikachuJump from './hooks/usePikachuJump';
 
 function App() {
-  const gamelogic = useGameLogic();
+  const gamelogic = useGameFundamentals();
   usePikachuJump(gamelogic);
   const { gameFundamentals, pikachuState } = gamelogic;
   const gameAreaStyle = {
