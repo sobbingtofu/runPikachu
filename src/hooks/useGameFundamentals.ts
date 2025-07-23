@@ -1,34 +1,25 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-
-import type { GameFundamentalsType } from '../types/GameFundamentalsType';
-import type { PikachuType } from '../types/PikachuType';
-
-const INITIAL_GROUND_Y_VALUE = 0; // 지면 위치 고정 Y값
-const GAME_AREA_WIDTH = 800; // 게임 영역의 너비 (px)
+import { useRef, useCallback, useEffect } from 'react';
+import { useGameStore } from '../store/gameStore';
 
 const useGameFundamentals = () => {
-  const [gameFundamentals, setGameFundamentals] =
-    useState<GameFundamentalsType>({
-      isGameStarted: false,
-      isGameOver: false,
-      score: 0,
-      obstacles: [],
-      pikachuValueY: INITIAL_GROUND_Y_VALUE,
-    });
+  // Zustand 스토어에서 상태와 setter 가져오기
+  const {
+    INITIAL_GROUND_Y_VALUE,
+    gameFundamentals,
+    setGameFundamentals,
+    pikachuState,
+    setPikachuState,
+  } = useGameStore();
 
-  const [pikachuState, setPikachuState] = useState<PikachuType>({
-    isJumping: false,
-  });
-
-  const jumpAnimationFrameIdRef = useRef<number | null>(null); // 점프 애니메이션 프레임 ID
-  const currentPikachuYRef = useRef(INITIAL_GROUND_Y_VALUE); // 피카츄의 현재 Y값
-  const canJumpRef = useRef(true); // 점프 가능 여부 (쿨타임 관리 용도)
-  const isSpacePressedRef = useRef(false); // 스페이스바 눌림 상태 (스페이스바 키다운 방지)
+  const jumpAnimationFrameIdRef = useRef<number | null>(null);
+  const currentPikachuYRef = useRef(INITIAL_GROUND_Y_VALUE);
+  const canJumpRef = useRef(true);
+  const isSpacePressedRef = useRef(false);
 
   // 스페이스바 눌림 해제 추적 이벤트 핸들러
   const handleKeyUpSpaceBar = useCallback((e: KeyboardEvent) => {
     if (e.code === 'Space') {
-      isSpacePressedRef.current = false; // 스페이스바 누름 해제 기록
+      isSpacePressedRef.current = false;
     }
   }, []);
 
@@ -37,35 +28,32 @@ const useGameFundamentals = () => {
     (e: KeyboardEvent) => {
       if (e.code === 'Space') {
         e.preventDefault();
-
-        // 스페이스바가 이미 눌려있으면 auto-repeat 추가 동작 방지
+        console.log('스페이스바 눌림');
+        console.log('canJumpRef:', canJumpRef.current);
         if (isSpacePressedRef.current) {
           return;
         }
-        isSpacePressedRef.current = true; // 스페이스바 눌림 기록
+        isSpacePressedRef.current = true;
 
         // 1. 게임 시작
         if (!gameFundamentals.isGameStarted && !gameFundamentals.isGameOver) {
-          setGameFundamentals((prev) => ({
-            ...prev,
+          setGameFundamentals({
             isGameStarted: true,
             isGameOver: false,
-          }));
+          });
         }
 
         // 2. 점프 시작 로직
-        // 게임 중, 게임 오버 아님, 현재 점프 중 아님, 점프 쿨타임  아님
         if (
           gameFundamentals.isGameStarted &&
           !gameFundamentals.isGameOver &&
           !pikachuState.isJumping &&
           canJumpRef.current
         ) {
-          setPikachuState((prev) => ({
-            ...prev,
+          setPikachuState({
             isJumping: true,
-          }));
-          canJumpRef.current = false; // 점프 시작 시 쿨다운 적용
+          });
+          canJumpRef.current = false;
         }
 
         // 3. 게임 재시작 로직
@@ -78,13 +66,13 @@ const useGameFundamentals = () => {
             isGameStarted: true,
             isGameOver: false,
             score: 0,
-            obstacles: [], // 장애물 초기화 시 추가 예정
+            obstacles: [],
             pikachuValueY: INITIAL_GROUND_Y_VALUE,
           });
-          setPikachuState({ isJumping: false }); // 피카츄 상태 초기화
+          setPikachuState({ isJumping: false });
           currentPikachuYRef.current = INITIAL_GROUND_Y_VALUE;
-          isSpacePressedRef.current = false; // 키 상태 초기화
-          canJumpRef.current = true; // 점프 쿨타임 초기화
+          isSpacePressedRef.current = false;
+          canJumpRef.current = true;
         }
       }
     },
@@ -93,10 +81,10 @@ const useGameFundamentals = () => {
       gameFundamentals.isGameStarted,
       pikachuState.isJumping,
       setGameFundamentals,
+      setPikachuState,
     ],
   );
 
-  // 전역 키보드 이벤트 리스너 할당
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDownSpaceBar);
     window.addEventListener('keyup', handleKeyUpSpaceBar);
@@ -108,14 +96,6 @@ const useGameFundamentals = () => {
   }, [handleKeyDownSpaceBar, handleKeyUpSpaceBar]);
 
   return {
-    GAME_AREA_WIDTH,
-    INITIAL_GROUND_Y_VALUE,
-    gameFundamentals,
-    setGameFundamentals,
-    pikachuState,
-    setPikachuState,
-    jumpAnimationFrameIdRef,
-    currentPikachuYRef,
     canJumpRef,
   };
 };

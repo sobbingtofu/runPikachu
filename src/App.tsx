@@ -1,15 +1,18 @@
 import './App.css';
 import Pikachu from './components/Pikachu/Pikachu';
-import useGameFundamentals from './hooks/useGameFundamentals';
 import Obstacle from './components/Obstacle/Obstacle';
+import { useGameStore } from './store/gameStore';
+import useGameFundamentals from './hooks/useGameFundamentals';
 import usePikachuJump from './hooks/usePikachuJump';
 
 function App() {
-  const gamelogic = useGameFundamentals();
-  usePikachuJump(gamelogic);
-  const { gameFundamentals, pikachuState } = gamelogic;
+  const { GAME_AREA_WIDTH, gameFundamentals, pikachuState } = useGameStore();
+
+  useGameFundamentals(); // 키 이벤트 등 부가 로직 실행
+  usePikachuJump(); // 점프 애니메이션 실행
+
   const gameAreaStyle = {
-    width: `${gamelogic.GAME_AREA_WIDTH}px`,
+    width: `${GAME_AREA_WIDTH}px`,
     height: '200px',
     backgroundColor: '#87ceeb',
     position: 'relative' as 'relative',
@@ -28,7 +31,6 @@ function App() {
           isJumping={pikachuState.isJumping}
           pikachuBottom={gameFundamentals.pikachuValueY}
         />
-
         {gameFundamentals.obstacles.map((obstacle) => (
           <Obstacle
             id={obstacle.id}
