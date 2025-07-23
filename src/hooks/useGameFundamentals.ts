@@ -13,7 +13,7 @@ const useGameFundamentals = () => {
 
   const jumpAnimationFrameIdRef = useRef<number | null>(null);
   const currentPikachuYRef = useRef(INITIAL_GROUND_Y_VALUE);
-  const canJumpRef = useRef(true);
+  const canJumpRef = useRef(false);
   const isSpacePressedRef = useRef(false);
 
   // 스페이스바 눌림 해제 추적 이벤트 핸들러
@@ -28,8 +28,7 @@ const useGameFundamentals = () => {
     (e: KeyboardEvent) => {
       if (e.code === 'Space') {
         e.preventDefault();
-        console.log('스페이스바 눌림');
-        console.log('canJumpRef:', canJumpRef.current);
+
         if (isSpacePressedRef.current) {
           return;
         }
@@ -41,6 +40,7 @@ const useGameFundamentals = () => {
             isGameStarted: true,
             isGameOver: false,
           });
+          canJumpRef.current = true;
         }
 
         // 2. 점프 시작 로직
@@ -50,10 +50,15 @@ const useGameFundamentals = () => {
           !pikachuState.isJumping &&
           canJumpRef.current
         ) {
+          canJumpRef.current = false;
+          if (jumpAnimationFrameIdRef.current) {
+            cancelAnimationFrame(jumpAnimationFrameIdRef.current);
+            jumpAnimationFrameIdRef.current = null;
+          }
+          currentPikachuYRef.current = INITIAL_GROUND_Y_VALUE; // 항상 초기화
           setPikachuState({
             isJumping: true,
           });
-          canJumpRef.current = false;
         }
 
         // 3. 게임 재시작 로직
@@ -97,6 +102,8 @@ const useGameFundamentals = () => {
 
   return {
     canJumpRef,
+    jumpAnimationFrameIdRef,
+    currentPikachuYRef,
   };
 };
 

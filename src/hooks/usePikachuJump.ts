@@ -1,6 +1,6 @@
 // 점프에 따른 상승 및 하강 애니메이션 - requestAnimationFrame 루프기반
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useGameStore } from '../store/gameStore';
 import useGameFundamentals from './useGameFundamentals';
 
@@ -16,17 +16,12 @@ const usePikachuJump = () => {
     setPikachuState,
   } = useGameStore();
 
-  const jumpAnimationFrameIdRef = useRef<number | null>(null);
-  const currentPikachuYRef = useRef(0);
-  const { canJumpRef } = useGameFundamentals();
+  const { canJumpRef, jumpAnimationFrameIdRef, currentPikachuYRef } =
+    useGameFundamentals();
 
   useEffect(() => {
     // 점프 상태가 아니면 상승/하강 애니메이션 루프 종료 및 정리
     if (!pikachuState.isJumping) {
-      if (jumpAnimationFrameIdRef.current) {
-        cancelAnimationFrame(jumpAnimationFrameIdRef.current);
-        jumpAnimationFrameIdRef.current = null;
-      }
       return;
     }
 
@@ -53,12 +48,11 @@ const usePikachuJump = () => {
           if (jumpAnimationFrameIdRef.current) {
             cancelAnimationFrame(jumpAnimationFrameIdRef.current);
             jumpAnimationFrameIdRef.current = null;
+            setTimeout(() => {
+              canJumpRef.current = true;
+              setPikachuState({ isJumping: false });
+            }, 80);
           }
-          setTimeout(() => {
-            setPikachuState({ isJumping: false });
-
-            canJumpRef.current = true;
-          }, 120);
         }
       }
 
@@ -73,23 +67,20 @@ const usePikachuJump = () => {
     jumpAnimationFrameIdRef.current = requestAnimationFrame(animateJump);
 
     return () => {
+      currentPikachuYRef.current = INITIAL_GROUND_Y_VALUE;
+      setGameFundamentals({ pikachuValueY: INITIAL_GROUND_Y_VALUE });
       if (jumpAnimationFrameIdRef.current) {
         cancelAnimationFrame(jumpAnimationFrameIdRef.current);
         jumpAnimationFrameIdRef.current = null;
       }
       canJumpRef.current = true;
     };
-  }, [
-    pikachuState.isJumping,
-    setGameFundamentals,
-    setPikachuState,
-    INITIAL_GROUND_Y_VALUE,
-  ]);
+  }, [pikachuState.isJumping, setGameFundamentals, setPikachuState]);
 
   return {
-    jumpAnimationFrameIdRef,
-    currentPikachuYRef,
     canJumpRef,
+    currentPikachuYRef,
+    jumpAnimationFrameIdRef,
   };
 };
 
