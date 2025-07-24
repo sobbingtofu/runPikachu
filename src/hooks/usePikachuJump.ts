@@ -4,11 +4,7 @@ import { useEffect } from 'react';
 import { useGameStore } from '../store/gameStore';
 import useGameFundamentals from './useGameFundamentals';
 
-const JUMP_HEIGHT = 200; // 최대 점프 높이 (px)
-const JUMP_SPEED = 10; // 상승 시 프레임당 상승 속도 (px)
-const FALL_SPEED = 8; // 하강 시 프레임당 하강 속도 (px)
-
-const usePikachuJump = () => {
+const usePikachuJump = (maxJumpHeight: number = 140) => {
   const {
     INITIAL_GROUND_Y_VALUE,
     setGameFundamentals,
@@ -19,48 +15,42 @@ const usePikachuJump = () => {
   const { canJumpRef, jumpAnimationFrameIdRef, currentPikachuYRef } =
     useGameFundamentals();
 
-  useEffect(() => {
-    // 점프 상태가 아니면 상승/하강 애니메이션 루프 종료 및 정리
-    if (!pikachuState.isJumping) {
-      return;
-    }
+  const GRAVITY = 0.35; // 중력 가속도 (값이 클수록 더 빠르게 떨어짐)
+  const INITIAL_JUMP_VELOCITY = Math.sqrt(2 * GRAVITY * maxJumpHeight); // 등가속도 운동 공식
 
-    let isRising = true;
+  useEffect(() => {
+    if (!pikachuState.isJumping) return;
+
+    let velocity = INITIAL_JUMP_VELOCITY;
 
     const animateJump = () => {
-      let newBottom: number;
+      velocity -= GRAVITY; // 프레임마다 속도 감소(상승→최고점→하강)
+      let newBottom = currentPikachuYRef.current + velocity;
 
-      // 상승
-      if (isRising) {
-        newBottom = currentPikachuYRef.current + JUMP_SPEED;
-        if (newBottom >= JUMP_HEIGHT) {
-          newBottom = JUMP_HEIGHT;
-          isRising = false;
-        }
+      // 최고점 이상으로 올라가지 않도록 제한
+      if (newBottom - INITIAL_GROUND_Y_VALUE > maxJumpHeight && velocity > 0) {
+        newBottom = INITIAL_GROUND_Y_VALUE + maxJumpHeight;
+        velocity = 0; // 최고점에서 속도 0으로 전환(자연스럽게 하강)
       }
-      // 하강
-      else {
-        newBottom = currentPikachuYRef.current - FALL_SPEED;
 
-        if (newBottom <= INITIAL_GROUND_Y_VALUE) {
-          newBottom = INITIAL_GROUND_Y_VALUE;
-
-          if (jumpAnimationFrameIdRef.current) {
-            cancelAnimationFrame(jumpAnimationFrameIdRef.current);
-            jumpAnimationFrameIdRef.current = null;
-            setTimeout(() => {
-              canJumpRef.current = true;
-              setPikachuState({ isJumping: false });
-            }, 80);
-          }
+      // 바닥에 닿으면 점프 종료
+      if (newBottom <= INITIAL_GROUND_Y_VALUE) {
+        newBottom = INITIAL_GROUND_Y_VALUE;
+        currentPikachuYRef.current = newBottom;
+        setGameFundamentals({ pikachuValueY: newBottom });
+        if (jumpAnimationFrameIdRef.current) {
+          cancelAnimationFrame(jumpAnimationFrameIdRef.current);
+          jumpAnimationFrameIdRef.current = null;
         }
+        setTimeout(() => {
+          canJumpRef.current = true;
+          setPikachuState({ isJumping: false });
+        }, 80);
+        return;
       }
 
       currentPikachuYRef.current = newBottom;
-
-      // UI 상태 업데이트
-      setGameFundamentals({ pikachuValueY: currentPikachuYRef.current });
-
+      setGameFundamentals({ pikachuValueY: newBottom });
       jumpAnimationFrameIdRef.current = requestAnimationFrame(animateJump);
     };
 
@@ -75,7 +65,13 @@ const usePikachuJump = () => {
       }
       canJumpRef.current = true;
     };
-  }, [pikachuState.isJumping, setGameFundamentals, setPikachuState]);
+  }, [
+    pikachuState.isJumping,
+    setGameFundamentals,
+    setPikachuState,
+    maxJumpHeight,
+    INITIAL_GROUND_Y_VALUE,
+  ]);
 
   return {
     canJumpRef,
