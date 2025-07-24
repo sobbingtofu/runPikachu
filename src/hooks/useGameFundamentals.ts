@@ -2,7 +2,6 @@ import { useRef, useCallback, useEffect } from 'react';
 import { useGameStore } from '../store/gameStore';
 
 const useGameFundamentals = () => {
-  // Zustand 스토어에서 상태와 setter 가져오기
   const {
     INITIAL_GROUND_Y_VALUE,
     gameFundamentals,

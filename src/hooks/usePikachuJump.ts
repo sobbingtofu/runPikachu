@@ -4,9 +4,9 @@ import { useEffect } from 'react';
 import { useGameStore } from '../store/gameStore';
 import useGameFundamentals from './useGameFundamentals';
 
-const JUMP_HEIGHT = 150; // 최대 점프 높이 (px)
-const JUMP_SPEED = 8; // 점프 시 프레임당 상승 속도 (px)
-const FALL_SPEED = 8; // 낙하 시 프레임당 하강 속도 (px)
+const JUMP_HEIGHT = 200; // 최대 점프 높이 (px)
+const JUMP_SPEED = 10; // 상승 시 프레임당 상승 속도 (px)
+const FALL_SPEED = 8; // 하강 시 프레임당 하강 속도 (px)
 
 const usePikachuJump = () => {
   const {

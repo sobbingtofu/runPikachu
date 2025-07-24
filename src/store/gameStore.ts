@@ -1,10 +1,11 @@
 import { create } from 'zustand';
+import type { ObstacleType } from '../types/ObstacleType';
 
 type GameFundamentalsType = {
   isGameStarted: boolean;
   isGameOver: boolean;
   score: number;
-  obstacles: any[];
+  obstacles: ObstacleType[];
   pikachuValueY: number;
 };
 
@@ -16,7 +17,11 @@ interface GameState {
   GAME_AREA_WIDTH: number;
   INITIAL_GROUND_Y_VALUE: number;
   gameFundamentals: GameFundamentalsType;
-  setGameFundamentals: (update: Partial<GameFundamentalsType>) => void;
+  setGameFundamentals: (
+    update:
+      | Partial<GameFundamentalsType>
+      | ((prev: GameFundamentalsType) => GameFundamentalsType),
+  ) => void;
   pikachuState: PikachuType;
   setPikachuState: (update: Partial<PikachuType>) => void;
 }
@@ -31,10 +36,19 @@ export const useGameStore = create<GameState>((set) => ({
     obstacles: [],
     pikachuValueY: 0,
   },
+  // setGameFundamentals: (update) =>
+  //   set((state) => ({
+  //     gameFundamentals: { ...state.gameFundamentals, ...update },
+  //   })),
+
   setGameFundamentals: (update) =>
-    set((state) => ({
-      gameFundamentals: { ...state.gameFundamentals, ...update },
-    })),
+    set((state) => {
+      const prev = state.gameFundamentals;
+      const next =
+        typeof update === 'function' ? update(prev) : { ...prev, ...update };
+      return { gameFundamentals: next };
+    }),
+
   pikachuState: {
     isJumping: false,
   },
