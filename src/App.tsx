@@ -39,11 +39,6 @@ function App() {
       pikachuHitbox.y < obstacle.y + obstacle.height &&
       pikachuHitbox.y + pikachuHitbox.height > obstacle.y;
 
-    if (collision) {
-      console.log('Collision detected!');
-      console.log('Pikachu:', pikachuHitbox);
-      console.log('Obstacle:', obstacle);
-    }
     return collision;
   }
 
@@ -51,7 +46,7 @@ function App() {
   const isCollision = gameFundamentals.obstacles.some((obs) =>
     isColliding(pikachuHitbox, {
       x: obs.positionX,
-      y: obs.positionY, // 장애물도 바닥 기준
+      y: obs.positionY,
       width: obs.width,
       height: obs.height,
     }),
