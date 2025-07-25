@@ -71,9 +71,11 @@ const useGameFundamentals = () => {
             isGameOver: false,
             score: 0,
             obstacles: [],
+          });
+          setPikachuState({
+            isJumping: false,
             pikachuValueY: INITIAL_GROUND_Y_VALUE,
           });
-          setPikachuState({ isJumping: false });
           currentPikachuYRef.current = INITIAL_GROUND_Y_VALUE;
           isSpacePressedRef.current = false;
           canJumpRef.current = true;

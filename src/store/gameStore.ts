@@ -6,13 +6,14 @@ type GameFundamentalsType = {
   isGameOver: boolean;
   score: number;
   obstacles: ObstacleType[];
-  pikachuValueY: number;
 };
 
 type PikachuType = {
   pikachuWidth?: number;
   pikachuHeight?: number;
   isJumping: boolean;
+  pikachuValueY: number;
+  pikachuValueX: number;
 };
 
 interface GameState {
@@ -36,7 +37,6 @@ export const useGameStore = create<GameState>((set) => ({
     isGameOver: false,
     score: 0,
     obstacles: [],
-    pikachuValueY: 0,
   },
 
   setGameFundamentals: (update) =>
@@ -48,6 +48,8 @@ export const useGameStore = create<GameState>((set) => ({
     }),
 
   pikachuState: {
+    pikachuValueY: 0,
+    pikachuValueX: 50, // 기본값
     isJumping: false,
     pikachuWidth: 80, // 기본값
     pikachuHeight: 53, // 기본값

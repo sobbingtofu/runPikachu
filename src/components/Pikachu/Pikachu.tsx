@@ -1,9 +1,11 @@
 // src/components/Pikachu/Pikachu.tsx
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './Pikachu.css';
-import type { PikachuProps } from '../../types/PikachuType';
+import { useGameStore } from '../../store/gameStore';
 
-const Pikachu: React.FC<PikachuProps> = ({ isJumping, pikachuBottom }) => {
+const Pikachu = () => {
+  const { pikachuState } = useGameStore();
+
   const [frame, setFrame] = useState(0); // 달리는 피카츄 애니메이션 프레임
   const animationFrameId = useRef<number | null>(null); // requestAnimationFrame ID 저장 ref
   const lastFrameTime = useRef(0); // 마지막 프레임이 업데이트된 시간 저장 ref
@@ -13,7 +15,9 @@ const Pikachu: React.FC<PikachuProps> = ({ isJumping, pikachuBottom }) => {
   // 최초렌더링 + isJumping 상태가 변경될 때마다 useEffect 재실행
   useEffect(() => {
     const animateRun = (currentTime: DOMHighResTimeStamp) => {
-      const frameDuration = isJumping ? frameDurationJump : frameDurationRun;
+      const frameDuration = pikachuState.isJumping
+        ? frameDurationJump
+        : frameDurationRun;
 
       if (currentTime - lastFrameTime.current >= frameDuration) {
         setFrame((prevFrame) => (prevFrame + 1) % 4); // 4프레임 애니메이션
@@ -35,14 +39,19 @@ const Pikachu: React.FC<PikachuProps> = ({ isJumping, pikachuBottom }) => {
         animationFrameId.current = null;
       }
     };
-  }, [isJumping]);
+  }, [pikachuState.isJumping]);
 
-  const pikachuClass = `pikachu pikachu-frame-${frame} ${isJumping ? 'jumping' : ''}`;
+  const pikachuClass = `pikachu pikachu-frame-${frame} ${pikachuState.isJumping ? 'jumping' : ''}`;
 
   return (
     <div
       className={pikachuClass}
-      style={{ bottom: `${pikachuBottom}px` }}
+      style={{
+        bottom: `${pikachuState.pikachuValueY}px`,
+        width: `${pikachuState.pikachuWidth}px`,
+        height: `${pikachuState.pikachuHeight}px`,
+        left: `${pikachuState.pikachuValueX}px`,
+      }}
     ></div>
   );
 };

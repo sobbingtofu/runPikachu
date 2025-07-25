@@ -37,7 +37,7 @@ const usePikachuJump = (maxJumpHeight: number = 160) => {
       if (newBottom <= INITIAL_GROUND_Y_VALUE) {
         newBottom = INITIAL_GROUND_Y_VALUE;
         currentPikachuYRef.current = newBottom;
-        setGameFundamentals({ pikachuValueY: newBottom });
+        setPikachuState({ pikachuValueY: newBottom });
         if (jumpAnimationFrameIdRef.current) {
           cancelAnimationFrame(jumpAnimationFrameIdRef.current);
           jumpAnimationFrameIdRef.current = null;
@@ -50,7 +50,7 @@ const usePikachuJump = (maxJumpHeight: number = 160) => {
       }
 
       currentPikachuYRef.current = newBottom;
-      setGameFundamentals({ pikachuValueY: newBottom });
+      setPikachuState({ pikachuValueY: newBottom });
       jumpAnimationFrameIdRef.current = requestAnimationFrame(animateJump);
     };
 
@@ -58,7 +58,7 @@ const usePikachuJump = (maxJumpHeight: number = 160) => {
 
     return () => {
       currentPikachuYRef.current = INITIAL_GROUND_Y_VALUE;
-      setGameFundamentals({ pikachuValueY: INITIAL_GROUND_Y_VALUE });
+      setPikachuState({ pikachuValueY: INITIAL_GROUND_Y_VALUE });
       if (jumpAnimationFrameIdRef.current) {
         cancelAnimationFrame(jumpAnimationFrameIdRef.current);
         jumpAnimationFrameIdRef.current = null;

@@ -23,10 +23,10 @@ function App() {
   };
 
   const pikachuHitbox = {
-    x: 70,
-    y: gameFundamentals.pikachuValueY,
-    width: 50,
-    height: 53,
+    x: pikachuState.pikachuValueX + 20, // 피카츄의 위치 + 여유 공간
+    y: pikachuState.pikachuValueY,
+    width: pikachuState.pikachuWidth ? pikachuState.pikachuWidth - 30 : 80,
+    height: pikachuState.pikachuHeight || 53,
   };
 
   function isColliding(
@@ -77,10 +77,7 @@ function App() {
             zIndex: 100,
           }}
         />
-        <Pikachu
-          isJumping={pikachuState.isJumping}
-          pikachuBottom={gameFundamentals.pikachuValueY}
-        />
+        <Pikachu />
         {gameFundamentals.obstacles.map((obstacle) => (
           <Obstacle
             id={obstacle.id}
