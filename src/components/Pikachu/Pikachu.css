@@ -1,12 +1,11 @@
 /* src/components/Pikachu.css */
 .pikachu {
   width: 80px;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 3 / 2; /* 80 x 53 */
   position: absolute; /* 게임 컨테이너 내에서 위치 지정 */
   bottom: 0; /* 바닥에 고정 */
   left: 50px; /* 시작 위치 */
   background-size: cover; /* 이미지가 div에 맞춰지도록 */
-  transition: bottom 0.2s ease-out; /* 점프 애니메이션 */
 }
 
 /* 2프레임 애니메이션 예시 */

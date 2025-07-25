@@ -10,6 +10,8 @@ type GameFundamentalsType = {
 };
 
 type PikachuType = {
+  pikachuWidth?: number;
+  pikachuHeight?: number;
   isJumping: boolean;
 };
 
@@ -36,10 +38,6 @@ export const useGameStore = create<GameState>((set) => ({
     obstacles: [],
     pikachuValueY: 0,
   },
-  // setGameFundamentals: (update) =>
-  //   set((state) => ({
-  //     gameFundamentals: { ...state.gameFundamentals, ...update },
-  //   })),
 
   setGameFundamentals: (update) =>
     set((state) => {
@@ -51,6 +49,8 @@ export const useGameStore = create<GameState>((set) => ({
 
   pikachuState: {
     isJumping: false,
+    pikachuWidth: 80, // 기본값
+    pikachuHeight: 53, // 기본값
   },
   setPikachuState: (update) =>
     set((state) => ({

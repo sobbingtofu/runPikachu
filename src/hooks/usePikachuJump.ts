@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useGameStore } from '../store/gameStore';
 import useGameFundamentals from './useGameFundamentals';
 
-const usePikachuJump = (maxJumpHeight: number = 140) => {
+const usePikachuJump = (maxJumpHeight: number = 160) => {
   const {
     INITIAL_GROUND_Y_VALUE,
     setGameFundamentals,
@@ -15,13 +15,13 @@ const usePikachuJump = (maxJumpHeight: number = 140) => {
   const { canJumpRef, jumpAnimationFrameIdRef, currentPikachuYRef } =
     useGameFundamentals();
 
-  const GRAVITY = 0.35; // 중력 가속도 (값이 클수록 더 빠르게 떨어짐)
-  const INITIAL_JUMP_VELOCITY = Math.sqrt(2 * GRAVITY * maxJumpHeight); // 등가속도 운동 공식
+  const GRAVITY = 0.2; // 중력 가속도 (값이 클수록 더 빠르게 떨어짐)
+  const JUMP_VELOCITY = Math.sqrt(2 * GRAVITY * maxJumpHeight); // 등가속도 운동 공식
 
   useEffect(() => {
     if (!pikachuState.isJumping) return;
 
-    let velocity = INITIAL_JUMP_VELOCITY;
+    let velocity = JUMP_VELOCITY;
 
     const animateJump = () => {
       velocity -= GRAVITY; // 프레임마다 속도 감소(상승→최고점→하강)
@@ -45,7 +45,7 @@ const usePikachuJump = (maxJumpHeight: number = 140) => {
         setTimeout(() => {
           canJumpRef.current = true;
           setPikachuState({ isJumping: false });
-        }, 80);
+        }, 10);
         return;
       }
 

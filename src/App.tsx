@@ -15,20 +15,68 @@ function App() {
 
   const gameAreaStyle = {
     width: `${GAME_AREA_WIDTH}px`,
-    height: '200px',
+    height: '300px',
     backgroundColor: '#87ceeb',
     position: 'relative' as 'relative',
     overflow: 'hidden' as 'hidden',
     border: '2px solid black',
   };
 
+  const pikachuHitbox = {
+    x: 70,
+    y: gameFundamentals.pikachuValueY,
+    width: 50,
+    height: 53,
+  };
+
+  function isColliding(
+    pikachuHitbox: { x: number; y: number; width: number; height: number },
+    obstacle: { x: number; y: number; width: number; height: number },
+  ) {
+    const collision =
+      pikachuHitbox.x < obstacle.x + obstacle.width &&
+      pikachuHitbox.x + pikachuHitbox.width > obstacle.x &&
+      pikachuHitbox.y < obstacle.y + obstacle.height &&
+      pikachuHitbox.y + pikachuHitbox.height > obstacle.y;
+
+    if (collision) {
+      console.log('Collision detected!');
+      console.log('Pikachu:', pikachuHitbox);
+      console.log('Obstacle:', obstacle);
+    }
+    return collision;
+  }
+
+  // 장애물 충돌 여부 계산
+  const isCollision = gameFundamentals.obstacles.some((obs) =>
+    isColliding(pikachuHitbox, {
+      x: obs.positionX,
+      y: obs.positionY, // 장애물도 바닥 기준
+      width: obs.width,
+      height: obs.height,
+    }),
+  );
   return (
     <div className='App'>
       <h1>Run Pikachu!</h1>
       <p>{`게임시작: ${gameFundamentals.isGameStarted}`}</p>
       <p>{`게임오버: ${gameFundamentals.isGameOver}`}</p>
       <p>{`쩜프중: ${pikachuState.isJumping}`}</p>
+      <p>{`충돌여부: ${isCollision ? '충돌!' : '안전'}`}</p>
       <div className='game-area' style={gameAreaStyle}>
+        <div
+          style={{
+            position: 'absolute',
+            left: pikachuHitbox.x,
+            bottom: pikachuHitbox.y,
+            width: pikachuHitbox.width,
+            height: pikachuHitbox.height,
+            backgroundColor: 'purple',
+            opacity: 0.5,
+            pointerEvents: 'none',
+            zIndex: 100,
+          }}
+        />
         <Pikachu
           isJumping={pikachuState.isJumping}
           pikachuBottom={gameFundamentals.pikachuValueY}
