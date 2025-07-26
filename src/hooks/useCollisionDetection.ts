@@ -1,6 +1,6 @@
 import { useGameStore } from '../store/gameStore';
 
-const useProcessCollision = () => {
+const useCollisionDetection = () => {
   const { gameFundamentals, pikachuState } = useGameStore();
 
   const pikachuHitbox = {
@@ -35,4 +35,4 @@ const useProcessCollision = () => {
   return { isCollision, pikachuHitbox };
 };
 
-export default useProcessCollision;
+export default useCollisionDetection;

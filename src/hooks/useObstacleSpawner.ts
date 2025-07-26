@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { useGameStore } from '../store/gameStore';
 import type { ObstacleType } from '../types/ObstacleType';
-import useGameFundamentals from './useGameFundamentals';
+import useGameCore from './useGameCore';
 
-const useGenerateObastacles = () => {
-  const { currentPikachuYRef } = useGameFundamentals();
+const useObstacleSpawner = () => {
+  const { currentPikachuYRef } = useGameCore();
   const {
     gameFundamentals,
     setGameFundamentals,
@@ -89,4 +89,4 @@ const useGenerateObastacles = () => {
   }, [gameFundamentals.isGameStarted, gameFundamentals.isGameOver]);
 };
 
-export default useGenerateObastacles;
+export default useObstacleSpawner;

@@ -1,7 +1,7 @@
 import { useRef, useCallback, useEffect } from 'react';
 import { useGameStore } from '../store/gameStore';
 
-const useGameFundamentals = () => {
+const useGameCore = () => {
   const {
     INITIAL_GROUND_Y_VALUE,
     gameFundamentals,
@@ -108,4 +108,4 @@ const useGameFundamentals = () => {
   };
 };
 
-export default useGameFundamentals;
+export default useGameCore;
