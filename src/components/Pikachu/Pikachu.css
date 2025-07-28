@@ -1,7 +1,8 @@
 /* src/components/Pikachu.css */
 .pikachu {
-  position: absolute; /* 게임 컨테이너 내에서 위치 지정 */
-  background-size: cover; /* 이미지가 div에 맞춰지도록 */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: aquamarine;
 }
 
 /* 2프레임 애니메이션 예시 */
@@ -18,6 +19,15 @@
   background-image: url('/assets/runkachu/runkachu-3.png');
 }
 
-/* .pikachu.jumping {
-  background-image: url('/assets/runkachu-1.png');
-} */
+.pikachu.ducking.pikachu-frame-0 {
+  background-image: url('/assets/duckkachu/duckkachu-1.png');
+}
+.pikachu.ducking.pikachu-frame-1 {
+  background-image: url('/assets/duckkachu/duckkachu-1.png');
+}
+.pikachu.ducking.pikachu-frame-2 {
+  background-image: url('/assets/duckkachu/duckkachu-2.png');
+}
+.pikachu.ducking.pikachu-frame-3 {
+  background-image: url('/assets/duckkachu/duckkachu-2.png');
+}

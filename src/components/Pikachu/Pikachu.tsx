@@ -41,16 +41,19 @@ const Pikachu = () => {
     };
   }, [pikachuState.isJumping]);
 
-  const pikachuClass = `pikachu pikachu-frame-${frame} ${pikachuState.isJumping ? 'jumping' : ''}`;
+  const pikachuClass = `pikachu pikachu-frame-${frame} ${pikachuState.isDuckDown ? 'ducking' : ''}`;
 
   return (
     <div
       className={pikachuClass}
       style={{
+        position: 'absolute',
+        left: `${pikachuState.pikachuValueX}px`,
         bottom: `${pikachuState.pikachuValueY}px`,
         width: `${pikachuState.pikachuWidth}px`,
         height: `${pikachuState.pikachuHeight}px`,
-        left: `${pikachuState.pikachuValueX}px`,
+        transform: `scaleY(${pikachuState.isDuckDown ? 0.65 : 1.1})`,
+        transformOrigin: 'bottom',
       }}
     ></div>
   );
