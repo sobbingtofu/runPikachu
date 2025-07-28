@@ -12,6 +12,7 @@ type PikachuType = {
   pikachuWidth?: number;
   pikachuHeight?: number;
   isJumping: boolean;
+  isDuckDown: boolean; // 수그리는 상태 추가
   pikachuValueY: number;
   pikachuValueX: number;
 };
@@ -49,10 +50,11 @@ export const useGameStore = create<GameState>((set) => ({
 
   pikachuState: {
     pikachuValueY: 0,
-    pikachuValueX: 50, // 기본값
+    pikachuValueX: 50,
     isJumping: false,
-    pikachuWidth: 80, // 기본값
-    pikachuHeight: 53, // 기본값
+    isDuckDown: false,
+    pikachuWidth: 80,
+    pikachuHeight: 53,
   },
   setPikachuState: (update) =>
     set((state) => ({

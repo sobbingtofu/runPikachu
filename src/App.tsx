@@ -31,10 +31,12 @@ function App() {
       <p>{`게임시작: ${gameFundamentals.isGameStarted}`}</p>
       <p>{`게임오버: ${gameFundamentals.isGameOver}`}</p>
       <p>{`쩜프중: ${pikachuState.isJumping}`}</p>
+      <p>{`수그리기중: ${pikachuState.isDuckDown}`}</p>
       <p>{`충돌여부: ${isCollision ? '충돌!' : '안전'}`}</p>
       <div className='game-area' style={gameAreaStyle}>
         <div
           style={{
+            display: 'none',
             position: 'absolute',
             left: pikachuHitbox.x,
             bottom: pikachuHitbox.y,
