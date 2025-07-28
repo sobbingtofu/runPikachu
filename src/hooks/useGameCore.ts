@@ -24,7 +24,7 @@ const useGameCore = () => {
     }
   }, []);
 
-  // 스페이스바 눌림 추적 이벤트 핸들러
+  // 버튼 눌림 추적 이벤트 핸들러
   const handleKeyDownSpaceBar = useCallback(
     (e: KeyboardEvent) => {
       if (e.code === 'Space') {
@@ -37,12 +37,12 @@ const useGameCore = () => {
 
         // 1. 게임 시작
         if (!gameFundamentals.isGameStarted && !gameFundamentals.isGameOver) {
+          canJumpRef.current = true;
+          canDuckRef.current = true;
           setGameFundamentals({
             isGameStarted: true,
             isGameOver: false,
           });
-          canJumpRef.current = true;
-          canDuckRef.current = true;
         }
 
         // 2. 점프 시작 로직
@@ -50,6 +50,7 @@ const useGameCore = () => {
           gameFundamentals.isGameStarted &&
           !gameFundamentals.isGameOver &&
           !pikachuState.isJumping &&
+          !pikachuState.isDuckDown &&
           canJumpRef.current
         ) {
           canJumpRef.current = false;
@@ -59,9 +60,11 @@ const useGameCore = () => {
             jumpAnimationFrameIdRef.current = null;
           }
           currentPikachuYRef.current = INITIAL_GROUND_Y_VALUE; // 항상 초기화
-          setPikachuState({
+          setPikachuState((prev) => ({
+            ...prev,
             isJumping: true,
-          });
+            isDuckDown: false, // 점프 시작 시 수그림 해제!
+          }));
         }
 
         // 3. 게임 재시작 로직
@@ -104,7 +107,10 @@ const useGameCore = () => {
         console.log('ArrowDown key released');
         if (pikachuState.isDuckDown) {
           canDuckRef.current = true;
-          setPikachuState({ isDuckDown: false });
+          setPikachuState((prev) => ({
+            ...prev,
+            isDuckDown: false,
+          }));
           console.log('Pikachu is now standing up');
         }
       }
@@ -117,22 +123,32 @@ const useGameCore = () => {
     (e: KeyboardEvent) => {
       if (e.code === 'ArrowDown') {
         e.preventDefault();
-
-        if (isArrowDownPressedRef.current) {
-          return;
-        }
-        isArrowDownPressedRef.current = true;
-        console.log('ArrowDown key pressed');
-
-        if (canDuckRef.current) {
+        if (
+          gameFundamentals.isGameStarted &&
+          !gameFundamentals.isGameOver &&
+          !pikachuState.isJumping &&
+          !pikachuState.isDuckDown &&
+          canDuckRef.current
+        ) {
+          if (isArrowDownPressedRef.current) {
+            return;
+          }
+          isArrowDownPressedRef.current = true;
           canDuckRef.current = false;
+          setPikachuState((prev) => ({
+            ...prev,
+            isDuckDown: true,
+          }));
         }
-
-        setPikachuState({ isDuckDown: true });
-        console.log('Pikachu is now ducking down');
       }
     },
-    [pikachuState.isDuckDown, setPikachuState],
+    [
+      gameFundamentals.isGameStarted,
+      gameFundamentals.isGameOver,
+      pikachuState.isDuckDown,
+      pikachuState.isJumping,
+      setPikachuState,
+    ],
   );
 
   useEffect(() => {

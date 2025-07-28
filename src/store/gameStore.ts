@@ -27,7 +27,9 @@ interface GameState {
       | ((prev: GameFundamentalsType) => GameFundamentalsType),
   ) => void;
   pikachuState: PikachuType;
-  setPikachuState: (update: Partial<PikachuType>) => void;
+  setPikachuState: (
+    update: Partial<PikachuType> | ((prev: PikachuType) => PikachuType),
+  ) => void;
 }
 
 export const useGameStore = create<GameState>((set) => ({
@@ -57,7 +59,10 @@ export const useGameStore = create<GameState>((set) => ({
     pikachuHeight: 53,
   },
   setPikachuState: (update) =>
-    set((state) => ({
-      pikachuState: { ...state.pikachuState, ...update },
-    })),
+    set((state) => {
+      const prev = state.pikachuState;
+      const next =
+        typeof update === 'function' ? update(prev) : { ...prev, ...update };
+      return { pikachuState: next };
+    }),
 }));

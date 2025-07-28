@@ -2,7 +2,7 @@
 .pikachu {
   background-size: contain;
   background-repeat: no-repeat;
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
 }
 
 /* 2프레임 애니메이션 예시 */
