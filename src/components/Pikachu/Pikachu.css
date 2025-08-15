@@ -1,33 +1,31 @@
-/* src/components/Pikachu.css */
 .pikachu {
   background-size: contain;
   background-repeat: no-repeat;
   /* background-color: aquamarine; */
 }
 
-/* 2프레임 애니메이션 예시 */
 .pikachu-frame-0 {
-  background-image: url('/assets/runkachu/runkachu-0.png');
+  background-image: url('/assets/runkachu/runkachu1.png');
 }
 .pikachu-frame-1 {
-  background-image: url('/assets/runkachu/runkachu-1.png');
+  background-image: url('/assets/runkachu/runkachu2.png');
 }
 .pikachu-frame-2 {
-  background-image: url('/assets/runkachu/runkachu-2.png');
+  background-image: url('/assets/runkachu/runkachu3.png');
 }
 .pikachu-frame-3 {
-  background-image: url('/assets/runkachu/runkachu-3.png');
+  background-image: url('/assets/runkachu/runkachu4.png');
 }
 
 .pikachu.ducking.pikachu-frame-0 {
-  background-image: url('/assets/duckkachu/duckkachu-1.png');
+  background-image: url('/assets/duckkachu/duckkachu1.png');
 }
 .pikachu.ducking.pikachu-frame-1 {
-  background-image: url('/assets/duckkachu/duckkachu-1.png');
+  background-image: url('/assets/duckkachu/duckkachu2.png');
 }
 .pikachu.ducking.pikachu-frame-2 {
-  background-image: url('/assets/duckkachu/duckkachu-2.png');
+  background-image: url('/assets/duckkachu/duckkachu3.png');
 }
 .pikachu.ducking.pikachu-frame-3 {
-  background-image: url('/assets/duckkachu/duckkachu-2.png');
+  background-image: url('/assets/duckkachu/duckkachu4.png');
 }

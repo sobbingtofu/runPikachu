@@ -9,7 +9,7 @@ const Pikachu = () => {
   const [frame, setFrame] = useState(0); // 달리는 피카츄 애니메이션 프레임
   const animationFrameId = useRef<number | null>(null); // requestAnimationFrame ID 저장 ref
   const lastFrameTime = useRef(0); // 마지막 프레임이 업데이트된 시간 저장 ref
-  const frameDurationRun = 90; // 각 프레임이 유지될 시간 (ms)
+  const frameDurationRun = 120; // 각 프레임이 유지될 시간 (ms)
   const frameDurationJump = 125;
 
   // 최초렌더링 + isJumping 상태가 변경될 때마다 useEffect 재실행
@@ -52,8 +52,6 @@ const Pikachu = () => {
         bottom: `${pikachuState.pikachuValueY}px`,
         width: `${pikachuState.pikachuWidth}px`,
         height: `${pikachuState.pikachuHeight}px`,
-        transform: `scaleY(${pikachuState.isDuckDown ? 0.65 : 1.1})`,
-        transformOrigin: 'bottom',
       }}
     ></div>
   );
