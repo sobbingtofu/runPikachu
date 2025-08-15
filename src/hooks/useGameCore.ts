@@ -1,5 +1,12 @@
-import { useRef, useCallback, useEffect } from 'react';
-import { useGameStore } from '../store/gameStore';
+import { useCallback, useEffect } from 'react';
+import {
+  useGameStore,
+  jumpAnimationFrameIdRef,
+  currentPikachuYRef,
+  canJumpRef,
+  isSpacePressedRef,
+  isFastFallingRef,
+} from '../store/gameStore';
 
 const useGameCore = () => {
   const {
@@ -10,11 +17,6 @@ const useGameCore = () => {
     setPikachuState,
   } = useGameStore();
 
-  const jumpAnimationFrameIdRef = useRef<number | null>(null);
-  const currentPikachuYRef = useRef(INITIAL_GROUND_Y_VALUE);
-  const canJumpRef = useRef(false);
-  const isSpacePressedRef = useRef(false);
-  const isFastFallingRef = useRef(false);
   // 스페이스바 눌림 해제 추적 이벤트 핸들러
   const handleKeyUpSpaceBar = useCallback((e: KeyboardEvent) => {
     if (e.code === 'Space') {
@@ -117,13 +119,6 @@ const useGameCore = () => {
       window.removeEventListener('keyup', handleKeyUpArrowDown);
     };
   }, [handleKeyDownSpaceBar, handleKeyUpSpaceBar]);
-
-  return {
-    canJumpRef,
-    jumpAnimationFrameIdRef,
-    currentPikachuYRef,
-    isFastFallingRef,
-  };
 };
 
 export default useGameCore;

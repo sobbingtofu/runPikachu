@@ -1,8 +1,13 @@
 // 점프에 따른 상승 및 하강 애니메이션 - requestAnimationFrame 루프기반
 
 import { useEffect } from 'react';
-import { useGameStore } from '../store/gameStore';
-import useGameCore from './useGameCore';
+import {
+  useGameStore,
+  jumpAnimationFrameIdRef,
+  currentPikachuYRef,
+  canJumpRef,
+  isFastFallingRef,
+} from '../store/gameStore';
 
 const usePikachuJump = (maxJumpHeight: number = 160) => {
   const {
@@ -11,13 +16,6 @@ const usePikachuJump = (maxJumpHeight: number = 160) => {
     pikachuState,
     setPikachuState,
   } = useGameStore();
-
-  const {
-    canJumpRef,
-    jumpAnimationFrameIdRef,
-    currentPikachuYRef,
-    isFastFallingRef,
-  } = useGameCore();
 
   const GRAVITY = 0.33; // 중력 가속도 (값이 클수록 더 빠르게 떨어짐)
   const FAST_FALL_GRAVITY = 1.2;

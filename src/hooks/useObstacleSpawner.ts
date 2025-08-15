@@ -1,26 +1,28 @@
 import { useEffect, useRef } from 'react';
-import { useGameStore } from '../store/gameStore';
+import {
+  useGameStore,
+  elapsedTimeRef,
+  currentPikachuYRef,
+} from '../store/gameStore';
 import type { ObstacleType } from '../types/ObstacleType';
-import useGameCore from './useGameCore';
-import { getCurrentObstacleSpeed } from '../utils/obstacleSpeedUtils'; // 위 함수 분리 추천
 
 const useObstacleSpawner = () => {
-  const { currentPikachuYRef } = useGameCore();
   const {
     gameFundamentals,
     setGameFundamentals,
     INITIAL_GROUND_Y_VALUE,
     GAME_AREA_WIDTH,
-    SPEED_PHASES,
   } = useGameStore();
+  const getCurrentObstacleSpeed = (elapsedTime: number) => {
+    if (elapsedTime < 5000) return 2; // 5초 미만: 2px/ms
+    if (elapsedTime < 10000) return 10; // 5초 ~ 10초: 10px/ms
+    return 20; // 10초 이상: 20px/ms
+  };
 
   // 장애물 관련 상수
   const OBSTACLE_WIDTH = 20;
   const OBSTACLE_HEIGHT = 40;
-  const obstacleSpeed = getCurrentObstacleSpeed(
-    gameFundamentals.elapsedTime || 0,
-    SPEED_PHASES,
-  );
+
   const OBSTACLE_MIN_INTERVAL = 1000; // ms
   const OBSTACLE_MAX_INTERVAL = 2000; // ms
 
@@ -35,6 +37,9 @@ const useObstacleSpawner = () => {
   useEffect(() => {
     if (gameFundamentals.isGameStarted && !gameFundamentals.isGameOver) {
       const generateObstacles = (currentTime: DOMHighResTimeStamp) => {
+        const elapsed = elapsedTimeRef.current;
+        const obstacleSpeed = getCurrentObstacleSpeed(elapsedTimeRef.current);
+        console.log('elapsed:', elapsed, 'obstacleSpeed:', obstacleSpeed);
         setGameFundamentals((prev) => {
           let updatedObstacles = prev.obstacles
             .map((obs) => ({

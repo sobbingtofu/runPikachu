@@ -17,8 +17,6 @@ type PikachuType = {
   pikachuValueX: number;
 };
 
-type SpeedPhase = { from: number; to: number; duration: number };
-
 interface GameState {
   GAME_AREA_WIDTH: number;
   INITIAL_GROUND_Y_VALUE: number;
@@ -30,18 +28,11 @@ interface GameState {
   ) => void;
   pikachuState: PikachuType;
   setPikachuState: (update: Partial<PikachuType>) => void;
-  SPEED_PHASES: SpeedPhase[];
-  setSpeedPhases: (phases: SpeedPhase[]) => void;
 }
 
 export const useGameStore = create<GameState>((set) => ({
   GAME_AREA_WIDTH: 800,
-  SPEED_PHASES: [
-    { from: 4, to: 20, duration: 5 },
-    { from: 20, to: 40, duration: 10 },
-    { from: 40, to: 60, duration: 15 },
-  ],
-  setSpeedPhases: (phases) => set(() => ({ SPEED_PHASES: phases })),
+
   INITIAL_GROUND_Y_VALUE: 0,
   gameFundamentals: {
     isGameStarted: false,
@@ -71,3 +62,10 @@ export const useGameStore = create<GameState>((set) => ({
       pikachuState: { ...state.pikachuState, ...update },
     })),
 }));
+
+export const jumpAnimationFrameIdRef = { current: null as number | null };
+export const currentPikachuYRef = { current: 0 };
+export const canJumpRef = { current: false };
+export const isSpacePressedRef = { current: false };
+export const isFastFallingRef = { current: false };
+export const elapsedTimeRef = { current: 0 };
