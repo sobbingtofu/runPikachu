@@ -19,7 +19,7 @@ function App() {
 
   const gameAreaStyle = {
     width: `${GAME_AREA_WIDTH}px`,
-    height: '300px',
+    height: '450px',
     backgroundColor: '#87ceeb',
     position: 'relative' as 'relative',
     overflow: 'hidden' as 'hidden',

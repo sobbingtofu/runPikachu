@@ -12,10 +12,15 @@ const usePikachuJump = (maxJumpHeight: number = 160) => {
     setPikachuState,
   } = useGameStore();
 
-  const { canJumpRef, jumpAnimationFrameIdRef, currentPikachuYRef } =
-    useGameCore();
+  const {
+    canJumpRef,
+    jumpAnimationFrameIdRef,
+    currentPikachuYRef,
+    isFastFallingRef,
+  } = useGameCore();
 
-  const GRAVITY = 0.7; // 중력 가속도 (값이 클수록 더 빠르게 떨어짐)
+  const GRAVITY = 0.33; // 중력 가속도 (값이 클수록 더 빠르게 떨어짐)
+  const FAST_FALL_GRAVITY = 1.2;
   const JUMP_VELOCITY = Math.sqrt(2 * GRAVITY * maxJumpHeight); // 등가속도 운동 공식
 
   useEffect(() => {
@@ -24,7 +29,8 @@ const usePikachuJump = (maxJumpHeight: number = 160) => {
     let velocity = JUMP_VELOCITY;
 
     const animateJump = () => {
-      velocity -= GRAVITY; // 프레임마다 속도 감소(상승→최고점→하강)
+      const gravity = isFastFallingRef.current ? FAST_FALL_GRAVITY : GRAVITY;
+      velocity -= gravity; // 프레임마다 속도 감소(상승→최고점→하강)
       let newBottom = currentPikachuYRef.current + velocity;
 
       // 최고점 이상으로 올라가지 않도록 제한
@@ -38,6 +44,7 @@ const usePikachuJump = (maxJumpHeight: number = 160) => {
         newBottom = INITIAL_GROUND_Y_VALUE;
         currentPikachuYRef.current = newBottom;
         setPikachuState({ pikachuValueY: newBottom });
+        isFastFallingRef.current = false; // 빠른 하강 상태 해제
         if (jumpAnimationFrameIdRef.current) {
           cancelAnimationFrame(jumpAnimationFrameIdRef.current);
           jumpAnimationFrameIdRef.current = null;

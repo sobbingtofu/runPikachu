@@ -14,7 +14,7 @@ const useGameCore = () => {
   const currentPikachuYRef = useRef(INITIAL_GROUND_Y_VALUE);
   const canJumpRef = useRef(false);
   const isSpacePressedRef = useRef(false);
-
+  const isFastFallingRef = useRef(false);
   // 스페이스바 눌림 해제 추적 이벤트 핸들러
   const handleKeyUpSpaceBar = useCallback((e: KeyboardEvent) => {
     if (e.code === 'Space') {
@@ -91,13 +91,30 @@ const useGameCore = () => {
     ],
   );
 
+  const handleKeyDownArrowDown = (e: KeyboardEvent) => {
+    if (e.code === 'ArrowDown') {
+      e.preventDefault();
+      if (pikachuState.isJumping) {
+        isFastFallingRef.current = true;
+      }
+    }
+  };
+  const handleKeyUpArrowDown = (e: KeyboardEvent) => {
+    if (e.code === 'ArrowDown') isFastFallingRef.current = false;
+  };
+
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDownSpaceBar);
     window.addEventListener('keyup', handleKeyUpSpaceBar);
 
+    window.addEventListener('keydown', handleKeyDownArrowDown);
+    window.addEventListener('keyup', handleKeyUpArrowDown);
+
     return () => {
       window.removeEventListener('keydown', handleKeyDownSpaceBar);
       window.removeEventListener('keyup', handleKeyUpSpaceBar);
+      window.removeEventListener('keydown', handleKeyDownArrowDown);
+      window.removeEventListener('keyup', handleKeyUpArrowDown);
     };
   }, [handleKeyDownSpaceBar, handleKeyUpSpaceBar]);
 
@@ -105,6 +122,7 @@ const useGameCore = () => {
     canJumpRef,
     jumpAnimationFrameIdRef,
     currentPikachuYRef,
+    isFastFallingRef,
   };
 };
 
