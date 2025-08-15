@@ -15,7 +15,7 @@ const usePikachuJump = (maxJumpHeight: number = 160) => {
   const { canJumpRef, jumpAnimationFrameIdRef, currentPikachuYRef } =
     useGameCore();
 
-  const GRAVITY = 0.2; // 중력 가속도 (값이 클수록 더 빠르게 떨어짐)
+  const GRAVITY = 0.7; // 중력 가속도 (값이 클수록 더 빠르게 떨어짐)
   const JUMP_VELOCITY = Math.sqrt(2 * GRAVITY * maxJumpHeight); // 등가속도 운동 공식
 
   useEffect(() => {

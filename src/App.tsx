@@ -6,10 +6,11 @@ import useGameCore from './hooks/useGameCore';
 import usePikachuJump from './hooks/usePikachuJump';
 import useObstacleSpawner from './hooks/useObstacleSpawner';
 import useCollisionDetection from './hooks/useCollisionDetection';
+import useGameTimer from './hooks/useGameTimer';
 
 function App() {
   const { GAME_AREA_WIDTH, gameFundamentals, pikachuState } = useGameStore();
-
+  useGameTimer(); // 게임 타이머 훅 호출
   useGameCore(); // 키 이벤트 등 부가 로직 실행
   usePikachuJump(); // 점프 애니메이션 실행
   useObstacleSpawner(); // 장애물 생성 및 이동 로직 실행

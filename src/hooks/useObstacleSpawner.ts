@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useGameStore } from '../store/gameStore';
 import type { ObstacleType } from '../types/ObstacleType';
 import useGameCore from './useGameCore';
+import { getCurrentObstacleSpeed } from '../utils/obstacleSpeedUtils'; // 위 함수 분리 추천
 
 const useObstacleSpawner = () => {
   const { currentPikachuYRef } = useGameCore();
@@ -10,12 +11,16 @@ const useObstacleSpawner = () => {
     setGameFundamentals,
     INITIAL_GROUND_Y_VALUE,
     GAME_AREA_WIDTH,
+    SPEED_PHASES,
   } = useGameStore();
 
   // 장애물 관련 상수
   const OBSTACLE_WIDTH = 20;
   const OBSTACLE_HEIGHT = 40;
-  const OBSTACLE_SPEED = 2; // px/frame (더 느리게)
+  const obstacleSpeed = getCurrentObstacleSpeed(
+    gameFundamentals.elapsedTime || 0,
+    SPEED_PHASES,
+  );
   const OBSTACLE_MIN_INTERVAL = 1000; // ms
   const OBSTACLE_MAX_INTERVAL = 2000; // ms
 
@@ -34,7 +39,7 @@ const useObstacleSpawner = () => {
           let updatedObstacles = prev.obstacles
             .map((obs) => ({
               ...obs,
-              positionX: obs.positionX - OBSTACLE_SPEED,
+              positionX: obs.positionX - obstacleSpeed,
             }))
             .filter((obs) => obs.positionX + obs.width > 0);
 
