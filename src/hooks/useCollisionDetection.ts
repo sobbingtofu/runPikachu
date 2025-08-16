@@ -4,10 +4,10 @@ const useCollisionDetection = () => {
   const { gameFundamentals, pikachuState } = useGameStore();
 
   const pikachuHitbox = {
-    x: pikachuState.pikachuValueX + 20, // 피카츄의 위치 + 여유 공간
-    y: pikachuState.pikachuValueY,
+    x: pikachuState.pikachuValueX + 25, // 피카츄의 위치 + 여유 공간
+    y: pikachuState.pikachuValueY + 10,
     width: pikachuState.pikachuWidth ? pikachuState.pikachuWidth - 30 : 80,
-    height: pikachuState.pikachuHeight || 53,
+    height: pikachuState.pikachuHeight ? pikachuState.pikachuHeight - 30 : 53,
   };
 
   function isColliding(

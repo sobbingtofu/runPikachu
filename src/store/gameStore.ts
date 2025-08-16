@@ -15,6 +15,8 @@ type PikachuType = {
   isJumping: boolean;
   pikachuValueY: number;
   pikachuValueX: number;
+  jumpCount: number;
+  jumpTrigger: number;
 };
 
 interface GameState {
@@ -47,10 +49,12 @@ export const useGameStore = create<GameState>((set) => ({
 
   pikachuState: {
     pikachuValueY: 0,
-    pikachuValueX: 50, // 기본값
+    pikachuValueX: 50,
     isJumping: false,
-    pikachuWidth: 80, // 기본값
-    pikachuHeight: 53, // 기본값
+    pikachuWidth: 80,
+    pikachuHeight: 53,
+    jumpCount: 0,
+    jumpTrigger: 0,
   },
   setPikachuState: (update) =>
     set((state) => ({
@@ -65,26 +69,47 @@ export const isSpacePressedRef = { current: false };
 export const isFastFallingRef = { current: false };
 export const elapsedTimeRef = { current: 0 };
 
-export const GAME_AREA_WIDTH = 800;
+export const jumpCountRef = { current: 0 };
+
+export const GAME_AREA_WIDTH = 1000;
 export const INITIAL_GROUND_Y_VALUE = 0;
 
-export const OBSTACLE_PHASES = [
+export const OBSTACLE_SPEED_PHASES = [
   { start: 0, end: 5000, obstacleSpeed: 5 },
-  { start: 5000, end: 7500, obstacleSpeed: 6 },
-  { start: 7500, end: 10000, obstacleSpeed: 7 },
-  { start: 10000, end: 12500, obstacleSpeed: 8 },
-  { start: 12500, end: 15000, obstacleSpeed: 9 },
-  { start: 15000, end: 17500, obstacleSpeed: 10 },
-  { start: 17500, end: 20000, obstacleSpeed: 12 },
-  { start: 20000, end: 22500, obstacleSpeed: 14 },
-  { start: 22500, end: 25000, obstacleSpeed: 16 },
-  { start: 25000, end: 27500, obstacleSpeed: 18 },
+  { start: 5000, end: 7500, obstacleSpeed: 7 },
+  { start: 7500, end: 10000, obstacleSpeed: 9 },
+  { start: 10000, end: 12500, obstacleSpeed: 12 },
+  { start: 12500, end: 15000, obstacleSpeed: 13 },
+  { start: 15000, end: 17500, obstacleSpeed: 14 },
+  { start: 17500, end: 20000, obstacleSpeed: 15 },
+  { start: 20000, end: 22500, obstacleSpeed: 16 },
+  { start: 22500, end: 25000, obstacleSpeed: 18 },
+  { start: 25000, end: 27500, obstacleSpeed: 20 },
   { start: 27500, end: Infinity, obstacleSpeed: 22 },
 ];
 
-export const RANDOM_OBSTACLES = [
-  { obstacleType: 'A', width: 20, height: 40, weight: 5 }, // default
-  { obstacleType: 'B', width: 40, height: 120, weight: 2 },
-  { obstacleType: 'C', width: 60, height: 40, weight: 2 },
-  { obstacleType: 'D', width: 20, height: 120, weight: 4 },
+export const OBSTACLE_GEN_INTERVAL_PHASES = [
+  { start: 0, end: 5000, min: 800, max: 1300 },
+  { start: 5000, end: 7500, min: 800, max: 1300 },
+  { start: 7500, end: 10000, min: 700, max: 1200 },
+  { start: 10000, end: 12500, min: 700, max: 1200 },
+  { start: 12500, end: 15000, min: 600, max: 1100 },
+  { start: 15000, end: 17500, min: 600, max: 1100 },
+  { start: 17500, end: 20000, min: 500, max: 1000 },
+  { start: 20000, end: 22500, min: 500, max: 1000 },
+  { start: 22500, end: 25000, min: 400, max: 900 },
+  { start: 25000, end: 27500, min: 400, max: 800 },
+  { start: 27500, end: Infinity, min: 250, max: 600 },
+];
+
+export const RANDOM_OBSTACLE_TYPES = [
+  { obstacleType: 'A', width: 20, height: 40, weight: 5, positionY: 0 }, // default
+  { obstacleType: 'B', width: 60, height: 40, weight: 2, positionY: 0 },
+  { obstacleType: 'C', width: 60, height: 100, weight: 2, positionY: 0 },
+  { obstacleType: 'D', width: 20, height: 100, weight: 5, positionY: 0 },
+  { obstacleType: 'E', width: 60, height: 160, weight: 1, positionY: 0 },
+  { obstacleType: 'F', width: 20, height: 160, weight: 2, positionY: 0 },
+  { obstacleType: 'X', width: 100, height: 300, weight: 4, positionY: 60 },
+  { obstacleType: 'Y', width: 150, height: 500, weight: 1, positionY: 60 },
+  { obstacleType: 'Z', width: 80, height: 60, weight: 3, positionY: 60 },
 ];

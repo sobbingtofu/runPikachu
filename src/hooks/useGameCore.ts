@@ -7,6 +7,7 @@ import {
   isSpacePressedRef,
   isFastFallingRef,
   INITIAL_GROUND_Y_VALUE,
+  jumpCountRef,
 } from '../store/gameStore';
 
 const useGameCore = () => {
@@ -48,17 +49,20 @@ const useGameCore = () => {
         if (
           gameFundamentals.isGameStarted &&
           !gameFundamentals.isGameOver &&
-          !pikachuState.isJumping &&
-          canJumpRef.current
+          canJumpRef.current &&
+          jumpCountRef.current < 2
         ) {
-          canJumpRef.current = false;
+          if (jumpCountRef.current >= 1) {
+            canJumpRef.current = false;
+          }
           if (jumpAnimationFrameIdRef.current) {
             cancelAnimationFrame(jumpAnimationFrameIdRef.current);
             jumpAnimationFrameIdRef.current = null;
           }
-          currentPikachuYRef.current = INITIAL_GROUND_Y_VALUE; // 항상 초기화
+          jumpCountRef.current += 1;
           setPikachuState({
             isJumping: true,
+            jumpTrigger: Date.now(), // 매번 새로운 값
           });
         }
 

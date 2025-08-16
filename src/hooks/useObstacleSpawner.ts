@@ -5,8 +5,9 @@ import {
   currentPikachuYRef,
   INITIAL_GROUND_Y_VALUE,
   GAME_AREA_WIDTH,
-  OBSTACLE_PHASES,
-  RANDOM_OBSTACLES,
+  OBSTACLE_SPEED_PHASES,
+  OBSTACLE_GEN_INTERVAL_PHASES,
+  RANDOM_OBSTACLE_TYPES,
 } from '../store/gameStore';
 import type { ObstacleType } from '../types/ObstacleType';
 
@@ -14,7 +15,7 @@ const useObstacleSpawner = () => {
   const { gameFundamentals, setGameFundamentals } = useGameStore();
 
   const getCurrentObstacleSpeed = (elapsedTime: number): number => {
-    for (const { start, end, obstacleSpeed } of OBSTACLE_PHASES) {
+    for (const { start, end, obstacleSpeed } of OBSTACLE_SPEED_PHASES) {
       if (elapsedTime >= start && elapsedTime < end) {
         return obstacleSpeed;
       }
@@ -22,24 +23,39 @@ const useObstacleSpawner = () => {
     return 0;
   };
 
-  const OBSTACLE_MIN_INTERVAL = 800; // ms
-  const OBSTACLE_MAX_INTERVAL = 1500; // ms
+  const getCurrentObstacleGenInterval = (
+    elapsedTime: number,
+  ): { min: number; max: number } => {
+    for (const { start, end, min, max } of OBSTACLE_GEN_INTERVAL_PHASES) {
+      if (elapsedTime >= start && elapsedTime < end) {
+        return { min, max };
+      }
+    }
+    return { min: 0, max: 0 };
+  };
 
   // 장애물 생성 타이밍 Ref들
   const lastObstacleTime = useRef(0);
   const obstacleAnimationFrameId = useRef<number | null>(null);
-  const nextObstacleInterval = useRef(
-    Math.random() * (OBSTACLE_MAX_INTERVAL - OBSTACLE_MIN_INTERVAL) +
-      OBSTACLE_MIN_INTERVAL,
-  );
+  const nextObstacleInterval = useRef(0);
 
   useEffect(() => {
     if (gameFundamentals.isGameStarted && !gameFundamentals.isGameOver) {
+      // 최초 lastObstacleTime, nextObstacleInterval 초기화 (동적으로)
+      const { min, max } = getCurrentObstacleGenInterval(
+        elapsedTimeRef.current,
+      );
+      lastObstacleTime.current = performance.now();
+      nextObstacleInterval.current = Math.random() * (max - min) + min;
+
       const generateObstacles = (currentTime: DOMHighResTimeStamp) => {
         const obstacleSpeed = getCurrentObstacleSpeed(elapsedTimeRef.current);
+        const { min, max } = getCurrentObstacleGenInterval(
+          elapsedTimeRef.current,
+        );
 
         function pickWeightedRandomObstacle(
-          obstacles: typeof RANDOM_OBSTACLES,
+          obstacles: typeof RANDOM_OBSTACLE_TYPES,
         ) {
           const totalWeight = obstacles.reduce(
             (sum, obs) => sum + (obs.weight ?? 1),
@@ -58,6 +74,7 @@ const useObstacleSpawner = () => {
             .map((obs) => ({
               ...obs,
               positionX: obs.positionX - obstacleSpeed,
+              positionY: obs.positionY,
             }))
             .filter((obs) => obs.positionX + obs.width > 0);
 
@@ -66,21 +83,22 @@ const useObstacleSpawner = () => {
             currentTime - lastObstacleTime.current >=
             nextObstacleInterval.current
           ) {
-            // RANDOM_OBSTACLES 중 하나를 랜덤 선택
-            const randomObstacle = pickWeightedRandomObstacle(RANDOM_OBSTACLES);
+            // RANDOM_OBSTACLE_TYPES 중 하나를 랜덤 선택
+            const randomObstacle = pickWeightedRandomObstacle(
+              RANDOM_OBSTACLE_TYPES,
+            );
 
             const newObstacle: ObstacleType = {
               id: `obstacle-${Date.now()}-${Math.random()}`,
               positionX: GAME_AREA_WIDTH,
-              positionY: INITIAL_GROUND_Y_VALUE,
+              positionY: randomObstacle.positionY ?? INITIAL_GROUND_Y_VALUE,
               width: randomObstacle.width,
               height: randomObstacle.height,
             };
             updatedObstacles = [...updatedObstacles, newObstacle];
             lastObstacleTime.current = currentTime;
-            nextObstacleInterval.current =
-              Math.random() * (OBSTACLE_MAX_INTERVAL - OBSTACLE_MIN_INTERVAL) +
-              OBSTACLE_MIN_INTERVAL;
+            // 생성 간격을 동적으로 계산
+            nextObstacleInterval.current = Math.random() * (max - min) + min;
           }
 
           return {
@@ -92,12 +110,6 @@ const useObstacleSpawner = () => {
         obstacleAnimationFrameId.current =
           requestAnimationFrame(generateObstacles);
       };
-
-      // 최초 lastObstacleTime, nextObstacleInterval 초기화
-      lastObstacleTime.current = performance.now();
-      nextObstacleInterval.current =
-        Math.random() * (OBSTACLE_MAX_INTERVAL - OBSTACLE_MIN_INTERVAL) +
-        OBSTACLE_MIN_INTERVAL;
 
       obstacleAnimationFrameId.current =
         requestAnimationFrame(generateObstacles);
