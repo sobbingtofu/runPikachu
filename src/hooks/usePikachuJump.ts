@@ -7,17 +7,13 @@ import {
   currentPikachuYRef,
   canJumpRef,
   isFastFallingRef,
+  INITIAL_GROUND_Y_VALUE,
 } from '../store/gameStore';
 
 const usePikachuJump = (maxJumpHeight: number = 1000) => {
-  const {
-    INITIAL_GROUND_Y_VALUE,
-    setGameFundamentals,
-    pikachuState,
-    setPikachuState,
-  } = useGameStore();
+  const { setGameFundamentals, pikachuState, setPikachuState } = useGameStore();
 
-  const GRAVITY = 0.22; // 중력 가속도 (값이 클수록 더 빠르게 떨어짐)
+  const GRAVITY = 0.12; // 중력 가속도 - 값이 클수록 더 빠르게 떨어짐
   const FAST_FALL_GRAVITY = 0.8;
   const JUMP_VELOCITY = Math.sqrt(2 * GRAVITY * maxJumpHeight); // 등가속도 운동 공식
 

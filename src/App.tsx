@@ -1,7 +1,7 @@
 import './App.css';
 import Pikachu from './components/Pikachu/Pikachu';
 import Obstacle from './components/Obstacle/Obstacle';
-import { useGameStore } from './store/gameStore';
+import { useGameStore, GAME_AREA_WIDTH } from './store/gameStore';
 import useGameCore from './hooks/useGameCore';
 import usePikachuJump from './hooks/usePikachuJump';
 import useObstacleSpawner from './hooks/useObstacleSpawner';
@@ -9,7 +9,7 @@ import useCollisionDetection from './hooks/useCollisionDetection';
 import useGameTimer from './hooks/useGameTimer';
 
 function App() {
-  const { GAME_AREA_WIDTH, gameFundamentals, pikachuState } = useGameStore();
+  const { gameFundamentals, pikachuState } = useGameStore();
   useGameTimer(); // 게임 타이머 훅 호출
   useGameCore(); // 키 이벤트 등 부가 로직 실행
   usePikachuJump(); // 점프 애니메이션 실행

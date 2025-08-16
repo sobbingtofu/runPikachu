@@ -3,28 +3,27 @@ import {
   useGameStore,
   elapsedTimeRef,
   currentPikachuYRef,
+  INITIAL_GROUND_Y_VALUE,
+  GAME_AREA_WIDTH,
+  OBSTACLE_PHASES,
+  RANDOM_OBSTACLES,
 } from '../store/gameStore';
 import type { ObstacleType } from '../types/ObstacleType';
 
 const useObstacleSpawner = () => {
-  const {
-    gameFundamentals,
-    setGameFundamentals,
-    INITIAL_GROUND_Y_VALUE,
-    GAME_AREA_WIDTH,
-  } = useGameStore();
-  const getCurrentObstacleSpeed = (elapsedTime: number) => {
-    if (elapsedTime < 5000) return 2; // 5초 미만: 2px/ms
-    if (elapsedTime < 10000) return 10; // 5초 ~ 10초: 10px/ms
-    return 20; // 10초 이상: 20px/ms
+  const { gameFundamentals, setGameFundamentals } = useGameStore();
+
+  const getCurrentObstacleSpeed = (elapsedTime: number): number => {
+    for (const { start, end, obstacleSpeed } of OBSTACLE_PHASES) {
+      if (elapsedTime >= start && elapsedTime < end) {
+        return obstacleSpeed;
+      }
+    }
+    return 0;
   };
 
-  // 장애물 관련 상수
-  const OBSTACLE_WIDTH = 20;
-  const OBSTACLE_HEIGHT = 40;
-
-  const OBSTACLE_MIN_INTERVAL = 1000; // ms
-  const OBSTACLE_MAX_INTERVAL = 2000; // ms
+  const OBSTACLE_MIN_INTERVAL = 800; // ms
+  const OBSTACLE_MAX_INTERVAL = 1500; // ms
 
   // 장애물 생성 타이밍 Ref들
   const lastObstacleTime = useRef(0);
@@ -37,9 +36,23 @@ const useObstacleSpawner = () => {
   useEffect(() => {
     if (gameFundamentals.isGameStarted && !gameFundamentals.isGameOver) {
       const generateObstacles = (currentTime: DOMHighResTimeStamp) => {
-        const elapsed = elapsedTimeRef.current;
         const obstacleSpeed = getCurrentObstacleSpeed(elapsedTimeRef.current);
-        console.log('elapsed:', elapsed, 'obstacleSpeed:', obstacleSpeed);
+
+        function pickWeightedRandomObstacle(
+          obstacles: typeof RANDOM_OBSTACLES,
+        ) {
+          const totalWeight = obstacles.reduce(
+            (sum, obs) => sum + (obs.weight ?? 1),
+            0,
+          );
+          let rand = Math.random() * totalWeight;
+          for (const obs of obstacles) {
+            rand -= obs.weight ?? 1;
+            if (rand < 0) return obs;
+          }
+          return obstacles[obstacles.length - 1]; // fallback
+        }
+
         setGameFundamentals((prev) => {
           let updatedObstacles = prev.obstacles
             .map((obs) => ({
@@ -53,12 +66,15 @@ const useObstacleSpawner = () => {
             currentTime - lastObstacleTime.current >=
             nextObstacleInterval.current
           ) {
+            // RANDOM_OBSTACLES 중 하나를 랜덤 선택
+            const randomObstacle = pickWeightedRandomObstacle(RANDOM_OBSTACLES);
+
             const newObstacle: ObstacleType = {
               id: `obstacle-${Date.now()}-${Math.random()}`,
               positionX: GAME_AREA_WIDTH,
               positionY: INITIAL_GROUND_Y_VALUE,
-              width: OBSTACLE_WIDTH,
-              height: OBSTACLE_HEIGHT,
+              width: randomObstacle.width,
+              height: randomObstacle.height,
             };
             updatedObstacles = [...updatedObstacles, newObstacle];
             lastObstacleTime.current = currentTime;

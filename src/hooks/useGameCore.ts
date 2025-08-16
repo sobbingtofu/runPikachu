@@ -6,11 +6,11 @@ import {
   canJumpRef,
   isSpacePressedRef,
   isFastFallingRef,
+  INITIAL_GROUND_Y_VALUE,
 } from '../store/gameStore';
 
 const useGameCore = () => {
   const {
-    INITIAL_GROUND_Y_VALUE,
     gameFundamentals,
     setGameFundamentals,
     pikachuState,
