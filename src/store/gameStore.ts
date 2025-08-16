@@ -6,7 +6,7 @@ type GameFundamentalsType = {
   isGameOver: boolean;
   score: number;
   obstacles: ObstacleType[];
-  elapsedTime?: number; // ms 단위
+  elapsedTime: number; // ms 단위
 };
 
 type PikachuType = {
@@ -15,7 +15,6 @@ type PikachuType = {
   isJumping: boolean;
   pikachuValueY: number;
   pikachuValueX: number;
-  jumpCount: number;
   jumpTrigger: number;
 };
 
@@ -53,7 +52,6 @@ export const useGameStore = create<GameState>((set) => ({
     isJumping: false,
     pikachuWidth: 80,
     pikachuHeight: 53,
-    jumpCount: 0,
     jumpTrigger: 0,
   },
   setPikachuState: (update) =>
@@ -85,7 +83,7 @@ export const OBSTACLE_SPEED_PHASES = [
   { start: 20000, end: 22500, obstacleSpeed: 16 },
   { start: 22500, end: 25000, obstacleSpeed: 18 },
   { start: 25000, end: 27500, obstacleSpeed: 20 },
-  { start: 27500, end: Infinity, obstacleSpeed: 22 },
+  { start: 27500, end: Infinity, obstacleSpeed: 23 },
 ];
 
 export const OBSTACLE_GEN_INTERVAL_PHASES = [
@@ -93,13 +91,13 @@ export const OBSTACLE_GEN_INTERVAL_PHASES = [
   { start: 5000, end: 7500, min: 800, max: 1300 },
   { start: 7500, end: 10000, min: 700, max: 1200 },
   { start: 10000, end: 12500, min: 700, max: 1200 },
-  { start: 12500, end: 15000, min: 600, max: 1100 },
-  { start: 15000, end: 17500, min: 600, max: 1100 },
-  { start: 17500, end: 20000, min: 500, max: 1000 },
-  { start: 20000, end: 22500, min: 500, max: 1000 },
-  { start: 22500, end: 25000, min: 400, max: 900 },
-  { start: 25000, end: 27500, min: 400, max: 800 },
-  { start: 27500, end: Infinity, min: 250, max: 600 },
+  { start: 12500, end: 15000, min: 700, max: 1000 },
+  { start: 15000, end: 17500, min: 600, max: 1000 },
+  { start: 17500, end: 20000, min: 600, max: 900 },
+  { start: 20000, end: 22500, min: 600, max: 900 },
+  { start: 22500, end: 25000, min: 600, max: 800 },
+  { start: 25000, end: 27500, min: 500, max: 800 },
+  { start: 27500, end: Infinity, min: 450, max: 700 },
 ];
 
 export const RANDOM_OBSTACLE_TYPES = [
@@ -112,4 +110,25 @@ export const RANDOM_OBSTACLE_TYPES = [
   { obstacleType: 'X', width: 100, height: 300, weight: 4, positionY: 60 },
   { obstacleType: 'Y', width: 150, height: 500, weight: 1, positionY: 60 },
   { obstacleType: 'Z', width: 80, height: 60, weight: 3, positionY: 60 },
+];
+
+export const JUMP_PARAMS_PHASES = [
+  {
+    start: 0,
+    end: 12500,
+    gravity: 1.1,
+    fastFallGravity: 2.8,
+  },
+  {
+    start: 12500,
+    end: 22500,
+    gravity: 1.3,
+    fastFallGravity: 2.9,
+  },
+  {
+    start: 22500,
+    end: Infinity,
+    gravity: 1.6,
+    fastFallGravity: 3.2,
+  },
 ];

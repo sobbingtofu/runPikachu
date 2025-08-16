@@ -1,5 +1,3 @@
-// 점프에 따른 상승 및 하강 애니메이션 - requestAnimationFrame 루프기반
-
 import { useEffect, useRef } from 'react';
 import {
   useGameStore,
@@ -8,16 +6,25 @@ import {
   isFastFallingRef,
   INITIAL_GROUND_Y_VALUE,
   jumpCountRef,
+  JUMP_PARAMS_PHASES,
+  elapsedTimeRef,
 } from '../store/gameStore';
 
 const usePikachuJump = () => {
-  const jumpStartYRef = useRef(0);
-  const maxJumpHeight = 170;
   const { pikachuState, setPikachuState } = useGameStore();
 
-  const GRAVITY = 1.1;
-  const FAST_FALL_GRAVITY = 2.8;
+  const getCurrentJumpParams = (elapsedTime: number) => {
+    for (const { start, end, gravity, fastFallGravity } of JUMP_PARAMS_PHASES) {
+      if (elapsedTime >= start && elapsedTime < end) {
+        return { gravity, fastFallGravity };
+      }
+    }
+    return { gravity: 0, fastFallGravity: 0 };
+  };
 
+  const MAX_JUMP_HEIGHT = 170;
+
+  const jumpTriggerYRef = useRef(0);
   const velocityRef = useRef(0);
   const lastJumpTriggerRef = useRef<number | undefined>(undefined);
   const lastTimeRef = useRef(performance.now());
@@ -28,26 +35,28 @@ const usePikachuJump = () => {
     let animationFrameId: number;
 
     const animateJump = (now: number) => {
+      const { gravity, fastFallGravity } = getCurrentJumpParams(
+        elapsedTimeRef.current,
+      );
       const deltaTime = (now - lastTimeRef.current) / 16.67;
       lastTimeRef.current = now;
 
       // 점프 트리거가 바뀌면 velocity 리셋 + jumpStartY 저장
       if (pikachuState.jumpTrigger !== lastJumpTriggerRef.current) {
-        velocityRef.current = Math.sqrt(2 * GRAVITY * maxJumpHeight);
+        velocityRef.current = Math.sqrt(2 * gravity * MAX_JUMP_HEIGHT);
         lastJumpTriggerRef.current = pikachuState.jumpTrigger;
-        jumpStartYRef.current = currentPikachuYRef.current; // 점프 시작 위치 저장
+        jumpTriggerYRef.current = currentPikachuYRef.current; // 점프 시작 위치 저장
       }
 
-      const gravity = isFastFallingRef.current ? FAST_FALL_GRAVITY : GRAVITY;
-      velocityRef.current -= gravity * deltaTime;
+      const appliedGravity = isFastFallingRef.current
+        ? fastFallGravity
+        : gravity;
+      velocityRef.current -= appliedGravity * deltaTime;
       let newBottom = currentPikachuYRef.current + velocityRef.current;
 
       // 최고점 제한 (점프 시작 위치 기준)
-      if (
-        newBottom > jumpStartYRef.current + maxJumpHeight &&
-        velocityRef.current > 0
-      ) {
-        newBottom = jumpStartYRef.current + maxJumpHeight;
+      if (newBottom > jumpTriggerYRef.current + MAX_JUMP_HEIGHT) {
+        newBottom = jumpTriggerYRef.current + MAX_JUMP_HEIGHT;
         velocityRef.current = 0;
       }
 
@@ -60,8 +69,8 @@ const usePikachuJump = () => {
           isJumping: false,
         });
         jumpCountRef.current = 0;
-        isFastFallingRef.current = false;
         canJumpRef.current = true;
+        isFastFallingRef.current = false;
         cancelAnimationFrame(animationFrameId);
         return;
       }
@@ -82,7 +91,6 @@ const usePikachuJump = () => {
     pikachuState.isJumping,
     pikachuState.jumpTrigger,
     setPikachuState,
-    maxJumpHeight,
     INITIAL_GROUND_Y_VALUE,
   ]);
 };
