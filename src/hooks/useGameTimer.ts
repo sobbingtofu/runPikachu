@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useGameStore } from '../store/gameStore';
-import { elapsedTimeRef } from '../store/gameRefStore';
+import { useGameStore, elapsedTimeRef } from '../store/gameStore';
 
 const useGameTimer = () => {
   const { gameFundamentals } = useGameStore();

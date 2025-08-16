@@ -9,7 +9,7 @@ import {
   isFastFallingRef,
 } from '../store/gameStore';
 
-const usePikachuJump = (maxJumpHeight: number = 160) => {
+const usePikachuJump = (maxJumpHeight: number = 1000) => {
   const {
     INITIAL_GROUND_Y_VALUE,
     setGameFundamentals,
@@ -17,18 +17,21 @@ const usePikachuJump = (maxJumpHeight: number = 160) => {
     setPikachuState,
   } = useGameStore();
 
-  const GRAVITY = 0.33; // 중력 가속도 (값이 클수록 더 빠르게 떨어짐)
-  const FAST_FALL_GRAVITY = 1.2;
+  const GRAVITY = 0.22; // 중력 가속도 (값이 클수록 더 빠르게 떨어짐)
+  const FAST_FALL_GRAVITY = 0.8;
   const JUMP_VELOCITY = Math.sqrt(2 * GRAVITY * maxJumpHeight); // 등가속도 운동 공식
 
   useEffect(() => {
     if (!pikachuState.isJumping) return;
 
     let velocity = JUMP_VELOCITY;
+    let lastTime = performance.now();
 
-    const animateJump = () => {
+    const animateJump = (now: number) => {
+      const deltaTime = (now - lastTime) / 16.67;
+
       const gravity = isFastFallingRef.current ? FAST_FALL_GRAVITY : GRAVITY;
-      velocity -= gravity; // 프레임마다 속도 감소(상승→최고점→하강)
+      velocity -= gravity * deltaTime; // 프레임마다 속도 감소(상승→최고점→하강)
       let newBottom = currentPikachuYRef.current + velocity;
 
       // 최고점 이상으로 올라가지 않도록 제한
