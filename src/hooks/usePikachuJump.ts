@@ -23,11 +23,13 @@ const usePikachuJump = () => {
   };
 
   const MAX_JUMP_HEIGHT = 170;
+  const TARGET_FPS = 120; // 원하는 FPS
+  const FRAME_DURATION = 1000 / TARGET_FPS; // ms
 
   const jumpTriggerYRef = useRef(0);
   const velocityRef = useRef(0);
   const lastJumpTriggerRef = useRef<number | undefined>(undefined);
-  const lastTimeRef = useRef(performance.now());
+  const lastFrameTimeRef = useRef(performance.now());
 
   useEffect(() => {
     if (!pikachuState.isJumping) return;
@@ -35,11 +37,15 @@ const usePikachuJump = () => {
     let animationFrameId: number;
 
     const animateJump = (now: number) => {
+      if (now - lastFrameTimeRef.current < FRAME_DURATION) {
+        animationFrameId = requestAnimationFrame(animateJump);
+        return;
+      }
       const { gravity, fastFallGravity } = getCurrentJumpParams(
         elapsedTimeRef.current,
       );
-      const deltaTime = (now - lastTimeRef.current) / 16.67;
-      lastTimeRef.current = now;
+
+      lastFrameTimeRef.current = now;
 
       // 점프 트리거가 바뀌면 velocity 리셋 + jumpStartY 저장
       if (pikachuState.jumpTrigger !== lastJumpTriggerRef.current) {
@@ -51,7 +57,7 @@ const usePikachuJump = () => {
       const appliedGravity = isFastFallingRef.current
         ? fastFallGravity
         : gravity;
-      velocityRef.current -= appliedGravity * deltaTime;
+      velocityRef.current -= appliedGravity;
       let newBottom = currentPikachuYRef.current + velocityRef.current;
 
       // 최고점 제한 (점프 시작 위치 기준)
@@ -80,7 +86,7 @@ const usePikachuJump = () => {
       animationFrameId = requestAnimationFrame(animateJump);
     };
 
-    lastTimeRef.current = performance.now();
+    lastFrameTimeRef.current = performance.now();
     animationFrameId = requestAnimationFrame(animateJump);
 
     return () => {
