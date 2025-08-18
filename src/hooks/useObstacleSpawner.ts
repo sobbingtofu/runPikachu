@@ -8,8 +8,11 @@ import {
   OBSTACLE_SPEED_PHASES,
   OBSTACLE_GEN_INTERVAL_PHASES,
   RANDOM_OBSTACLE_TYPES,
+  TARGET_FPS,
 } from '../store/gameStore';
 import type { ObstacleType } from '../types/ObstacleType';
+
+const FRAME_DURATION = 1000 / TARGET_FPS; // ms
 
 const useObstacleSpawner = () => {
   const { gameFundamentals, setGameFundamentals } = useGameStore();
@@ -38,6 +41,7 @@ const useObstacleSpawner = () => {
   const lastObstacleTime = useRef(0);
   const obstacleAnimationFrameId = useRef<number | null>(null);
   const nextObstacleInterval = useRef(0);
+  const lastFrameTimeRef = useRef(performance.now());
 
   useEffect(() => {
     if (gameFundamentals.isGameStarted && !gameFundamentals.isGameOver) {
@@ -47,8 +51,16 @@ const useObstacleSpawner = () => {
       );
       lastObstacleTime.current = performance.now();
       nextObstacleInterval.current = Math.random() * (max - min) + min;
+      lastFrameTimeRef.current = performance.now();
 
       const generateObstacles = (currentTime: DOMHighResTimeStamp) => {
+        if (currentTime - lastFrameTimeRef.current < FRAME_DURATION) {
+          obstacleAnimationFrameId.current =
+            requestAnimationFrame(generateObstacles);
+          return;
+        }
+        lastFrameTimeRef.current = currentTime;
+
         const obstacleSpeed = getCurrentObstacleSpeed(elapsedTimeRef.current);
         const { min, max } = getCurrentObstacleGenInterval(
           elapsedTimeRef.current,

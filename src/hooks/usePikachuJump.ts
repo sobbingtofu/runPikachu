@@ -5,6 +5,7 @@ import {
   canJumpRef,
   isFastFallingRef,
   INITIAL_GROUND_Y_VALUE,
+  TARGET_FPS,
   jumpCountRef,
   JUMP_PARAMS_PHASES,
   elapsedTimeRef,
@@ -23,7 +24,6 @@ const usePikachuJump = () => {
   };
 
   const MAX_JUMP_HEIGHT = 170;
-  const TARGET_FPS = 120; // 원하는 FPS
   const FRAME_DURATION = 1000 / TARGET_FPS; // ms
 
   const jumpTriggerYRef = useRef(0);
