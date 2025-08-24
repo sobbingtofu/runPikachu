@@ -9,6 +9,7 @@ import {
   INITIAL_GROUND_Y_VALUE,
   jumpCountRef,
 } from '../store/gameStore';
+import useCollisionDetection from './useCollisionDetection';
 
 const useGameCore = () => {
   const {
@@ -18,6 +19,7 @@ const useGameCore = () => {
     setPikachuState,
   } = useGameStore();
 
+  const { isCollision } = useCollisionDetection();
   // 스페이스바 눌림 해제 추적 이벤트 핸들러
   const handleKeyUpSpaceBar = useCallback((e: KeyboardEvent) => {
     if (e.code === 'Space') {
@@ -97,6 +99,7 @@ const useGameCore = () => {
     ],
   );
 
+  // 아래방향키 눌림 추적 이벤트 핸들러
   const handleKeyDownArrowDown = (e: KeyboardEvent) => {
     if (e.code === 'ArrowDown') {
       e.preventDefault();
@@ -105,10 +108,13 @@ const useGameCore = () => {
       }
     }
   };
+
+  // 아래방향키 눌림 해제 추적 이벤트 핸들러
   const handleKeyUpArrowDown = (e: KeyboardEvent) => {
     if (e.code === 'ArrowDown') isFastFallingRef.current = false;
   };
 
+  // 키보드 이벤트 핸들러 할당
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDownSpaceBar);
     window.addEventListener('keyup', handleKeyUpSpaceBar);
@@ -123,6 +129,15 @@ const useGameCore = () => {
       window.removeEventListener('keyup', handleKeyUpArrowDown);
     };
   }, [handleKeyDownSpaceBar, handleKeyUpSpaceBar]);
+
+  useEffect(() => {
+    if (isCollision) {
+      setGameFundamentals((prev) => ({
+        ...prev,
+        isGameOver: true,
+      }));
+    }
+  }, [isCollision]);
 };
 
 export default useGameCore;

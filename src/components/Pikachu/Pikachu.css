@@ -6,7 +6,6 @@
   background-size: cover; /* 이미지가 div에 맞춰지도록 */
 }
 
-/* 2프레임 애니메이션 예시 */
 .pikachu-frame-0 {
   background-image: url('/assets/runkachu-0.png');
 }
@@ -20,6 +19,6 @@
   background-image: url('/assets/runkachu-3.png');
 }
 
-/* .pikachu.jumping {
-  background-image: url('/assets/runkachu-1.png');
-} */
+.pikachu.stopped {
+  background-image: url('/assets/runkachu-stopped.png');
+}

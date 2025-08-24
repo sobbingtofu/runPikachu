@@ -4,8 +4,7 @@ import './Pikachu.css';
 import { useGameStore } from '../../store/gameStore';
 
 const Pikachu = () => {
-  const { pikachuState } = useGameStore();
-
+  const { pikachuState, gameFundamentals } = useGameStore();
   const [frame, setFrame] = useState(0); // 달리는 피카츄 애니메이션 프레임
   const animationFrameId = useRef<number | null>(null); // requestAnimationFrame ID 저장 ref
   const lastFrameTime = useRef(0); // 마지막 프레임이 업데이트된 시간 저장 ref
@@ -41,7 +40,7 @@ const Pikachu = () => {
     };
   }, [pikachuState.isJumping]);
 
-  const pikachuClass = `pikachu pikachu-frame-${frame} ${pikachuState.isJumping ? 'jumping' : ''}`;
+  const pikachuClass = `pikachu pikachu-frame-${frame} ${pikachuState.isJumping ? 'jumping' : ''} ${gameFundamentals.isGameOver || !gameFundamentals.isGameStarted ? 'stopped' : ''}`;
 
   return (
     <div

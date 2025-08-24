@@ -21,7 +21,6 @@ const useGameTimer = () => {
       scoreIntervalId.current = setInterval(() => {
         const now = Date.now();
         const elapsed = now - startTimeRef.current;
-        console.log('Game elapsed time:', elapsed);
         setGameFundamentals((prev) => ({
           ...prev,
           score: prev.score + 1,
