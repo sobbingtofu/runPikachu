@@ -6,7 +6,6 @@ type GameFundamentalsType = {
   isGameOver: boolean;
   score: number;
   obstacles: ObstacleType[];
-  elapsedTime: number; // ms 단위
 };
 
 type PikachuType = {
@@ -35,7 +34,6 @@ export const useGameStore = create<GameState>((set) => ({
     isGameOver: false,
     score: 0,
     obstacles: [],
-    elapsedTime: 0, // ms 단위
   },
 
   setGameFundamentals: (update) =>
@@ -77,14 +75,14 @@ export const OBSTACLE_SPEED_PHASES = [
   { start: 0, end: 5000, obstacleSpeed: 5 },
   { start: 5000, end: 7500, obstacleSpeed: 7 },
   { start: 7500, end: 10000, obstacleSpeed: 9 },
-  { start: 10000, end: 12500, obstacleSpeed: 12 },
-  { start: 12500, end: 15000, obstacleSpeed: 13 },
-  { start: 15000, end: 17500, obstacleSpeed: 14 },
-  { start: 17500, end: 20000, obstacleSpeed: 15 },
-  { start: 20000, end: 22500, obstacleSpeed: 16 },
-  { start: 22500, end: 25000, obstacleSpeed: 18 },
-  { start: 25000, end: 27500, obstacleSpeed: 20 },
-  { start: 27500, end: Infinity, obstacleSpeed: 23 },
+  { start: 10000, end: 12500, obstacleSpeed: 11 },
+  { start: 12500, end: 15000, obstacleSpeed: 12 },
+  { start: 15000, end: 17500, obstacleSpeed: 13 },
+  { start: 17500, end: 20000, obstacleSpeed: 14 },
+  { start: 20000, end: 22500, obstacleSpeed: 15 },
+  { start: 22500, end: 25000, obstacleSpeed: 16 },
+  { start: 25000, end: 27500, obstacleSpeed: 18 },
+  { start: 27500, end: Infinity, obstacleSpeed: 20 },
 ];
 
 export const OBSTACLE_GEN_INTERVAL_PHASES = [

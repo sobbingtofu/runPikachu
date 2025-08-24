@@ -12,7 +12,7 @@ import {
 } from '../store/gameStore';
 import type { ObstacleType } from '../types/ObstacleType';
 
-const FRAME_DURATION = 1000 / TARGET_FPS; // ms
+const FRAME_DURATION = 1000 / TARGET_FPS;
 
 const useObstacleSpawner = () => {
   const { gameFundamentals, setGameFundamentals } = useGameStore();
