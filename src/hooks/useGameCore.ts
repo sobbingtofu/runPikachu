@@ -8,6 +8,7 @@ import {
   isFastFallingRef,
   INITIAL_GROUND_Y_VALUE,
   jumpCountRef,
+  elapsedTimeRef,
 } from '../store/gameStore';
 import useCollisionDetection from './useCollisionDetection';
 
@@ -87,6 +88,7 @@ const useGameCore = () => {
           currentPikachuYRef.current = INITIAL_GROUND_Y_VALUE;
           isSpacePressedRef.current = false;
           canJumpRef.current = true;
+          elapsedTimeRef.current = 0;
         }
       }
     },
@@ -130,11 +132,13 @@ const useGameCore = () => {
     };
   }, [handleKeyDownSpaceBar, handleKeyUpSpaceBar]);
 
+  // 충돌 시 게임 오버 처리
   useEffect(() => {
     if (isCollision) {
       setGameFundamentals((prev) => ({
         ...prev,
         isGameOver: true,
+        isGameStarted: false,
       }));
     }
   }, [isCollision]);

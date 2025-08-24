@@ -102,14 +102,14 @@ export const OBSTACLE_GEN_INTERVAL_PHASES = [
 
 export const RANDOM_OBSTACLE_TYPES = [
   { obstacleType: 'A', width: 20, height: 40, weight: 5, positionY: 0 }, // default
-  { obstacleType: 'B', width: 60, height: 40, weight: 2, positionY: 0 },
-  { obstacleType: 'C', width: 60, height: 100, weight: 2, positionY: 0 },
-  { obstacleType: 'D', width: 20, height: 100, weight: 5, positionY: 0 },
-  { obstacleType: 'E', width: 60, height: 160, weight: 1, positionY: 0 },
-  { obstacleType: 'F', width: 20, height: 160, weight: 2, positionY: 0 },
-  { obstacleType: 'X', width: 100, height: 300, weight: 4, positionY: 60 },
-  { obstacleType: 'Y', width: 150, height: 500, weight: 1, positionY: 60 },
-  { obstacleType: 'Z', width: 80, height: 60, weight: 3, positionY: 60 },
+  // { obstacleType: 'B', width: 60, height: 40, weight: 2, positionY: 0 },
+  // { obstacleType: 'C', width: 60, height: 100, weight: 2, positionY: 0 },
+  // { obstacleType: 'D', width: 20, height: 100, weight: 5, positionY: 0 },
+  // { obstacleType: 'E', width: 60, height: 160, weight: 1, positionY: 0 },
+  // { obstacleType: 'F', width: 20, height: 160, weight: 2, positionY: 0 },
+  // { obstacleType: 'X', width: 100, height: 300, weight: 4, positionY: 60 },
+  // { obstacleType: 'Y', width: 150, height: 500, weight: 1, positionY: 60 },
+  // { obstacleType: 'Z', width: 80, height: 60, weight: 3, positionY: 60 },
 ];
 
 export const JUMP_PARAMS_PHASES = [

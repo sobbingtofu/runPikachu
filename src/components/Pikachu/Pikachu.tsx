@@ -11,7 +11,6 @@ const Pikachu = () => {
   const frameDurationRun = 90; // 각 프레임이 유지될 시간 (ms)
   const frameDurationJump = 125;
 
-  // 최초렌더링 + isJumping 상태가 변경될 때마다 useEffect 재실행
   useEffect(() => {
     const animateRun = (currentTime: DOMHighResTimeStamp) => {
       const frameDuration = pikachuState.isJumping
@@ -19,8 +18,8 @@ const Pikachu = () => {
         : frameDurationRun;
 
       if (currentTime - lastFrameTime.current >= frameDuration) {
-        setFrame((prevFrame) => (prevFrame + 1) % 4); // 4프레임 애니메이션
-        lastFrameTime.current = currentTime; // 마지막 프레임 업데이트 시간 갱신
+        setFrame((prevFrame) => (prevFrame + 1) % 4);
+        lastFrameTime.current = currentTime;
       }
 
       // 다음 애니메이션 프레임 요청
