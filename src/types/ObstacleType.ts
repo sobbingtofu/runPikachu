@@ -4,5 +4,5 @@ export interface ObstacleType {
   positionY: number;
   width: number;
   height: number;
-  scoreAdded?: boolean;
+  obstacleType: string;
 }

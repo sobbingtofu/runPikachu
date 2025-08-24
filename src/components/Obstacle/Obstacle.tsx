@@ -8,6 +8,7 @@ const Obstacle: React.FC<ObstacleType> = ({
   positionY,
   width,
   height,
+  obstacleType,
 }) => {
   return (
     <div
@@ -18,7 +19,9 @@ const Obstacle: React.FC<ObstacleType> = ({
         width: `${width}px`,
         height: `${height}px`,
       }}
-    ></div>
+    >
+      {obstacleType}
+    </div>
   );
 };
 

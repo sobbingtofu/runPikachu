@@ -43,6 +43,7 @@ function App() {
             positionY={obstacle.positionY}
             width={obstacle.width}
             height={obstacle.height}
+            obstacleType={obstacle.obstacleType}
           />
         ))}
       </div>

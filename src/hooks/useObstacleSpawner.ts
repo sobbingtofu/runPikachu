@@ -106,10 +106,11 @@ const useObstacleSpawner = () => {
               positionY: randomObstacle.positionY ?? INITIAL_GROUND_Y_VALUE,
               width: randomObstacle.width,
               height: randomObstacle.height,
+              obstacleType: randomObstacle.obstacleType,
             };
             updatedObstacles = [...updatedObstacles, newObstacle];
             lastObstacleTime.current = currentTime;
-            // 생성 간격을 동적으로 계산
+
             nextObstacleInterval.current = Math.random() * (max - min) + min;
           }
 
