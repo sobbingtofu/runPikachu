@@ -107,6 +107,8 @@ const useObstacleSpawner = () => {
               width: randomObstacle.width,
               height: randomObstacle.height,
               obstacleType: randomObstacle.obstacleType,
+              hitboxWidth: randomObstacle.hitboxWidth,
+              hitboxHeight: randomObstacle.hitboxHeight,
             };
             updatedObstacles = [...updatedObstacles, newObstacle];
             lastObstacleTime.current = currentTime;

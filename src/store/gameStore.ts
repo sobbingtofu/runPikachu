@@ -101,8 +101,23 @@ export const OBSTACLE_GEN_INTERVAL_PHASES = [
 ];
 
 export const RANDOM_OBSTACLE_TYPES = [
-  { obstacleType: 'A', width: 20, height: 40, weight: 5, positionY: 0 }, // default
-  { obstacleType: 'B', width: 60, height: 60, weight: 2, positionY: 0 },
+  {
+    obstacleType: 'diglett01',
+    width: 50,
+    height: 43,
+    weight: 5,
+    positionY: 0,
+    hitboxWidth: 32,
+    hitboxHeight: 40,
+  }, // default
+  // {
+  //   obstacleType: 'alolanExeggutor',
+  //   width: 60,
+  //   height: 60,
+  //   weight: 2,
+  //   positionY: 0,
+
+  // },
   // { obstacleType: 'C', width: 60, height: 100, weight: 2, positionY: 0 },
   // { obstacleType: 'D', width: 20, height: 100, weight: 5, positionY: 0 },
   // { obstacleType: 'E', width: 60, height: 160, weight: 1, positionY: 0 },

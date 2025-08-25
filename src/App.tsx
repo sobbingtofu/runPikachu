@@ -44,6 +44,8 @@ function App() {
             width={obstacle.width}
             height={obstacle.height}
             obstacleType={obstacle.obstacleType}
+            hitboxWidth={obstacle.hitboxWidth}
+            hitboxHeight={obstacle.hitboxHeight}
           />
         ))}
       </div>

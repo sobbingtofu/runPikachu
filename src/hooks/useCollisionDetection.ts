@@ -12,26 +12,34 @@ const useCollisionDetection = () => {
 
   function isColliding(
     pikachuHitbox: { x: number; y: number; width: number; height: number },
-    obstacle: { x: number; y: number; width: number; height: number },
+    obstacle: {
+      x: number;
+      y: number;
+      hitboxWidth: number;
+      hitboxHeight: number;
+    },
   ) {
     const collision =
-      pikachuHitbox.x < obstacle.x + obstacle.width &&
+      pikachuHitbox.x < obstacle.x + obstacle.hitboxWidth &&
       pikachuHitbox.x + pikachuHitbox.width > obstacle.x &&
-      pikachuHitbox.y < obstacle.y + obstacle.height &&
+      pikachuHitbox.y < obstacle.y + obstacle.hitboxHeight &&
       pikachuHitbox.y + pikachuHitbox.height > obstacle.y;
 
     return collision;
   }
 
   // 장애물 충돌 여부 계산
-  const isCollision = gameFundamentals.obstacles.some((obs) =>
-    isColliding(pikachuHitbox, {
-      x: obs.positionX,
-      y: obs.positionY,
-      width: obs.width,
-      height: obs.height,
-    }),
-  );
+  const isCollision = gameFundamentals.obstacles.some((obs) => {
+    const obsHitboxWidth = obs.hitboxWidth ?? obs.width;
+    const obsHitboxHeight = obs.hitboxHeight ?? obs.height;
+    const obsHitbox = {
+      x: obs.positionX + (obs.width - obsHitboxWidth) / 2,
+      y: obs.positionY + (obs.height - obsHitboxHeight) / 2,
+      hitboxWidth: obsHitboxWidth,
+      hitboxHeight: obsHitboxHeight,
+    };
+    return isColliding(pikachuHitbox, obsHitbox);
+  });
   return { isCollision, pikachuHitbox };
 };
 

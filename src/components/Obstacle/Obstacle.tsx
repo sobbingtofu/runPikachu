@@ -9,10 +9,14 @@ const Obstacle: React.FC<ObstacleType> = ({
   width,
   height,
   obstacleType,
+  hitboxWidth,
+  hitboxHeight,
 }) => {
+  const obstacleClass = `obstacle ${obstacleType}`;
+  const showHitbox = false; // 디버깅용
   return (
     <div
-      className='obstacle'
+      className={obstacleClass}
       style={{
         left: `${positionX}px`,
         bottom: `${positionY}px`,
@@ -20,7 +24,20 @@ const Obstacle: React.FC<ObstacleType> = ({
         height: `${height}px`,
       }}
     >
-      {obstacleType}
+      {showHitbox && (
+        <div
+          style={{
+            position: 'absolute',
+            left: `${(width - (hitboxWidth ?? width)) / 2}px`,
+            bottom: `${(height - (hitboxHeight ?? height)) / 2}px`,
+            width: `${hitboxWidth}px`,
+            height: `${hitboxHeight}px`,
+            border: '2px solid red',
+            pointerEvents: 'none',
+            boxSizing: 'border-box',
+          }}
+        />
+      )}
     </div>
   );
 };

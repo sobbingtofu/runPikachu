@@ -1,7 +1,11 @@
 /* src/components/Obstacle/Obstacle.css */
 .obstacle {
   position: absolute;
-  background-color: green; /* 장애물 색상 */
-  /* border: 2px solid darkgreen; */ /* 필요 시 테두리 */
-  box-sizing: border-box; /* 패딩, 보더가 너비/높이에 포함되도록 */
+  position: absolute;
+  box-sizing: border-box; /* 패딩, 보더를 너비/높이에 포함 */
+}
+
+.obstacle.diglett01 {
+  background-image: url('/assets/obstacles/diglett01.png');
+  background-size: cover;
 }
