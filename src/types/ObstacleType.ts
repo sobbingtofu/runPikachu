@@ -7,4 +7,6 @@ export interface ObstacleType {
   obstacleType: string;
   hitboxWidth: number;
   hitboxHeight: number;
+  offsetX: number;
+  offsetY: number;
 }

@@ -1,7 +1,6 @@
 /* src/components/Obstacle/Obstacle.css */
 .obstacle {
   position: absolute;
-  position: absolute;
   box-sizing: border-box; /* 패딩, 보더를 너비/높이에 포함 */
 }
 

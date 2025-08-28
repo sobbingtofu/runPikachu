@@ -9,37 +9,47 @@ const useCollisionDetection = () => {
     width: pikachuState.pikachuWidth ? pikachuState.pikachuWidth - 30 : 80,
     height: pikachuState.pikachuHeight ? pikachuState.pikachuHeight - 30 : 53,
   };
-
+  // 장애물 충돌 여부 계산 함수
   function isColliding(
     pikachuHitbox: { x: number; y: number; width: number; height: number },
     obstacle: {
-      x: number;
-      y: number;
+      positionX: number;
+      positionY: number;
+      width: number;
+      height: number;
       hitboxWidth: number;
       hitboxHeight: number;
+      offsetX: number;
+      offsetY: number;
     },
   ) {
-    const collision =
-      pikachuHitbox.x < obstacle.x + obstacle.hitboxWidth &&
-      pikachuHitbox.x + pikachuHitbox.width > obstacle.x &&
-      pikachuHitbox.y < obstacle.y + obstacle.hitboxHeight &&
-      pikachuHitbox.y + pikachuHitbox.height > obstacle.y;
+    const obsHitbox = {
+      positionX:
+        obstacle.positionX +
+        (obstacle.width - obstacle.hitboxWidth) / 2 +
+        obstacle.offsetX,
+      positionY:
+        obstacle.positionY +
+        (obstacle.height - obstacle.hitboxHeight) / 2 +
+        obstacle.offsetY,
+      width: obstacle.hitboxWidth,
+      height: obstacle.hitboxHeight,
+    };
 
-    return collision;
+    const collisionTF =
+      pikachuHitbox.x < obsHitbox.positionX + obsHitbox.width &&
+      pikachuHitbox.x + pikachuHitbox.width > obsHitbox.positionX &&
+      pikachuHitbox.y < obsHitbox.positionY + obsHitbox.height &&
+      pikachuHitbox.y + pikachuHitbox.height > obsHitbox.positionY;
+
+    return collisionTF;
   }
 
-  // 장애물 충돌 여부 계산
+  // 장애물 충돌 여부 계산 수행
   const isCollision = gameFundamentals.obstacles.some((obs) => {
-    const obsHitboxWidth = obs.hitboxWidth ?? obs.width;
-    const obsHitboxHeight = obs.hitboxHeight ?? obs.height;
-    const obsHitbox = {
-      x: obs.positionX + (obs.width - obsHitboxWidth) / 2,
-      y: obs.positionY + (obs.height - obsHitboxHeight) / 2,
-      hitboxWidth: obsHitboxWidth,
-      hitboxHeight: obsHitboxHeight,
-    };
-    return isColliding(pikachuHitbox, obsHitbox);
+    return isColliding(pikachuHitbox, obs);
   });
+
   return { isCollision, pikachuHitbox };
 };
 

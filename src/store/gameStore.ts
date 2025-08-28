@@ -107,8 +107,10 @@ export const RANDOM_OBSTACLE_TYPES = [
     height: 43,
     weight: 5,
     positionY: 0,
-    hitboxWidth: 32,
-    hitboxHeight: 40,
+    hitboxWidth: 20,
+    hitboxHeight: 38,
+    offsetX: -6,
+    offsetY: -3,
   }, // default
   // {
   //   obstacleType: 'alolanExeggutor',
