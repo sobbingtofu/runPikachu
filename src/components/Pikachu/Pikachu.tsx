@@ -49,6 +49,7 @@ const Pikachu = () => {
     };
   }, [gameFundamentals.isGameStarted]);
 
+  // 사망 애니메이션 트리거
   useEffect(() => {
     if (gameOverAnimationPlayingRef.current) {
       setPikachuState((prev) => ({
@@ -58,18 +59,17 @@ const Pikachu = () => {
     }
   }, [gameOverAnimationPlayingRef]);
 
+  // 사망 애니메이션
   useEffect(() => {
     if (pikachuState.isDead) {
       if (pikachuState.isDead) {
         const animationTimer = setTimeout(() => {
-          // 1초 후, 게임 오버 애니메이션이 끝났음을 알립니다.
           setGameFundamentals((prev) => ({
             ...prev,
             isGameOverAnimationPlaying: false,
           }));
         }, 200); // 200ms
 
-        // 클린업 함수: 컴포넌트가 언마운트되거나 isDead 상태가 바뀌면 타이머를 취소합니다.
         return () => {
           clearTimeout(animationTimer);
         };

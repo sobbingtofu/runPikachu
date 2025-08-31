@@ -1,17 +1,19 @@
 import { useEffect } from 'react';
 import { useGameStore, gameOverAnimationPlayingRef } from '../store/gameStore';
 import useCollisionDetection from './useCollisionDetection';
-import {
-  handleKeyUpSpaceBar,
-  handleKeyDownSpaceBar,
-  handleKeyDownArrowDown,
-  handleKeyUpArrowDown,
-} from '../utils/keyboardPressUtils';
+import { useKeyboardHandlers } from './useKeyboardHandlers';
 
 const useGameCore = () => {
   const { setGameFundamentals, setPikachuState } = useGameStore();
 
   const { isCollision } = useCollisionDetection();
+
+  const {
+    handleKeyUpSpaceBar,
+    handleKeyDownSpaceBar,
+    handleKeyDownArrowDown,
+    handleKeyUpArrowDown,
+  } = useKeyboardHandlers();
 
   // 키보드 이벤트 핸들러 할당
   useEffect(() => {
