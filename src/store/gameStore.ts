@@ -7,6 +7,7 @@ type GameFundamentalsType = {
   score: number;
   obstacles: ObstacleType[];
   isGameOverAnimationPlaying: boolean;
+  isBoardVisible: boolean;
 };
 
 type PikachuType = {
@@ -39,6 +40,7 @@ export const useGameStore = create<GameState>((set) => ({
     score: 0,
     obstacles: [],
     isGameOverAnimationPlaying: false,
+    isBoardVisible: false,
   },
 
   setGameFundamentals: (update) =>

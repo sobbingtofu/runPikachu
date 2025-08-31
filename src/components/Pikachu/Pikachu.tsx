@@ -4,12 +4,7 @@ import './Pikachu.css';
 import { useGameStore } from '../../store/gameStore';
 
 const Pikachu = () => {
-  const {
-    pikachuState,
-    gameFundamentals,
-    setPikachuState,
-    setGameFundamentals,
-  } = useGameStore();
+  const { pikachuState, gameFundamentals } = useGameStore();
   const [frame, setFrame] = useState(0); // 달리는 피카츄 애니메이션 프레임
   const animationFrameId = useRef<number | null>(null); // requestAnimationFrame ID 저장 ref
   const lastFrameTime = useRef(0); // 마지막 프레임이 업데이트된 시간 저장 ref
@@ -45,38 +40,6 @@ const Pikachu = () => {
       }
     };
   }, [gameFundamentals.isGameStarted]);
-
-  // 사망 애니메이션 트리거
-  useEffect(() => {
-    if (
-      gameFundamentals.isGameOver &&
-      !gameFundamentals.isGameStarted &&
-      gameFundamentals.isGameOverAnimationPlaying
-    ) {
-      setPikachuState({ isDead: true });
-    }
-  }, [
-    gameFundamentals.isGameOver,
-    gameFundamentals.isGameStarted,
-    gameFundamentals.isGameOverAnimationPlaying,
-    setPikachuState,
-  ]);
-
-  // 사망 애니메이션
-  useEffect(() => {
-    if (pikachuState.isDead) {
-      const animationTimer = setTimeout(() => {
-        setGameFundamentals((prev) => ({
-          ...prev,
-          isGameOverAnimationPlaying: false,
-        }));
-      }, 200);
-
-      return () => {
-        clearTimeout(animationTimer);
-      };
-    }
-  }, [pikachuState.isDead, setGameFundamentals]);
 
   const pikachuClass = `pikachu pikachu-frame-${frame}
     ${pikachuState.isJumping ? 'jumping' : ''}

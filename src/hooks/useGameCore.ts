@@ -1,17 +1,10 @@
 import { useEffect } from 'react';
-import { useGameStore } from '../store/gameStore';
-import useCollisionDetection from './useCollisionDetection';
+
 import { useKeyboardHandlers } from './useKeyboardHandlers';
+import { useHandleCollision } from './useHandleCollision';
 
 const useGameCore = () => {
-  const {
-    gameFundamentals,
-    pikachuState,
-    setGameFundamentals,
-    setPikachuState,
-  } = useGameStore();
-
-  const { isCollision } = useCollisionDetection();
+  useHandleCollision();
 
   const {
     handleKeyUpSpaceBar,
@@ -35,22 +28,6 @@ const useGameCore = () => {
       window.removeEventListener('keyup', handleKeyUpArrowDown);
     };
   }, [handleKeyDownSpaceBar, handleKeyUpSpaceBar]);
-
-  // 충돌 시 게임 오버 처리
-  useEffect(() => {
-    if (isCollision) {
-      // gameOverAnimationPlayingRef.current = true;
-      setGameFundamentals((prev) => ({
-        ...prev,
-        isGameOver: true,
-        isGameStarted: false,
-        isGameOverAnimationPlaying: true,
-      }));
-      setPikachuState({
-        isJumping: false,
-      });
-    }
-  }, [isCollision]);
 
   // useEffect(() => {
   //   if (

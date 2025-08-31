@@ -36,6 +36,10 @@ export const useKeyboardHandlers = () => {
         }
         isSpacePressedRef.current = true;
 
+        if (gameFundamentals.isGameOverAnimationPlaying) {
+          return;
+        }
+
         // 1. 게임 시작
         if (!gameFundamentals.isGameStarted && !gameFundamentals.isGameOver) {
           setGameFundamentals({
@@ -96,6 +100,7 @@ export const useKeyboardHandlers = () => {
     [
       gameFundamentals.isGameOver,
       gameFundamentals.isGameStarted,
+      gameFundamentals.isGameOverAnimationPlaying,
       pikachuState.isJumping,
       setGameFundamentals,
       setPikachuState,
