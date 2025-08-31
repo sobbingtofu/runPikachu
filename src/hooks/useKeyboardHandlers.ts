@@ -9,6 +9,7 @@ import {
 } from '../store/gameStore';
 import { useCloseBoard } from './useCloseBoard';
 import { useRerunPikachu } from './useRerunPikachu';
+import { useTriggerPikachuJump } from './useTriggerPikachuJump';
 
 export const useKeyboardHandlers = () => {
   const {
@@ -20,6 +21,7 @@ export const useKeyboardHandlers = () => {
 
   const { closeBoard } = useCloseBoard();
   const { reRunPikachu } = useRerunPikachu();
+  const { triggerPikachuJump } = useTriggerPikachuJump();
 
   const handleKeyUpSpaceBar = useCallback((e: KeyboardEvent) => {
     if (e.code === 'Space') {
@@ -52,24 +54,8 @@ export const useKeyboardHandlers = () => {
         }
 
         // 2. 점프 시작 로직
-        if (
-          gameFundamentals.isGameStarted &&
-          !gameFundamentals.isGameOver &&
-          canJumpRef.current &&
-          jumpCountRef.current < 2
-        ) {
-          if (jumpCountRef.current >= 1) {
-            canJumpRef.current = false;
-          }
-          if (jumpAnimationFrameIdRef.current) {
-            cancelAnimationFrame(jumpAnimationFrameIdRef.current);
-            jumpAnimationFrameIdRef.current = null;
-          }
-          jumpCountRef.current += 1;
-          setPikachuState({
-            isJumping: true,
-            jumpTrigger: Date.now(), // 매번 새로운 값
-          });
+        if (gameFundamentals.isGameStarted && !gameFundamentals.isGameOver) {
+          triggerPikachuJump();
         }
 
         // 3. 게임 재시작 로직
