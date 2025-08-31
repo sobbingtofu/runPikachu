@@ -111,15 +111,18 @@ export const RANDOM_OBSTACLE_TYPES = [
     hitboxHeight: 38,
     offsetX: -6,
     offsetY: -3,
-  }, // default
-  // {
-  //   obstacleType: 'alolanExeggutor',
-  //   width: 60,
-  //   height: 60,
-  //   weight: 2,
-  //   positionY: 0,
-
-  // },
+  },
+  {
+    obstacleType: 'alolanExeggutor',
+    width: 100,
+    height: 100,
+    weight: 2,
+    positionY: 0,
+    hitboxWidth: 75,
+    hitboxHeight: 85,
+    offsetX: -3,
+    offsetY: 0,
+  },
   // { obstacleType: 'C', width: 60, height: 100, weight: 2, positionY: 0 },
   // { obstacleType: 'D', width: 20, height: 100, weight: 5, positionY: 0 },
   // { obstacleType: 'E', width: 60, height: 160, weight: 1, positionY: 0 },

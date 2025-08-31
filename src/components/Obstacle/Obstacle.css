@@ -8,3 +8,8 @@
   background-image: url('/assets/obstacles/diglett01.png');
   background-size: cover;
 }
+
+.obstacle.alolanExeggutor {
+  background-image: url('/assets/obstacles/alolanExeggutor01.png');
+  background-size: cover;
+}
