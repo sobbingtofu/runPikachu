@@ -139,7 +139,7 @@ export const useKeyboardHandlers = () => {
   const handleKeyDownEnter = (e: KeyboardEvent) => {
     if (e.code === 'Enter') {
       e.preventDefault();
-      if (!gameFundamentals.isBoardVisible) {
+      if (!gameFundamentals.isBoardVisible && !gameFundamentals.isGameStarted) {
         setGameFundamentals({ isBoardVisible: true });
       }
     }

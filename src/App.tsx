@@ -32,21 +32,19 @@ function App() {
       <h1>Run Pikachu!</h1>
       {gameFundamentals.isGameOver &&
       !gameFundamentals.isGameOverAnimationPlaying ? (
-        <>
-          <p>Press Spacebar to restart the game</p>
-          <p>Press Enter to reopen the Highscore Board</p>
-        </>
+        <p>Press Spacebar to restart the game</p>
       ) : (
-        <>
-          <p>Press Spacebar to start the game or jump</p>
-          <p>Press Enter to open the Highscore Board</p>
-        </>
+        <p>Press Spacebar to start the game or jump</p>
       )}
-      <p>Press ↓ to fast-fall while jumping</p>
+
+      {gameFundamentals.isGameStarted ||
+      gameFundamentals.isGameOverAnimationPlaying ? (
+        <p>Press ↓ to fast-fall while jumping</p>
+      ) : (
+        <p>Press Enter to open the Highscore Board</p>
+      )}
       <p>Score: {gameFundamentals.score}</p>
-      {/* <p>{`게임시작: ${gameFundamentals.isGameStarted}`}</p> */}
-      {/* <p>{`게임오버: ${gameFundamentals.isGameOver}`}</p> */}
-      {/* <p>{`쩜프중: ${pikachuState.isJumping}`}</p> */}
+
       <div className='game-area' style={gameAreaStyle}>
         <Pikachu />
         {gameFundamentals.obstacles.map((obstacle) => (
