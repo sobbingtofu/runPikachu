@@ -8,7 +8,7 @@ import {
   useGameStore,
 } from '../store/gameStore';
 import { useCloseBoard } from './useCloseBoard';
-// import { useRerunPikachu } from './useRerunPikachu';
+import { useRerunPikachu } from './useRerunPikachu';
 
 export const useKeyboardHandlers = () => {
   const {
@@ -19,7 +19,7 @@ export const useKeyboardHandlers = () => {
   } = useGameStore();
 
   const { closeBoard } = useCloseBoard();
-  // const { reRunPikachu } = useRerunPikachu();
+  const { reRunPikachu } = useRerunPikachu();
 
   const handleKeyUpSpaceBar = useCallback((e: KeyboardEvent) => {
     if (e.code === 'Space') {
@@ -73,15 +73,20 @@ export const useKeyboardHandlers = () => {
         }
 
         // 3. 게임 재시작 로직
-        // if (!gameFundamentals.isGameStarted && gameFundamentals.isGameOver) {
-        //   reRunPikachu();
-        // }
+        if (
+          !gameFundamentals.isGameStarted &&
+          gameFundamentals.isGameOver &&
+          !gameFundamentals.isBoardVisible
+        ) {
+          reRunPikachu();
+        }
       }
     },
     [
       gameFundamentals.isGameOver,
       gameFundamentals.isGameStarted,
       gameFundamentals.isGameOverAnimationPlaying,
+      gameFundamentals.isBoardVisible,
       pikachuState.isJumping,
       setGameFundamentals,
       setPikachuState,

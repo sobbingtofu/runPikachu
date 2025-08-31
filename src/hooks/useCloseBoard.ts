@@ -3,7 +3,7 @@ import { useGameStore } from '../store/gameStore';
 export const useCloseBoard = () => {
   const { setGameFundamentals } = useGameStore();
   const closeBoard = () => {
-    setGameFundamentals({ isBoardVisible: false });
+    setGameFundamentals((prev) => ({ ...prev, isBoardVisible: false }));
   };
 
   return { closeBoard };

@@ -4,14 +4,13 @@ import Obstacle from './components/Obstacle/Obstacle';
 import { useGameStore, GAME_AREA_WIDTH } from './store/gameStore';
 import useGameCore from './hooks/useGameCore';
 import usePikachuJump from './hooks/usePikachuJump';
-import useObstacleSpawner from './hooks/useObstacleSpawner';
-import useGameTimer from './hooks/useGameTimer';
+import useObstacleSpawner from './hooks/useGameLoop';
 import HighScoreBoard from './components/GameOverBoard/HighScoreBoard';
 
 function App() {
   const { gameFundamentals } = useGameStore();
 
-  useGameTimer();
+  // useGameTimer();
   useGameCore();
   usePikachuJump();
   useObstacleSpawner();
