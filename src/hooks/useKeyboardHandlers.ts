@@ -2,8 +2,6 @@ import { useCallback } from 'react';
 import {
   isSpacePressedRef,
   canJumpRef,
-  jumpCountRef,
-  jumpAnimationFrameIdRef,
   isFastFallingRef,
   useGameStore,
 } from '../store/gameStore';
