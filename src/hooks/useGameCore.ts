@@ -9,6 +9,7 @@ import {
   INITIAL_GROUND_Y_VALUE,
   jumpCountRef,
   elapsedTimeRef,
+  gameOverAnimationPlayingRef,
 } from '../store/gameStore';
 import useCollisionDetection from './useCollisionDetection';
 
@@ -84,7 +85,11 @@ const useGameCore = () => {
           setPikachuState({
             isJumping: false,
             pikachuValueY: INITIAL_GROUND_Y_VALUE,
+            isDead: false,
           });
+          jumpCountRef.current = 0;
+          gameOverAnimationPlayingRef.current = false;
+
           currentPikachuYRef.current = INITIAL_GROUND_Y_VALUE;
           isSpacePressedRef.current = false;
           canJumpRef.current = true;
@@ -135,11 +140,15 @@ const useGameCore = () => {
   // 충돌 시 게임 오버 처리
   useEffect(() => {
     if (isCollision) {
+      gameOverAnimationPlayingRef.current = true;
       setGameFundamentals((prev) => ({
         ...prev,
         isGameOver: true,
         isGameStarted: false,
       }));
+      setPikachuState({
+        isJumping: false,
+      });
     }
   }, [isCollision]);
 };

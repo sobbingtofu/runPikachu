@@ -22,3 +22,25 @@
 .pikachu.stopped {
   background-image: url('/assets/runkachu-stopped.png');
 }
+
+@keyframes dead-animation {
+  50% {
+    transform: rotate(-90deg);
+    bottom: 70px;
+  }
+
+  100% {
+    transform: rotate(-180deg);
+    bottom: -20px;
+  }
+}
+
+.pikachu.dead {
+  background-image: url('/assets/runkachu-dead.png');
+
+  animation-name: dead-animation;
+  animation-duration: 0.2s;
+  animation-timing-function: ease-in-out;
+
+  animation-fill-mode: forwards;
+}

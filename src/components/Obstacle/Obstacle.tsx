@@ -15,7 +15,10 @@ const Obstacle: React.FC<ObstacleType> = ({
   offsetY,
 }) => {
   const obstacleClass = `obstacle ${obstacleType}`;
-  const showHitbox = true; // 디버깅용
+
+  // 디버깅용
+  const showHitbox = false;
+
   const calcHitboxLeft = () => (width - hitboxWidth) / 2 + (offsetX || 0);
   const calcHitboxBottom = () => (height - hitboxHeight) / 2 + (offsetY || 0);
   return (
@@ -26,7 +29,7 @@ const Obstacle: React.FC<ObstacleType> = ({
         bottom: `${positionY}px`,
         width: `${width}px`,
         height: `${height}px`,
-        border: '2px solid blue',
+        // border: '2px solid blue',
       }}
     >
       {showHitbox && (

@@ -30,9 +30,9 @@ function App() {
       <p>Press 'Spacebar' to start the game or Jump</p>
       <p>Press '↓' to fast-fall while jumping</p>
       <p>Score: {gameFundamentals.score}</p>
-      <p>{`게임시작: ${gameFundamentals.isGameStarted}`}</p>
-      <p>{`게임오버: ${gameFundamentals.isGameOver}`}</p>
-      <p>{`쩜프중: ${pikachuState.isJumping}`}</p>
+      {/* <p>{`게임시작: ${gameFundamentals.isGameStarted}`}</p> */}
+      {/* <p>{`게임오버: ${gameFundamentals.isGameOver}`}</p> */}
+      {/* <p>{`쩜프중: ${pikachuState.isJumping}`}</p> */}
       <div className='game-area' style={gameAreaStyle}>
         <Pikachu />
         {gameFundamentals.obstacles.map((obstacle) => (

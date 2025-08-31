@@ -12,6 +12,7 @@ type PikachuType = {
   pikachuWidth?: number;
   pikachuHeight?: number;
   isJumping: boolean;
+  isDead: boolean;
   pikachuValueY: number;
   pikachuValueX: number;
   jumpTrigger: number;
@@ -25,7 +26,9 @@ interface GameState {
       | ((prev: GameFundamentalsType) => GameFundamentalsType),
   ) => void;
   pikachuState: PikachuType;
-  setPikachuState: (update: Partial<PikachuType>) => void;
+  setPikachuState: (
+    update: Partial<PikachuType> | ((prev: PikachuType) => PikachuType),
+  ) => void;
 }
 
 export const useGameStore = create<GameState>((set) => ({
@@ -48,6 +51,7 @@ export const useGameStore = create<GameState>((set) => ({
     pikachuValueY: 0,
     pikachuValueX: 50,
     isJumping: false,
+    isDead: false,
     pikachuWidth: 80,
     pikachuHeight: 53,
     jumpTrigger: 0,
@@ -64,6 +68,7 @@ export const canJumpRef = { current: false };
 export const isSpacePressedRef = { current: false };
 export const isFastFallingRef = { current: false };
 export const elapsedTimeRef = { current: 0 };
+export const gameOverAnimationPlayingRef = { current: false };
 
 export const jumpCountRef = { current: 0 };
 
