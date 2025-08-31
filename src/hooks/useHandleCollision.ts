@@ -10,7 +10,6 @@ export const useHandleCollision = () => {
   // 충돌 시 게임 오버 처리
   useEffect(() => {
     if (isCollision) {
-      // gameOverAnimationPlayingRef.current = true;
       setGameFundamentals((prev) => ({
         ...prev,
         isGameOver: true,
@@ -26,6 +25,7 @@ export const useHandleCollision = () => {
         setGameFundamentals((prev) => ({
           ...prev,
           isGameOverAnimationPlaying: false,
+          isBoardVisible: true,
         }));
         console.log('사망 애니메이션 시간 지남');
       }, 500);

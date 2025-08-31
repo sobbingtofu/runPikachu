@@ -11,6 +11,8 @@ const useGameCore = () => {
     handleKeyDownSpaceBar,
     handleKeyDownArrowDown,
     handleKeyUpArrowDown,
+    handleKeyDownEsc,
+    handleKeyDownEnter,
   } = useKeyboardHandlers();
 
   // 키보드 이벤트 핸들러 할당
@@ -21,29 +23,25 @@ const useGameCore = () => {
     window.addEventListener('keydown', handleKeyDownArrowDown);
     window.addEventListener('keyup', handleKeyUpArrowDown);
 
+    window.addEventListener('keydown', handleKeyDownEsc);
+
+    window.addEventListener('keydown', handleKeyDownEnter);
+
     return () => {
       window.removeEventListener('keydown', handleKeyDownSpaceBar);
       window.removeEventListener('keyup', handleKeyUpSpaceBar);
       window.removeEventListener('keydown', handleKeyDownArrowDown);
       window.removeEventListener('keyup', handleKeyUpArrowDown);
+      window.removeEventListener('keydown', handleKeyDownEsc);
+      window.removeEventListener('keydown', handleKeyDownEnter);
     };
-  }, [handleKeyDownSpaceBar, handleKeyUpSpaceBar]);
-
-  // useEffect(() => {
-  //   if (
-  //     pikachuState.isDead &&
-  //     gameFundamentals.isGameOver &&
-  //     !gameFundamentals.isGameStarted &&
-  //     !gameFundamentals.isGameOverAnimationPlaying
-  //   ) {
-  //     console.log('하이스코어 보드 출력');
-  //   }
-  // }, [
-  //   gameFundamentals.isGameOverAnimationPlaying,
-  //   gameFundamentals.isGameOver,
-  //   gameFundamentals.isGameStarted,
-  //   pikachuState.isDead,
-  // ]);
+  }, [
+    handleKeyDownSpaceBar,
+    handleKeyUpSpaceBar,
+    handleKeyDownArrowDown,
+    handleKeyUpArrowDown,
+    handleKeyDownEsc,
+  ]);
 };
 
 export default useGameCore;

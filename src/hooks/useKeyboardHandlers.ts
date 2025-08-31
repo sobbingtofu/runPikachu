@@ -10,6 +10,7 @@ import {
   isFastFallingRef,
   useGameStore,
 } from '../store/gameStore';
+import { useCloseBoard } from './useCloseBoard';
 
 export const useKeyboardHandlers = () => {
   const {
@@ -18,6 +19,8 @@ export const useKeyboardHandlers = () => {
     pikachuState,
     setPikachuState,
   } = useGameStore();
+
+  const { closeBoard } = useCloseBoard();
 
   const handleKeyUpSpaceBar = useCallback((e: KeyboardEvent) => {
     if (e.code === 'Space') {
@@ -122,10 +125,32 @@ export const useKeyboardHandlers = () => {
     if (e.code === 'ArrowDown') isFastFallingRef.current = false;
   };
 
+  // ESC 눌림 이벤트 핸들러
+  const handleKeyDownEsc = (e: KeyboardEvent) => {
+    if (e.code === 'Escape') {
+      e.preventDefault();
+      if (gameFundamentals.isBoardVisible) {
+        closeBoard();
+      }
+    }
+  };
+
+  // 엔터 키 눌림 이벤트 핸들러
+  const handleKeyDownEnter = (e: KeyboardEvent) => {
+    if (e.code === 'Enter') {
+      e.preventDefault();
+      if (!gameFundamentals.isBoardVisible) {
+        setGameFundamentals({ isBoardVisible: true });
+      }
+    }
+  };
+
   return {
     handleKeyUpSpaceBar,
     handleKeyDownSpaceBar,
     handleKeyDownArrowDown,
     handleKeyUpArrowDown,
+    handleKeyDownEsc,
+    handleKeyDownEnter,
   };
 };
