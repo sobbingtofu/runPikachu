@@ -6,6 +6,7 @@ type GameFundamentalsType = {
   isGameOver: boolean;
   score: number;
   obstacles: ObstacleType[];
+  isGameOverAnimationPlaying: boolean;
 };
 
 type PikachuType = {
@@ -37,6 +38,7 @@ export const useGameStore = create<GameState>((set) => ({
     isGameOver: false,
     score: 0,
     obstacles: [],
+    isGameOverAnimationPlaying: false,
   },
 
   setGameFundamentals: (update) =>
@@ -68,7 +70,6 @@ export const canJumpRef = { current: false };
 export const isSpacePressedRef = { current: false };
 export const isFastFallingRef = { current: false };
 export const elapsedTimeRef = { current: 0 };
-export const gameOverAnimationPlayingRef = { current: false };
 
 export const jumpCountRef = { current: 0 };
 

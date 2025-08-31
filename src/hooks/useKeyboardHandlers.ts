@@ -5,7 +5,6 @@ import {
   jumpCountRef,
   jumpAnimationFrameIdRef,
   INITIAL_GROUND_Y_VALUE,
-  gameOverAnimationPlayingRef,
   currentPikachuYRef,
   elapsedTimeRef,
   isFastFallingRef,
@@ -78,6 +77,7 @@ export const useKeyboardHandlers = () => {
             isGameOver: false,
             score: 0,
             obstacles: [],
+            isGameOverAnimationPlaying: false,
           });
           setPikachuState({
             isJumping: false,
@@ -85,7 +85,6 @@ export const useKeyboardHandlers = () => {
             isDead: false,
           });
           jumpCountRef.current = 0;
-          gameOverAnimationPlayingRef.current = false;
 
           currentPikachuYRef.current = INITIAL_GROUND_Y_VALUE;
           isSpacePressedRef.current = false;

@@ -2,6 +2,7 @@
 .obstacle {
   position: absolute;
   box-sizing: border-box; /* 패딩, 보더를 너비/높이에 포함 */
+  z-index: 1;
 }
 
 .obstacle.diglett01 {

@@ -1,17 +1,14 @@
 // src/components/Pikachu/Pikachu.tsx
 import { useState, useEffect, useRef } from 'react';
 import './Pikachu.css';
-import {
-  gameOverAnimationPlayingRef,
-  useGameStore,
-} from '../../store/gameStore';
+import { useGameStore } from '../../store/gameStore';
 
 const Pikachu = () => {
   const {
     pikachuState,
     gameFundamentals,
-    setGameFundamentals,
     setPikachuState,
+    setGameFundamentals,
   } = useGameStore();
   const [frame, setFrame] = useState(0); // 달리는 피카츄 애니메이션 프레임
   const animationFrameId = useRef<number | null>(null); // requestAnimationFrame ID 저장 ref
@@ -51,43 +48,47 @@ const Pikachu = () => {
 
   // 사망 애니메이션 트리거
   useEffect(() => {
-    if (gameOverAnimationPlayingRef.current) {
-      setPikachuState((prev) => ({
-        ...prev,
-        isDead: true,
-      }));
+    if (
+      gameFundamentals.isGameOver &&
+      !gameFundamentals.isGameStarted &&
+      gameFundamentals.isGameOverAnimationPlaying
+    ) {
+      setPikachuState({ isDead: true });
     }
-  }, [gameOverAnimationPlayingRef]);
+  }, [
+    gameFundamentals.isGameOver,
+    gameFundamentals.isGameStarted,
+    gameFundamentals.isGameOverAnimationPlaying,
+    setPikachuState,
+  ]);
 
   // 사망 애니메이션
   useEffect(() => {
     if (pikachuState.isDead) {
-      if (pikachuState.isDead) {
-        const animationTimer = setTimeout(() => {
-          setGameFundamentals((prev) => ({
-            ...prev,
-            isGameOverAnimationPlaying: false,
-          }));
-        }, 200); // 200ms
+      const animationTimer = setTimeout(() => {
+        setGameFundamentals((prev) => ({
+          ...prev,
+          isGameOverAnimationPlaying: false,
+        }));
+      }, 200);
 
-        return () => {
-          clearTimeout(animationTimer);
-        };
-      }
+      return () => {
+        clearTimeout(animationTimer);
+      };
     }
-  }, [pikachuState.isDead]);
+  }, [pikachuState.isDead, setGameFundamentals]);
 
   const pikachuClass = `pikachu pikachu-frame-${frame}
     ${pikachuState.isJumping ? 'jumping' : ''}
     ${
       (gameFundamentals.isGameOver || !gameFundamentals.isGameStarted) &&
-      gameOverAnimationPlayingRef.current
+      pikachuState.isDead
         ? 'dead'
         : ''
     }
         ${
           (gameFundamentals.isGameOver || !gameFundamentals.isGameStarted) &&
-          !gameOverAnimationPlayingRef.current
+          !pikachuState.isDead
             ? 'stopped'
             : ''
         }`;

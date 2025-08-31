@@ -4,6 +4,7 @@
   aspect-ratio: 3 / 2; */
   position: absolute; /* 게임 컨테이너 내에서 위치 지정 */
   background-size: cover; /* 이미지가 div에 맞춰지도록 */
+  z-index: 2;
 }
 
 .pikachu-frame-0 {
