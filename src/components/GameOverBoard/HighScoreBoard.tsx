@@ -1,10 +1,20 @@
 import { useCloseBoard } from '../../hooks/useCloseBoard';
+import { useRerunPikachu } from '../../hooks/useRerunPikachu';
 import { useGameStore } from '../../store/gameStore';
+import BoardButton from '../BoardButton/BoardButton';
+import ButtonContainer from '../ButtonContainer/ButtonContainer';
 import './HighScoreBoard.css';
 
 const HighScoreBoard = () => {
   const { closeBoard } = useCloseBoard();
   const { gameFundamentals } = useGameStore();
+  const { reRunPikachu } = useRerunPikachu();
+
+  const handleRegister = () => {
+    // TODO: 내 점수 등록하기 로직 구현
+    console.log('Registering score...');
+  };
+
   return (
     <div className='board-backdrop'>
       <div className='board-modal'>
@@ -15,14 +25,15 @@ const HighScoreBoard = () => {
         <h2>High Score</h2>
         <p>하이스코어 목록 표시 예정</p>
         <p>현재 점수: {gameFundamentals.score}</p>
-        <div className='button-container'>
-          <button className='rerun button' onClick={closeBoard}>
+
+        <ButtonContainer>
+          <BoardButton type='rerun' onClick={reRunPikachu}>
             다시 달리기
-          </button>
-          <button className='register button' onClick={() => {}}>
+          </BoardButton>
+          <BoardButton type='register' onClick={handleRegister}>
             내 점수 등록하기
-          </button>
-        </div>
+          </BoardButton>
+        </ButtonContainer>
       </div>
     </div>
   );

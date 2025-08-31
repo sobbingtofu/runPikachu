@@ -4,13 +4,11 @@ import {
   canJumpRef,
   jumpCountRef,
   jumpAnimationFrameIdRef,
-  INITIAL_GROUND_Y_VALUE,
-  currentPikachuYRef,
-  elapsedTimeRef,
   isFastFallingRef,
   useGameStore,
 } from '../store/gameStore';
 import { useCloseBoard } from './useCloseBoard';
+// import { useRerunPikachu } from './useRerunPikachu';
 
 export const useKeyboardHandlers = () => {
   const {
@@ -21,6 +19,7 @@ export const useKeyboardHandlers = () => {
   } = useGameStore();
 
   const { closeBoard } = useCloseBoard();
+  // const { reRunPikachu } = useRerunPikachu();
 
   const handleKeyUpSpaceBar = useCallback((e: KeyboardEvent) => {
     if (e.code === 'Space') {
@@ -74,30 +73,9 @@ export const useKeyboardHandlers = () => {
         }
 
         // 3. 게임 재시작 로직
-        if (!gameFundamentals.isGameStarted && gameFundamentals.isGameOver) {
-          if (jumpAnimationFrameIdRef.current) {
-            cancelAnimationFrame(jumpAnimationFrameIdRef.current);
-            jumpAnimationFrameIdRef.current = null;
-          }
-          setGameFundamentals({
-            isGameStarted: true,
-            isGameOver: false,
-            score: 0,
-            obstacles: [],
-            isGameOverAnimationPlaying: false,
-          });
-          setPikachuState({
-            isJumping: false,
-            pikachuValueY: INITIAL_GROUND_Y_VALUE,
-            isDead: false,
-          });
-          jumpCountRef.current = 0;
-
-          currentPikachuYRef.current = INITIAL_GROUND_Y_VALUE;
-          isSpacePressedRef.current = false;
-          canJumpRef.current = true;
-          elapsedTimeRef.current = 0;
-        }
+        // if (!gameFundamentals.isGameStarted && gameFundamentals.isGameOver) {
+        //   reRunPikachu();
+        // }
       }
     },
     [

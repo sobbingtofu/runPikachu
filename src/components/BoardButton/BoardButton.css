@@ -1,0 +1,27 @@
+.button {
+  flex: 1;
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.button.rerun {
+  background-color: #f44336;
+}
+
+.button.rerun:hover {
+  background-color: #981d1d;
+}
+
+.button.register {
+  background-color: #28b7ab;
+}
+
+.button.register:hover {
+  background-color: #1e736c;
+}
