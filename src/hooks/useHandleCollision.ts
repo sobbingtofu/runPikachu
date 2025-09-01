@@ -1,11 +1,16 @@
 import { useEffect } from 'react';
-import useCollisionDetection from './useCollisionDetection';
 import { useGameStore } from '../store/gameStore';
+import { checkCollision } from '../logic/collisionDetectionLogic';
 
 export const useHandleCollision = () => {
-  const { setGameFundamentals, setPikachuState } = useGameStore();
+  const {
+    gameFundamentals,
+    pikachuState,
+    setGameFundamentals,
+    setPikachuState,
+  } = useGameStore();
 
-  const { isCollision } = useCollisionDetection();
+  const isCollision = checkCollision(gameFundamentals.obstacles, pikachuState);
 
   // 충돌 시 게임 오버 처리
   useEffect(() => {

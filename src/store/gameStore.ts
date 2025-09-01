@@ -10,9 +10,9 @@ type GameFundamentalsType = {
   isBoardVisible: boolean;
 };
 
-type PikachuType = {
-  pikachuWidth?: number;
-  pikachuHeight?: number;
+export type PikachuType = {
+  pikachuWidth: number;
+  pikachuHeight: number;
   isJumping: boolean;
   isDead: boolean;
   pikachuValueY: number;
