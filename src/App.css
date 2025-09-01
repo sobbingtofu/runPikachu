@@ -17,11 +17,9 @@ body {
   height: 100%;
 }
 
-.game-container {
-  width: 800px; /* 게임 영역 너비 */
-  height: 200px; /* 게임 영역 높이 */
-  /* border: 2px solid #333; */
-  background-color: #87ceeb; /* 하늘색 배경 */
-  position: relative; /* 자식 요소 포지셔닝을 위해 */
-  overflow: hidden; /* 영역 밖으로 나가는 요소 숨기기 */
+.game-area {
+  height: 450px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid black;
 }

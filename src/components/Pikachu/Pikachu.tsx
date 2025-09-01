@@ -12,7 +12,7 @@ const Pikachu = () => {
   const frameDurationRun = 90; // 각 프레임이 유지될 시간 (ms)
   const frameDurationJump = 125;
 
-  const showHitbox = true;
+  const showHitbox = false;
   const hitbox = getPikachuHitbox(pikachuState);
   const hitboxStyle = {
     position: 'absolute' as const,

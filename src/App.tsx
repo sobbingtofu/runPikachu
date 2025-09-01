@@ -6,6 +6,7 @@ import useGameCore from './hooks/useGameCore';
 import usePikachuJump from './hooks/usePikachuJump';
 import useGameLoop from './hooks/useGameLoop';
 import HighScoreBoard from './components/GameOverBoard/HighScoreBoard';
+import ScrollingBackground from './components/ScrollingBackground/ScrollingBackground';
 
 function App() {
   const { gameFundamentals } = useGameStore();
@@ -13,15 +14,6 @@ function App() {
   useGameCore();
   usePikachuJump();
   useGameLoop();
-
-  const gameAreaStyle = {
-    width: `${GAME_AREA_WIDTH}px`,
-    height: '450px',
-    backgroundColor: '#87ceeb',
-    position: 'relative' as 'relative',
-    overflow: 'hidden' as 'hidden',
-    border: '2px solid black',
-  };
 
   return (
     <div className='App'>
@@ -43,7 +35,16 @@ function App() {
       )}
       <p>Score: {gameFundamentals.score}</p>
 
-      <div className='game-area' style={gameAreaStyle}>
+      <div className={`game-area`} style={{ width: GAME_AREA_WIDTH }}>
+        <ScrollingBackground
+          src='/bg/bg-11.png'
+          speed={0.1}
+          isGameStarted={
+            gameFundamentals.isGameStarted &&
+            !gameFundamentals.isGameOver &&
+            !gameFundamentals.isBoardVisible
+          }
+        />
         <Pikachu />
         {gameFundamentals.obstacles.map((obstacle) => (
           <Obstacle
