@@ -1,10 +1,16 @@
 // src/components/Obstacle/Obstacle.tsx
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './Obstacle.css';
 import type { ObstacleType } from '../../types/ObstacleType';
 
-const Obstacle: React.FC<ObstacleType> = ({
-  positionX,
+// positionX를 props에서 제외합니다. 이 값은 이제 내부적으로 관리됩니다.
+type ObstacleProps = Omit<ObstacleType, 'positionX'> & {
+  initialPositionX: number;
+};
+
+const Obstacle: React.FC<ObstacleProps> = ({
+  id,
+  initialPositionX,
   positionY,
   width,
   height,
@@ -14,22 +20,29 @@ const Obstacle: React.FC<ObstacleType> = ({
   offsetX,
   offsetY,
 }) => {
+  const obstacleRef = useRef<HTMLDivElement>(null);
   const obstacleClass = `obstacle ${obstacleType}`;
-
-  // 디버깅용
   const showHitbox = false;
+
+  useEffect(() => {
+    if (obstacleRef.current) {
+      // 컴포넌트가 처음 마운트될 때 초기 위치를 설정
+      obstacleRef.current.style.left = `${initialPositionX}px`;
+    }
+  }, [initialPositionX]);
 
   const calcHitboxLeft = () => (width - hitboxWidth) / 2 + (offsetX || 0);
   const calcHitboxBottom = () => (height - hitboxHeight) / 2 + (offsetY || 0);
+
   return (
     <div
+      ref={obstacleRef}
+      id={id} // id를 DOM 요소에 직접 부여 >> useGameLoop에서 식별 가능
       className={obstacleClass}
       style={{
-        left: `${positionX}px`,
         bottom: `${positionY}px`,
         width: `${width}px`,
         height: `${height}px`,
-        // border: '2px solid blue',
       }}
     >
       {showHitbox && (
@@ -50,4 +63,4 @@ const Obstacle: React.FC<ObstacleType> = ({
   );
 };
 
-export default Obstacle;
+export default React.memo(Obstacle);

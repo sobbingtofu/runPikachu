@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useGameStore } from '../store/gameStore';
+import { useGameStore, obstaclePositions } from '../store/gameStore'; // 공유 위치 객체 import
 import { checkCollision } from '../logic/collisionDetectionLogic';
 
 export const useHandleCollision = () => {
@@ -10,7 +10,11 @@ export const useHandleCollision = () => {
     setPikachuState,
   } = useGameStore();
 
-  const isCollision = checkCollision(gameFundamentals.obstacles, pikachuState);
+  const isCollision = checkCollision(
+    gameFundamentals.obstacles,
+    pikachuState,
+    obstaclePositions.current, // 공유 위치 객체를 전달
+  );
 
   // 충돌 시 게임 오버 처리
   useEffect(() => {
@@ -39,5 +43,5 @@ export const useHandleCollision = () => {
         clearTimeout(animationTimer);
       };
     }
-  }, [isCollision]);
+  }, [isCollision, setGameFundamentals, setPikachuState]); // 의존성 배열에 setPikachuState 추가 권장
 };

@@ -4,16 +4,15 @@ import Obstacle from './components/Obstacle/Obstacle';
 import { useGameStore, GAME_AREA_WIDTH } from './store/gameStore';
 import useGameCore from './hooks/useGameCore';
 import usePikachuJump from './hooks/usePikachuJump';
-import useObstacleSpawner from './hooks/useGameLoop';
+import useGameLoop from './hooks/useGameLoop';
 import HighScoreBoard from './components/GameOverBoard/HighScoreBoard';
 
 function App() {
   const { gameFundamentals } = useGameStore();
 
-  // useGameTimer();
   useGameCore();
   usePikachuJump();
-  useObstacleSpawner();
+  useGameLoop();
 
   const gameAreaStyle = {
     width: `${GAME_AREA_WIDTH}px`,
@@ -48,9 +47,9 @@ function App() {
         <Pikachu />
         {gameFundamentals.obstacles.map((obstacle) => (
           <Obstacle
-            id={obstacle.id}
             key={obstacle.id}
-            positionX={obstacle.positionX}
+            id={obstacle.id}
+            initialPositionX={obstacle.positionX}
             positionY={obstacle.positionY}
             width={obstacle.width}
             height={obstacle.height}

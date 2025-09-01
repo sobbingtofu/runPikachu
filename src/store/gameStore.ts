@@ -33,6 +33,10 @@ interface GameState {
   ) => void;
 }
 
+export const obstaclePositions = {
+  current: new Map<string, number>(),
+};
+
 export const useGameStore = create<GameState>((set) => ({
   gameFundamentals: {
     isGameStarted: false,
