@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div className='App'>
-      <div style={{ width: GAME_AREA_WIDTH }}>
+      <div style={{ maxWidth: GAME_AREA_WIDTH, width: GAME_AREA_WIDTH }}>
         <HighScoreBoard />
 
         <UiSection />
