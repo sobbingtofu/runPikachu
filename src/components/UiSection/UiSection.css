@@ -30,5 +30,6 @@ h1.run-pikachu {
 }
 
 p.score-text {
+  width: 120px;
   font-size: 24pt;
 }
