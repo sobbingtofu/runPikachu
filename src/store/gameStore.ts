@@ -8,6 +8,7 @@ type GameFundamentalsType = {
   obstacles: ObstacleType[];
   isGameOverAnimationPlaying: boolean;
   isBoardVisible: boolean;
+  isSoundOn: boolean;
 };
 
 export type PikachuType = {
@@ -33,10 +34,6 @@ interface GameState {
   ) => void;
 }
 
-export const obstaclePositions = {
-  current: new Map<string, number>(),
-};
-
 export const useGameStore = create<GameState>((set) => ({
   gameFundamentals: {
     isGameStarted: false,
@@ -45,6 +42,7 @@ export const useGameStore = create<GameState>((set) => ({
     obstacles: [],
     isGameOverAnimationPlaying: false,
     isBoardVisible: false,
+    isSoundOn: true,
   },
 
   setGameFundamentals: (update) =>
@@ -64,11 +62,16 @@ export const useGameStore = create<GameState>((set) => ({
     pikachuHeight: 53,
     jumpTrigger: 0,
   },
+
   setPikachuState: (update) =>
     set((state) => ({
       pikachuState: { ...state.pikachuState, ...update },
     })),
 }));
+
+export const obstaclePositions = {
+  current: new Map<string, number>(),
+};
 
 export const jumpAnimationFrameIdRef = { current: null as number | null };
 export const currentPikachuYRef = { current: 0 };

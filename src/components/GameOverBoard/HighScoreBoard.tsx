@@ -16,26 +16,30 @@ const HighScoreBoard = () => {
   };
 
   return (
-    <div className='board-backdrop'>
-      <div className='board-modal'>
-        <button className='close-button' onClick={closeBoard}>
-          &times;
-        </button>
-        <h1>{gameFundamentals.isGameOver && 'Game Over'}</h1>
-        <h2>High Score</h2>
-        <p>하이스코어 목록 표시 예정</p>
-        <p>현재 점수: {gameFundamentals.score}</p>
+    <>
+      {gameFundamentals.isBoardVisible && (
+        <div className='board-backdrop'>
+          <div className='board-modal'>
+            <button className='close-button' onClick={closeBoard}>
+              &times;
+            </button>
+            <h1>{gameFundamentals.isGameOver && 'Game Over'}</h1>
+            <h2>High Score</h2>
+            <p>하이스코어 목록 표시 예정</p>
+            <p>현재 점수: {gameFundamentals.score}</p>
 
-        <ButtonContainer>
-          <BoardButton type='rerun' onClick={reRunPikachu}>
-            다시 달리기
-          </BoardButton>
-          <BoardButton type='register' onClick={handleRegister}>
-            내 점수 등록하기
-          </BoardButton>
-        </ButtonContainer>
-      </div>
-    </div>
+            <ButtonContainer>
+              <BoardButton type='rerun' onClick={reRunPikachu}>
+                다시 달리기
+              </BoardButton>
+              <BoardButton type='register' onClick={handleRegister}>
+                내 점수 등록하기
+              </BoardButton>
+            </ButtonContainer>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

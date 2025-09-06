@@ -1,0 +1,9 @@
+.sound-button {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  width: 100px;
+}

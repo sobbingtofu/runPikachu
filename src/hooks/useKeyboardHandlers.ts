@@ -43,7 +43,11 @@ export const useKeyboardHandlers = () => {
         }
 
         // 1. 게임 시작
-        if (!gameFundamentals.isGameStarted && !gameFundamentals.isGameOver) {
+        if (
+          !gameFundamentals.isGameStarted &&
+          !gameFundamentals.isGameOver &&
+          !gameFundamentals.isBoardVisible
+        ) {
           setGameFundamentals({
             isGameStarted: true,
             isGameOver: false,
@@ -109,6 +113,13 @@ export const useKeyboardHandlers = () => {
       if (!gameFundamentals.isBoardVisible && !gameFundamentals.isGameStarted) {
         setGameFundamentals({ isBoardVisible: true });
       }
+      // else if (
+      //   gameFundamentals.isBoardVisible &&
+      //   gameFundamentals.isGameOver &&
+      //   !gameFundamentals.isGameStarted
+      // ) {
+      //   reRunPikachu();
+      // }
     }
   };
 

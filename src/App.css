@@ -1,18 +1,41 @@
+@font-face {
+  font-family: 'editundo';
+  src: url('/fonts/editundo.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LowresPixel-Regular';
+  src: url('/fonts/LowresPixel-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'fs-pixel-sans-unicode-regular';
+  src: url('/fonts/fs-pixel-sans-unicode-regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
   height: 100%;
   overflow: hidden;
+  background-color: #525252;
+  color: #cacaca;
 }
 
 .App {
+  padding-top: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  background-color: #e9e9e9;
+  /* min-height: 100vh; */
   font-family: sans-serif;
   height: 100%;
 }
@@ -22,4 +45,23 @@ body {
   position: relative;
   overflow: hidden;
   border: 2px solid black;
+  width: 100%;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+  font-family: 'fs-pixel-sans-unicode-regular', sans-serif;
+}
+
+p.instruction-text {
+  font-size: 24pt;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  font-family: 'editundo', sans-serif;
+
+  font-weight: 100;
 }

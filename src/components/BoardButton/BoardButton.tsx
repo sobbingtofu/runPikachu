@@ -1,7 +1,7 @@
 import { type PropsWithChildren } from 'react';
 import './BoardButton.css';
 
-interface ButtonProps {
+interface BoardButtonProps {
   type: 'rerun' | 'register';
   onClick: () => void;
 }
@@ -10,8 +10,8 @@ const BoardButton = ({
   type,
   onClick,
   children,
-}: PropsWithChildren<ButtonProps>) => {
-  const className = `button ${type}`;
+}: PropsWithChildren<BoardButtonProps>) => {
+  const className = `board-button ${type}`;
 
   return (
     <button className={className} onClick={onClick}>

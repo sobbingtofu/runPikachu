@@ -1,4 +1,4 @@
-.button {
+.board-button {
   flex: 1;
   margin-top: 20px;
   padding: 10px 20px;
@@ -10,18 +10,18 @@
   transition: all 0.3s ease;
 }
 
-.button.rerun {
+.board-button.rerun {
   background-color: #f44336;
 }
 
-.button.rerun:hover {
+.board-button.rerun:hover {
   background-color: #981d1d;
 }
 
-.button.register {
+.board-button.register {
   background-color: #28b7ab;
 }
 
-.button.register:hover {
+.board-button.register:hover {
   background-color: #1e736c;
 }
