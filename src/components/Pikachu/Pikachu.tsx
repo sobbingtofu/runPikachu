@@ -12,7 +12,7 @@ const Pikachu = () => {
   const frameDurationRun = 90; // 각 프레임이 유지될 시간 (ms)
   const frameDurationJump = 125;
 
-  const showHitbox = false;
+  const showHitbox = true;
   const hitbox = getPikachuHitbox(pikachuState);
   const hitboxStyle = {
     position: 'absolute' as const,
@@ -53,20 +53,25 @@ const Pikachu = () => {
     };
   }, [gameFundamentals.isGameStarted]);
 
-  const pikachuClass = `pikachu pikachu-frame-${frame}
-    ${pikachuState.isJumping ? 'jumping' : ''}
+  const pikachuClass = `pikachu 
     ${
-      (gameFundamentals.isGameOver || !gameFundamentals.isGameStarted) &&
-      pikachuState.isDead
-        ? 'dead'
-        : ''
-    }
+      pikachuState.isJumping
+        ? 'jumping'
+        : ` pikachu-frame-${frame}
+        ${
+          (gameFundamentals.isGameOver || !gameFundamentals.isGameStarted) &&
+          pikachuState.isDead
+            ? 'dead'
+            : ''
+        }
         ${
           (gameFundamentals.isGameOver || !gameFundamentals.isGameStarted) &&
           !pikachuState.isDead
             ? 'stopped'
             : ''
-        }`;
+        }`
+    }
+  `;
 
   return (
     <div

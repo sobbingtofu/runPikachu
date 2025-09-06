@@ -37,7 +37,7 @@ function App() {
 
       <div className={`game-area`} style={{ width: GAME_AREA_WIDTH }}>
         <ScrollingBackground
-          src='/bg/bg-11.png'
+          src='/bg/bg-12.png'
           speed={0.1}
           isGameStarted={
             gameFundamentals.isGameStarted &&
