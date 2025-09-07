@@ -10,6 +10,7 @@ type GameFundamentalsType = {
   isBoardVisible: boolean;
   isSoundOn: boolean;
   isBGMLoaded: boolean;
+  isPreGameScreen: boolean;
 };
 
 export type PikachuType = {
@@ -45,6 +46,7 @@ export const useGameStore = create<GameState>((set) => ({
     isBoardVisible: false,
     isSoundOn: false,
     isBGMLoaded: false,
+    isPreGameScreen: true,
   },
 
   setGameFundamentals: (update) =>

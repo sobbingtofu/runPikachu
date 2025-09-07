@@ -11,6 +11,7 @@ import UiSection from './components/UiSection/UiSection';
 import { useLoadBgms } from './hooks/useLoadBgms';
 import { usePlayBGM } from './hooks/usePlayBgms';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
+import PreGameScreen from './components/PreGameScreen/PreGameScreen';
 
 function App() {
   const { gameFundamentals } = useGameStore();
@@ -25,7 +26,8 @@ function App() {
     <div className='App'>
       <div style={{ maxWidth: GAME_AREA_WIDTH, width: GAME_AREA_WIDTH }}>
         <LoadingScreen />
-        {gameFundamentals.isBGMLoaded && (
+        <PreGameScreen />
+        {gameFundamentals.isBGMLoaded && !gameFundamentals.isPreGameScreen && (
           <>
             <HighScoreBoard />
 

@@ -5,15 +5,12 @@ import './LoadingScreen.css';
 const LoadingScreen = () => {
   const { gameFundamentals } = useGameStore();
 
-  // ...existing hooks...
-
-  // ▼▼▼ 로딩 점 애니메이션 상태 추가 ▼▼▼
   const [loadingDots, setLoadingDots] = useState('');
 
   useEffect(() => {
     let count = 0;
     const interval = setInterval(() => {
-      count = (count + 1) % 4; // 0,1,2,3 반복
+      count = (count + 1) % 4;
       setLoadingDots('.'.repeat(count));
     }, 160);
     return () => clearInterval(interval);

@@ -30,8 +30,9 @@ export const useLoadBgms = () => {
       const bgmPromise = loadAllBgms();
 
       Promise.all([timerPromise, bgmPromise]).then(() => {
+        console.log('All BGMs are loaded and ready to play!');
         setGameFundamentals({ isBGMLoaded: true });
       });
     }
-  }, [setGameFundamentals]);
+  }, [setGameFundamentals, gameFundamentals.isBGMLoaded]);
 };

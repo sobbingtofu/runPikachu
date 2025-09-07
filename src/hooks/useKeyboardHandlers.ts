@@ -21,6 +21,7 @@ export const useKeyboardHandlers = () => {
   const { reRunPikachu } = useRerunPikachu();
   const { triggerPikachuJump } = useTriggerPikachuJump();
 
+  // 스페이스바 눌림 해제 추적 이벤트 핸들러
   const handleKeyUpSpaceBar = useCallback((e: KeyboardEvent) => {
     if (e.code === 'Space') {
       isSpacePressedRef.current = false;
@@ -42,31 +43,30 @@ export const useKeyboardHandlers = () => {
           return;
         }
 
-        // 1. 게임 시작
-        if (
-          !gameFundamentals.isGameStarted &&
-          !gameFundamentals.isGameOver &&
-          !gameFundamentals.isBoardVisible
-        ) {
-          setGameFundamentals({
-            isGameStarted: true,
-            isGameOver: false,
-          });
-          canJumpRef.current = true;
-        }
+        // console.log(gameFundamentals);
 
-        // 2. 점프 시작 로직
-        if (gameFundamentals.isGameStarted && !gameFundamentals.isGameOver) {
-          triggerPikachuJump();
-        }
-
-        // 3. 게임 재시작 로직
         if (
-          !gameFundamentals.isGameStarted &&
-          gameFundamentals.isGameOver &&
-          !gameFundamentals.isBoardVisible
+          !gameFundamentals.isBoardVisible &&
+          !gameFundamentals.isPreGameScreen
         ) {
-          reRunPikachu();
+          // 1. 게임 시작
+          if (!gameFundamentals.isGameStarted && !gameFundamentals.isGameOver) {
+            setGameFundamentals({
+              isGameStarted: true,
+              isGameOver: false,
+            });
+            canJumpRef.current = true;
+          }
+
+          // 2. 점프 시작 로직
+          if (gameFundamentals.isGameStarted && !gameFundamentals.isGameOver) {
+            triggerPikachuJump();
+          }
+
+          // 3. 게임 재시작 로직
+          if (!gameFundamentals.isGameStarted && gameFundamentals.isGameOver) {
+            reRunPikachu();
+          }
         }
       }
     },
@@ -75,6 +75,8 @@ export const useKeyboardHandlers = () => {
       gameFundamentals.isGameStarted,
       gameFundamentals.isGameOverAnimationPlaying,
       gameFundamentals.isBoardVisible,
+      gameFundamentals.isPreGameScreen,
+      // gameFundamentals.
       pikachuState.isJumping,
       setGameFundamentals,
       setPikachuState,
@@ -110,16 +112,17 @@ export const useKeyboardHandlers = () => {
   const handleKeyDownEnter = (e: KeyboardEvent) => {
     if (e.code === 'Enter') {
       e.preventDefault();
-      if (!gameFundamentals.isBoardVisible && !gameFundamentals.isGameStarted) {
+      if (
+        !gameFundamentals.isPreGameScreen &&
+        !gameFundamentals.isBoardVisible &&
+        !gameFundamentals.isGameStarted
+      ) {
         setGameFundamentals({ isBoardVisible: true });
       }
-      // else if (
-      //   gameFundamentals.isBoardVisible &&
-      //   gameFundamentals.isGameOver &&
-      //   !gameFundamentals.isGameStarted
-      // ) {
-      //   reRunPikachu();
-      // }
+      if (gameFundamentals.isBGMLoaded && gameFundamentals.isPreGameScreen) {
+        console.log('Enter pressed - Starting game');
+        setGameFundamentals({ isPreGameScreen: false, isSoundOn: true });
+      }
     }
   };
 
