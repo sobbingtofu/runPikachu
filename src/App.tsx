@@ -8,6 +8,8 @@ import useGameLoop from './hooks/useGameLoop';
 import HighScoreBoard from './components/GameOverBoard/HighScoreBoard';
 import ScrollingBackground from './components/ScrollingBackground/ScrollingBackground';
 import UiSection from './components/UiSection/UiSection';
+import { useLoadBgms } from './hooks/useLoadBgms';
+import { usePlayBGM } from './hooks/usePlayBgms';
 
 function App() {
   const { gameFundamentals } = useGameStore();
@@ -15,6 +17,8 @@ function App() {
   useGameCore();
   usePikachuJump();
   useGameLoop();
+  useLoadBgms();
+  usePlayBGM();
 
   return (
     <div className='App'>

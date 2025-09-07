@@ -9,6 +9,7 @@ type GameFundamentalsType = {
   isGameOverAnimationPlaying: boolean;
   isBoardVisible: boolean;
   isSoundOn: boolean;
+  isBGMLoaded: boolean;
 };
 
 export type PikachuType = {
@@ -43,6 +44,7 @@ export const useGameStore = create<GameState>((set) => ({
     isGameOverAnimationPlaying: false,
     isBoardVisible: false,
     isSoundOn: true,
+    isBGMLoaded: false,
   },
 
   setGameFundamentals: (update) =>
@@ -85,6 +87,8 @@ export const jumpCountRef = { current: 0 };
 export const GAME_AREA_WIDTH = 1000;
 export const INITIAL_GROUND_Y_VALUE = 0;
 export const TARGET_FPS = 120;
+
+export const BGM_NAMES: string[] = ['01-PalletTown'];
 
 export const OBSTACLE_SPEED_PHASES = [
   { start: 0, end: 5000, obstacleSpeed: 5 },
