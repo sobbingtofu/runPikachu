@@ -22,11 +22,16 @@ export const useLoadBgms = () => {
             await putBGM(db, bgmName, blob);
           }
         }
-
-        setGameFundamentals({ isBGMLoaded: true });
       };
 
-      loadAllBgms();
+      const timerPromise = new Promise<void>((resolve) =>
+        setTimeout(resolve, 1500),
+      );
+      const bgmPromise = loadAllBgms();
+
+      Promise.all([timerPromise, bgmPromise]).then(() => {
+        setGameFundamentals({ isBGMLoaded: true });
+      });
     }
   }, [setGameFundamentals]);
 };

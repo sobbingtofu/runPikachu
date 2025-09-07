@@ -10,6 +10,7 @@ import ScrollingBackground from './components/ScrollingBackground/ScrollingBackg
 import UiSection from './components/UiSection/UiSection';
 import { useLoadBgms } from './hooks/useLoadBgms';
 import { usePlayBGM } from './hooks/usePlayBgms';
+import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 
 function App() {
   const { gameFundamentals } = useGameStore();
@@ -23,40 +24,42 @@ function App() {
   return (
     <div className='App'>
       <div style={{ maxWidth: GAME_AREA_WIDTH, width: GAME_AREA_WIDTH }}>
-        <HighScoreBoard />
+        <LoadingScreen />
+        {gameFundamentals.isBGMLoaded && (
+          <>
+            <HighScoreBoard />
 
-        <UiSection />
-        <div>
-          {/* <p>Score: {gameFundamentals.score}</p> */}
-          {/* <MuteToggleBtn /> */}
-        </div>
-        <div className={`game-area`}>
-          <ScrollingBackground
-            src='/bg/bg-12.png'
-            speed={0.1}
-            isGameStarted={
-              gameFundamentals.isGameStarted &&
-              !gameFundamentals.isGameOver &&
-              !gameFundamentals.isBoardVisible
-            }
-          />
-          <Pikachu />
-          {gameFundamentals.obstacles.map((obstacle) => (
-            <Obstacle
-              key={obstacle.id}
-              id={obstacle.id}
-              initialPositionX={obstacle.positionX}
-              positionY={obstacle.positionY}
-              width={obstacle.width}
-              height={obstacle.height}
-              obstacleType={obstacle.obstacleType}
-              hitboxWidth={obstacle.hitboxWidth}
-              hitboxHeight={obstacle.hitboxHeight}
-              offsetX={obstacle.offsetX}
-              offsetY={obstacle.offsetY}
-            />
-          ))}
-        </div>
+            <UiSection />
+
+            <div className={`game-area`}>
+              <ScrollingBackground
+                src='/bg/bg-12.png'
+                speed={0.1}
+                isGameStarted={
+                  gameFundamentals.isGameStarted &&
+                  !gameFundamentals.isGameOver &&
+                  !gameFundamentals.isBoardVisible
+                }
+              />
+              <Pikachu />
+              {gameFundamentals.obstacles.map((obstacle) => (
+                <Obstacle
+                  key={obstacle.id}
+                  id={obstacle.id}
+                  initialPositionX={obstacle.positionX}
+                  positionY={obstacle.positionY}
+                  width={obstacle.width}
+                  height={obstacle.height}
+                  obstacleType={obstacle.obstacleType}
+                  hitboxWidth={obstacle.hitboxWidth}
+                  hitboxHeight={obstacle.hitboxHeight}
+                  offsetX={obstacle.offsetX}
+                  offsetY={obstacle.offsetY}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

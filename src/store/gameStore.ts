@@ -43,7 +43,7 @@ export const useGameStore = create<GameState>((set) => ({
     obstacles: [],
     isGameOverAnimationPlaying: false,
     isBoardVisible: false,
-    isSoundOn: true,
+    isSoundOn: false,
     isBGMLoaded: false,
   },
 
