@@ -1,8 +1,9 @@
 import { openDB, getBGM } from './manageBgmIdxDb';
 
-export async function playPauseBgms(
+export async function playPauseSound(
   bgmName: string,
-  actionType: 'play' | 'pause',
+  actionType: 'play' | 'pause' | 'stop',
+  loopYN: boolean = true,
 ) {
   const db = await openDB();
   const bgmBlob = await getBGM(db, bgmName);
@@ -19,14 +20,17 @@ export async function playPauseBgms(
     audio = document.createElement('audio');
     audio.id = 'bgm-' + bgmName;
     audio.src = URL.createObjectURL(bgmBlob);
-    audio.loop = true;
+    audio.loop = loopYN;
     audio.volume = 0.3;
     document.body.appendChild(audio);
   }
 
   if (actionType === 'play') {
     await audio.play();
-  } else {
+  } else if (actionType === 'pause') {
     audio.pause();
+  } else if (actionType === 'stop') {
+    audio.pause();
+    audio.currentTime = 0;
   }
 }

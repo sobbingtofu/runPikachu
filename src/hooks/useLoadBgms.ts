@@ -25,7 +25,7 @@ export const useLoadBgms = () => {
       };
 
       const timerPromise = new Promise<void>((resolve) =>
-        setTimeout(resolve, 1500),
+        setTimeout(resolve, 800),
       );
       const bgmPromise = loadAllBgms();
 

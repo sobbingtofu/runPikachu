@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useGameStore, obstaclePositions } from '../store/gameStore'; // 공유 위치 객체 import
 import { checkCollision } from '../logic/collisionDetectionLogic';
+import { playPauseSound } from '../logic/playPauseSound';
 
 export const useHandleCollision = () => {
   const {
@@ -19,6 +20,9 @@ export const useHandleCollision = () => {
   // 충돌 시 게임 오버 처리
   useEffect(() => {
     if (isCollision) {
+      playPauseSound('91-Collide', 'play', false);
+      playPauseSound('02-LakeValor', 'pause');
+
       setGameFundamentals((prev) => ({
         ...prev,
         isGameOver: true,
@@ -36,8 +40,13 @@ export const useHandleCollision = () => {
           isGameOverAnimationPlaying: false,
           isBoardVisible: true,
         }));
+        playPauseSound('92-GameOver', 'play', false);
         console.log('사망 애니메이션 시간 지남');
-      }, 500);
+
+        setTimeout(() => {
+          playPauseSound('02-LakeValor', 'play');
+        }, 4500);
+      }, 700);
 
       return () => {
         clearTimeout(animationTimer);
