@@ -9,7 +9,7 @@ export async function playPauseSound(
   const bgmBlob = await getBGM(db, bgmName);
 
   if (!bgmBlob) {
-    console.log(bgmName + '이 존재안함');
+    // console.log(bgmName + '이 존재안함');
     return;
   }
 

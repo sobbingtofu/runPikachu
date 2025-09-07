@@ -12,11 +12,11 @@ export const useLoadBgms = () => {
 
         for (const bgmName of BGM_NAMES) {
           const exists = await getBGM(db, bgmName);
-          if (exists) console.log(`BGM "${bgmName}" exists in IndexedDB:`);
+          // if (exists) console.log(`BGM "${bgmName}" exists in IndexedDB:`);
           if (!exists) {
-            console.log(
-              `BGM "${bgmName}" does not exist in IndexedDB. Fetching...`,
-            );
+            // console.log(
+            //   `BGM "${bgmName}" does not exist in IndexedDB. Fetching...`,
+            // );
             const res = await fetch(`/music/${bgmName}.mp3`);
             const blob = await res.blob();
             await putBGM(db, bgmName, blob);
@@ -30,7 +30,7 @@ export const useLoadBgms = () => {
       const bgmPromise = loadAllBgms();
 
       Promise.all([timerPromise, bgmPromise]).then(() => {
-        console.log('All BGMs are loaded and ready to play!');
+        // console.log('All BGMs are loaded and ready to play!');
         setGameFundamentals({ isBGMLoaded: true });
       });
     }

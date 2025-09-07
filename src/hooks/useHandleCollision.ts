@@ -41,11 +41,10 @@ export const useHandleCollision = () => {
           isBoardVisible: true,
         }));
         playPauseSound('92-GameOver', 'play', false);
-        console.log('사망 애니메이션 시간 지남');
 
         setTimeout(() => {
           playPauseSound('02-LakeValor', 'play');
-        }, 4500);
+        }, 4200);
       }, 700);
 
       return () => {

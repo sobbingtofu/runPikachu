@@ -43,8 +43,6 @@ export const useKeyboardHandlers = () => {
           return;
         }
 
-        // console.log(gameFundamentals);
-
         if (
           !gameFundamentals.isBoardVisible &&
           !gameFundamentals.isPreGameScreen
@@ -120,7 +118,6 @@ export const useKeyboardHandlers = () => {
         setGameFundamentals({ isBoardVisible: true });
       }
       if (gameFundamentals.isBGMLoaded && gameFundamentals.isPreGameScreen) {
-        console.log('Enter pressed - Starting game');
         setGameFundamentals({ isPreGameScreen: false, isSoundOn: true });
       }
     }
