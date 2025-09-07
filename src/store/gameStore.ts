@@ -90,7 +90,7 @@ export const GAME_AREA_WIDTH = 1000;
 export const INITIAL_GROUND_Y_VALUE = 0;
 export const TARGET_FPS = 120;
 
-export const BGM_NAMES: string[] = ['01-PalletTown'];
+export const BGM_NAMES: string[] = ['01-PalletTown', '02-LakeValor'];
 
 export const OBSTACLE_SPEED_PHASES = [
   { start: 0, end: 5000, obstacleSpeed: 5 },

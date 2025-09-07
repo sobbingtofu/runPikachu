@@ -8,9 +8,9 @@ export const useBgmControl = () => {
   useEffect(() => {
     if (gameFundamentals.isBGMLoaded && !gameFundamentals.isGameStarted) {
       if (gameFundamentals.isSoundOn) {
-        playPauseBgms('01-PalletTown', 'play');
+        playPauseBgms('02-LakeValor', 'play');
       } else {
-        playPauseBgms('01-PalletTown', 'pause');
+        playPauseBgms('02-LakeValor', 'pause');
       }
     }
   }, [
