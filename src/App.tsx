@@ -9,7 +9,7 @@ import HighScoreBoard from './components/GameOverBoard/HighScoreBoard';
 import ScrollingBackground from './components/ScrollingBackground/ScrollingBackground';
 import UiSection from './components/UiSection/UiSection';
 import { useLoadBgms } from './hooks/useLoadBgms';
-import { usePlayBGM } from './hooks/usePlayBgms';
+import { useBgmControl } from './hooks/useBgmControl';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import PreGameScreen from './components/PreGameScreen/PreGameScreen';
 
@@ -20,7 +20,7 @@ function App() {
   usePikachuJump();
   useGameLoop();
   useLoadBgms();
-  usePlayBGM();
+  useBgmControl();
 
   return (
     <div className='App'>

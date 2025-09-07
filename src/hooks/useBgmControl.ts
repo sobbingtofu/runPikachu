@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { playPauseBgms } from '../logic/playPauseBgm';
 
-export const usePlayBGM = () => {
+export const useBgmControl = () => {
   const { gameFundamentals, setGameFundamentals } = useGameStore();
 
   useEffect(() => {
