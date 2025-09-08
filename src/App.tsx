@@ -1,7 +1,7 @@
 import './App.css';
 import Pikachu from './components/Pikachu/Pikachu';
 import Obstacle from './components/Obstacle/Obstacle';
-import { useGameStore, GAME_AREA_WIDTH } from './store/gameStore';
+import { useGameStore } from './store/gameStore';
 import useGameCore from './hooks/useGameCore';
 import usePikachuJump from './hooks/usePikachuJump';
 import useGameLoop from './hooks/useGameLoop';
@@ -12,19 +12,27 @@ import { useLoadBgms } from './hooks/useLoadBgms';
 import { useBgmControl } from './hooks/useBgmControl';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import PreGameScreen from './components/PreGameScreen/PreGameScreen';
+import { useGameSizeControl } from './hooks/useGameSizeControl';
 
 function App() {
-  const { gameFundamentals } = useGameStore();
+  const { gameFundamentals, sizeParams } = useGameStore();
 
   useGameCore();
   usePikachuJump();
   useGameLoop();
   useLoadBgms();
   useBgmControl();
+  useGameSizeControl();
 
   return (
     <div className='App'>
-      <div style={{ maxWidth: GAME_AREA_WIDTH, width: GAME_AREA_WIDTH }}>
+      <div
+        style={{
+          width: sizeParams.gameAreaWidth,
+          height: sizeParams.gameAreaHeight,
+        }}
+        className='game-container'
+      >
         <LoadingScreen />
         <PreGameScreen />
         {gameFundamentals.isBGMLoaded && !gameFundamentals.isPreGameScreen && (

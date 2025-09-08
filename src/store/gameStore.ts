@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import type { ObstacleType } from '../types/ObstacleType';
+import { getGameAreaSize, getPikachuSize } from '../logic/getSizeParams';
 
 type GameFundamentalsType = {
   isGameStarted: boolean;
@@ -13,6 +14,11 @@ type GameFundamentalsType = {
   isPreGameScreen: boolean;
 };
 
+export type sizeParamsType = {
+  gameAreaWidth: number;
+  gameAreaHeight: number;
+};
+
 export type PikachuType = {
   pikachuWidth: number;
   pikachuHeight: number;
@@ -24,6 +30,12 @@ export type PikachuType = {
 };
 
 interface GameState {
+  sizeParams: sizeParamsType;
+  setSizeParams: (
+    update:
+      | Partial<sizeParamsType>
+      | ((prev: sizeParamsType) => sizeParamsType),
+  ) => void;
   gameFundamentals: GameFundamentalsType;
   setGameFundamentals: (
     update:
@@ -37,6 +49,19 @@ interface GameState {
 }
 
 export const useGameStore = create<GameState>((set) => ({
+  sizeParams: {
+    gameAreaWidth: getGameAreaSize().width,
+    gameAreaHeight: getGameAreaSize().height,
+  },
+
+  setSizeParams: (update) =>
+    set((state) => {
+      const prev = state.sizeParams;
+      const next =
+        typeof update === 'function' ? update(prev) : { ...prev, ...update };
+      return { sizeParams: next };
+    }),
+
   gameFundamentals: {
     isGameStarted: false,
     isGameOver: false,
@@ -62,8 +87,8 @@ export const useGameStore = create<GameState>((set) => ({
     pikachuValueX: 50,
     isJumping: false,
     isDead: false,
-    pikachuWidth: 80,
-    pikachuHeight: 53,
+    pikachuWidth: getPikachuSize().pikachuWidth,
+    pikachuHeight: getPikachuSize().pikachuHeight,
     jumpTrigger: 0,
   },
 
