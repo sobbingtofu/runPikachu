@@ -1,21 +1,37 @@
 import { useEffect } from 'react';
-import { useGameStore } from '../store/gameStore';
-import { getGameAreaSize, getPikachuSize } from '../logic/getSizeParams';
+import { initialSizeParams, useGameStore } from '../store/gameStore';
+import { getResponsiveSizeParams } from '../logic/getResponsiveSizeParams';
 
 export const useGameSizeControl = () => {
   const { setSizeParams, setPikachuState } = useGameStore();
 
   useEffect(() => {
     const handleResize = () => {
-      const { width: newWidth, height: newHeight } = getGameAreaSize();
+      const newWidth = getResponsiveSizeParams(
+        initialSizeParams.GAME_AREA_INIT_WIDTH,
+      );
+      const newHeight = getResponsiveSizeParams(
+        initialSizeParams.GAME_AREA_INIT_HEIGHT,
+      );
+
+      const newPikachuWidth = getResponsiveSizeParams(
+        initialSizeParams.PIKACHU_INIT_WIDTH,
+      );
+      const newPikachuHeight = getResponsiveSizeParams(
+        initialSizeParams.PIKACHU_INIT_HEIGHT,
+      );
+
       setSizeParams({
         gameAreaWidth: newWidth,
         gameAreaHeight: newHeight,
       });
-      const { pikachuWidth, pikachuHeight } = getPikachuSize();
+
       setPikachuState({
-        pikachuWidth: pikachuWidth,
-        pikachuHeight: pikachuHeight,
+        maxJumpHeight: getResponsiveSizeParams(
+          initialSizeParams.PIKACHU_INIT_JUMP_HEIGHT,
+        ),
+        pikachuWidth: newPikachuWidth,
+        pikachuHeight: newPikachuHeight,
       });
     };
 

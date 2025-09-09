@@ -1,10 +1,6 @@
 import { create } from 'zustand';
 import type { ObstacleType } from '../types/ObstacleType';
-import {
-  getGameAreaSize,
-  getPikachuJumpHeight,
-  getPikachuSize,
-} from '../logic/getSizeParams';
+import { getResponsiveSizeParams } from '../logic/getResponsiveSizeParams';
 
 type GameFundamentalsType = {
   isGameStarted: boolean;
@@ -53,10 +49,22 @@ interface GameState {
   ) => void;
 }
 
+export const initialSizeParams = {
+  GAME_AREA_INIT_WIDTH: 1000,
+  GAME_AREA_INIT_HEIGHT: 450,
+  PIKACHU_INIT_WIDTH: 80,
+  PIKACHU_INIT_HEIGHT: 53,
+  PIKACHU_INIT_JUMP_HEIGHT: 170,
+};
+
 export const useGameStore = create<GameState>((set) => ({
   sizeParams: {
-    gameAreaWidth: getGameAreaSize().width,
-    gameAreaHeight: getGameAreaSize().height,
+    gameAreaWidth: getResponsiveSizeParams(
+      initialSizeParams.GAME_AREA_INIT_WIDTH,
+    ),
+    gameAreaHeight: getResponsiveSizeParams(
+      initialSizeParams.GAME_AREA_INIT_HEIGHT,
+    ),
   },
 
   setSizeParams: (update) =>
@@ -92,10 +100,14 @@ export const useGameStore = create<GameState>((set) => ({
     pikachuValueX: 50,
     isJumping: false,
     isDead: false,
-    pikachuWidth: getPikachuSize().pikachuWidth,
-    pikachuHeight: getPikachuSize().pikachuHeight,
+    pikachuWidth: getResponsiveSizeParams(initialSizeParams.PIKACHU_INIT_WIDTH),
+    pikachuHeight: getResponsiveSizeParams(
+      initialSizeParams.PIKACHU_INIT_HEIGHT,
+    ),
     jumpTrigger: 0,
-    maxJumpHeight: getPikachuJumpHeight(),
+    maxJumpHeight: getResponsiveSizeParams(
+      initialSizeParams.PIKACHU_INIT_JUMP_HEIGHT,
+    ),
   },
 
   setPikachuState: (update) =>
