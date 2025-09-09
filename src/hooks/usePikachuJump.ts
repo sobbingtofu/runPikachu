@@ -23,7 +23,7 @@ const usePikachuJump = () => {
     return { gravity: 0, fastFallGravity: 0 };
   };
 
-  const MAX_JUMP_HEIGHT = 170;
+  const MAX_JUMP_HEIGHT = pikachuState.maxJumpHeight;
   const FRAME_DURATION = 1000 / TARGET_FPS; // ms
 
   const jumpTriggerYRef = useRef(0);

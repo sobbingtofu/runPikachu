@@ -25,3 +25,12 @@ export function getPikachuSize(): {
     };
   }
 }
+
+export function getPikachuJumpHeight(): number {
+  if (window.innerWidth >= 1050) {
+    return 170;
+  } else {
+    const currentWidth = window.innerWidth;
+    return Math.floor(currentWidth * 0.18);
+  }
+}

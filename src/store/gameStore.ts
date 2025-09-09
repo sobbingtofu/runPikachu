@@ -1,6 +1,10 @@
 import { create } from 'zustand';
 import type { ObstacleType } from '../types/ObstacleType';
-import { getGameAreaSize, getPikachuSize } from '../logic/getSizeParams';
+import {
+  getGameAreaSize,
+  getPikachuJumpHeight,
+  getPikachuSize,
+} from '../logic/getSizeParams';
 
 type GameFundamentalsType = {
   isGameStarted: boolean;
@@ -27,6 +31,7 @@ export type PikachuType = {
   pikachuValueY: number;
   pikachuValueX: number;
   jumpTrigger: number;
+  maxJumpHeight: number;
 };
 
 interface GameState {
@@ -90,6 +95,7 @@ export const useGameStore = create<GameState>((set) => ({
     pikachuWidth: getPikachuSize().pikachuWidth,
     pikachuHeight: getPikachuSize().pikachuHeight,
     jumpTrigger: 0,
+    maxJumpHeight: getPikachuJumpHeight(),
   },
 
   setPikachuState: (update) =>
