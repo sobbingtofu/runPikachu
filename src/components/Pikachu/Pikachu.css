@@ -40,6 +40,19 @@
   }
 }
 
+@media (max-width: 1049px) {
+  @keyframes dead-animation {
+    50% {
+      transform: rotate(-90deg);
+      bottom: calc(100vw * 0.065);
+    }
+    100% {
+      transform: rotate(-180deg);
+      bottom: calc(100vw * 0.019 * -1);
+    }
+  }
+}
+
 .pikachu.dead {
   background-image: url('/assets/runkachu-dead.png');
 

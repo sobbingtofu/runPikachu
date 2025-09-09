@@ -4,10 +4,10 @@ import type { ObstacleType } from '../types/ObstacleType';
 // 피카츄 히트박스 계산
 export const getPikachuHitbox = (pikachuState: PikachuType) => {
   return {
-    x: pikachuState.pikachuValueX + 30, // 피카츄의 위치 + 여유 공간
-    y: pikachuState.pikachuValueY + 6,
-    width: pikachuState.pikachuWidth ? pikachuState.pikachuWidth - 40 : 80,
-    height: pikachuState.pikachuHeight ? pikachuState.pikachuHeight - 37 : 53,
+    x: pikachuState.pikachuValueX + pikachuState.pikachuWidth * 0.37,
+    y: pikachuState.pikachuValueY + pikachuState.pikachuWidth * 0.075,
+    width: pikachuState.pikachuWidth * 0.5,
+    height: pikachuState.pikachuHeight * 0.33,
   };
 };
 
