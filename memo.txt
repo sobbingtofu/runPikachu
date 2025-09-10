@@ -1,7 +1,4 @@
-todo
-1. 짬푸 정지 > 완료
 
-2. 노래 구현
 pallet town https://www.youtube.com/watch?v=BbpKGElLCFU
 eterna forest https://www.youtube.com/watch?v=2Hs4F1DTBb4
 lake valor https://www.youtube.com/watch?v=bqMPQWTyLz4
@@ -12,6 +9,8 @@ unova route10 https://www.youtube.com/watch?v=GJr8XuJDYfA
 효과음 2 https://www.youtube.com/watch?v=qEg9wKFGtQg
 01:25 부근 점프
 
-3. 죽을때 피카츄 소리
+a 키 소리
+https://www.youtube.com/watch?v=5UHmxWsPNzg
 
-4. supabase Db서버 설정 및 연동
+
+supabase Db서버 설정 및 연동
