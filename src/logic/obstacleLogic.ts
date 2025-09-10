@@ -1,5 +1,6 @@
 import type { ObstacleType } from '../types/ObstacleType';
 import { GAME_AREA_WIDTH, RANDOM_OBSTACLE_TYPES } from '../store/gameStore';
+import { getResponsiveSizeParams } from './getResponsiveSizeParams';
 
 // 장애물을 이동시키고 화면 밖으로 나간 장애물을 제거
 //  obstacles - 현재 장애물 배열
@@ -52,15 +53,29 @@ export const spawnObstacleIfNeeded = (
   };
 
   const randomObstacle = pickWeightedRandomObstacle();
+
+  const responsiveWidth = getResponsiveSizeParams(randomObstacle.width);
+  const responsiveHeight = getResponsiveSizeParams(randomObstacle.height);
+  const responsiveHitboxWidth = getResponsiveSizeParams(
+    randomObstacle.hitboxWidth,
+  );
+  const responsiveHitboxHeight = getResponsiveSizeParams(
+    randomObstacle.hitboxHeight,
+  );
+
   const newObstacle: ObstacleType = {
     id: `obstacle-${Date.now()}-${Math.random()}`,
     positionX: GAME_AREA_WIDTH,
     positionY: randomObstacle.positionY ?? 0,
-    width: randomObstacle.width,
-    height: randomObstacle.height,
+    originalWidth: randomObstacle.width,
+    originalHeight: randomObstacle.height,
+    originalHitboxWidth: randomObstacle.hitboxWidth,
+    originalHitboxHeight: randomObstacle.hitboxHeight,
+    width: responsiveWidth,
+    height: responsiveHeight,
+    hitboxWidth: responsiveHitboxWidth,
+    hitboxHeight: responsiveHitboxHeight,
     obstacleType: randomObstacle.obstacleType,
-    hitboxWidth: randomObstacle.hitboxWidth,
-    hitboxHeight: randomObstacle.hitboxHeight,
     offsetX: randomObstacle.offsetX,
     offsetY: randomObstacle.offsetY,
   };

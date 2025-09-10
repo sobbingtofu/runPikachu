@@ -9,4 +9,8 @@ export interface ObstacleType {
   hitboxHeight: number;
   offsetX: number;
   offsetY: number;
+  originalWidth?: number;
+  originalHeight?: number;
+  originalHitboxWidth?: number;
+  originalHitboxHeight?: number;
 }
