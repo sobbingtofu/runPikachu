@@ -10,6 +10,7 @@ import {
   JUMP_PARAMS_PHASES,
   elapsedTimeRef,
 } from '../store/gameStore';
+import { getResponsiveSizeParams } from '../logic/getResponsiveSizeParams';
 
 const usePikachuJump = () => {
   const { pikachuState, setPikachuState } = useGameStore();
@@ -17,7 +18,10 @@ const usePikachuJump = () => {
   const getCurrentJumpParams = (elapsedTime: number) => {
     for (const { start, end, gravity, fastFallGravity } of JUMP_PARAMS_PHASES) {
       if (elapsedTime >= start && elapsedTime < end) {
-        return { gravity, fastFallGravity };
+        return {
+          gravity: getResponsiveSizeParams(gravity, 'noFloor'),
+          fastFallGravity: getResponsiveSizeParams(fastFallGravity, 'noFloor'),
+        };
       }
     }
     return { gravity: 0, fastFallGravity: 0 };

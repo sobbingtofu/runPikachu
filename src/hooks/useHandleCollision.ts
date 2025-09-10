@@ -43,7 +43,9 @@ export const useHandleCollision = () => {
         playPauseSound('92-GameOver', 'play', false);
 
         setTimeout(() => {
-          playPauseSound('02-LakeValor', 'play');
+          if (gameFundamentals.isSoundOn) {
+            playPauseSound('02-LakeValor', 'play');
+          }
         }, 4200);
       }, 700);
 

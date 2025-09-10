@@ -1,25 +1,6 @@
 import type { ObstacleType } from '../types/ObstacleType';
-import { GAME_AREA_WIDTH, RANDOM_OBSTACLE_TYPES } from '../store/gameStore';
+import { RANDOM_OBSTACLE_TYPES } from '../store/gameStore';
 import { getResponsiveSizeParams } from './getResponsiveSizeParams';
-
-// 장애물을 이동시키고 화면 밖으로 나간 장애물을 제거
-//  obstacles - 현재 장애물 배열
-//  speed - 현재 장애물 속도
-//  deltaTime - 프레임 간 시간 간격 (ms)
-//  returns : 업데이트된 장애물 배열
-export const moveObstacles = (
-  obstacles: ObstacleType[],
-  speed: number,
-  deltaTime: number,
-): ObstacleType[] => {
-  const speedFactor = deltaTime / 16.67; // 60fps 기준 속도 보정
-  return obstacles
-    .map((obs) => ({
-      ...obs,
-      positionX: obs.positionX - speed * speedFactor,
-    }))
-    .filter((obs) => obs.positionX + obs.width > 0);
-};
 
 // 새로운 장애물을 생성할 시간인지 확인하며 생성.
 // param obstacles - 현재 장애물 배열
@@ -33,6 +14,7 @@ export const spawnObstacleIfNeeded = (
   currentTime: number,
   lastGenTime: number,
   nextGenInterval: number,
+  gameAreaWidth: number,
 ): ObstacleType[] => {
   if (currentTime - lastGenTime < nextGenInterval) {
     return obstacles; // 아직 생성할 때가 아님
@@ -65,7 +47,7 @@ export const spawnObstacleIfNeeded = (
 
   const newObstacle: ObstacleType = {
     id: `obstacle-${Date.now()}-${Math.random()}`,
-    positionX: GAME_AREA_WIDTH,
+    positionX: gameAreaWidth,
     positionY: randomObstacle.positionY ?? 0,
     originalWidth: randomObstacle.width,
     originalHeight: randomObstacle.height,

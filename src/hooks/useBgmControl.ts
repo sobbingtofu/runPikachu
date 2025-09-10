@@ -6,7 +6,7 @@ export const useBgmControl = () => {
   const { gameFundamentals, setGameFundamentals } = useGameStore();
 
   useEffect(() => {
-    if (gameFundamentals.isBGMLoaded && !gameFundamentals.isGameStarted) {
+    if (gameFundamentals.isBGMLoaded) {
       if (gameFundamentals.isSoundOn) {
         playPauseSound('02-LakeValor', 'play');
       } else {

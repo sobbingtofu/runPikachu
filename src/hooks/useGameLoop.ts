@@ -8,14 +8,15 @@ import {
 } from '../store/gameStore';
 import { updateScore } from '../logic/scoreLogic';
 import { spawnObstacleIfNeeded } from '../logic/obstacleLogic';
+import { getResponsiveSizeParams } from '../logic/getResponsiveSizeParams';
 
 const useGameLoop = () => {
-  const { gameFundamentals, setGameFundamentals } = useGameStore();
+  const { gameFundamentals, setGameFundamentals, sizeParams } = useGameStore();
 
   const getCurrentObstacleSpeed = (elapsedTime: number): number => {
     for (const { start, end, obstacleSpeed } of OBSTACLE_SPEED_PHASES) {
       if (elapsedTime >= start && elapsedTime < end) {
-        return obstacleSpeed;
+        return getResponsiveSizeParams(obstacleSpeed);
       }
     }
     return 0;
@@ -91,6 +92,7 @@ const useGameLoop = () => {
             currentTime,
             lastObstacleGenTimeRef.current,
             nextObstacleIntervalRef.current,
+            sizeParams.gameAreaWidth,
           );
 
           if (obstaclesAfterSpawn.length > updatedObstacles.length) {
