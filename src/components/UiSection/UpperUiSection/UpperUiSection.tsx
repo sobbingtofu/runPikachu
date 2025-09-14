@@ -1,11 +1,12 @@
 import type { PropsWithChildren } from 'react';
-import './UiSection.css';
-import PixelButtonWrapper from '../PixelButtonWrapper/PixelButtonWrapper';
-import PixelButton from '../PixelButton/PixelButton';
-import { useGameStore } from '../../store/gameStore';
-import MuteToggleBtn from '../SoundButton/MuteToggleBtn';
 
-const UiSection = ({}: PropsWithChildren<{}>) => {
+import './../UiSection.css';
+import PixelButtonWrapper from '../../PixelButtonWrapper/PixelButtonWrapper';
+import PixelButton from '../../PixelButton/PixelButton';
+import { useGameStore } from '../../../store/gameStore';
+import MuteToggleBtn from '../../SoundButton/MuteToggleBtn';
+
+const UpperUiSection = ({}: PropsWithChildren<{}>) => {
   const { gameFundamentals } = useGameStore();
   const rightButtonType =
     gameFundamentals.isGameStarted ||
@@ -31,11 +32,11 @@ const UiSection = ({}: PropsWithChildren<{}>) => {
       <div className='score-buttons-container'>
         <p className='score-text'>Score: {gameFundamentals.score}</p>
         <div className='button-container'>
-          <PixelButtonWrapper>
+          <PixelButtonWrapper className='upper'>
             <PixelButton type='spacebar' />
             <p className='instruction-text'>{leftButtonType}</p>
           </PixelButtonWrapper>
-          <PixelButtonWrapper>
+          <PixelButtonWrapper className='upper'>
             <PixelButton type={rightButtonType} />
             <p className='instruction-text'>
               {gameFundamentals.isGameStarted ||
@@ -51,4 +52,4 @@ const UiSection = ({}: PropsWithChildren<{}>) => {
   );
 };
 
-export default UiSection;
+export default UpperUiSection;

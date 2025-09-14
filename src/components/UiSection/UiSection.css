@@ -9,7 +9,13 @@ div .score-buttons-container {
   flex-direction: row;
   justify-content: space-between;
   align-items: end;
-  margin: 12px 0px;
+  margin: 12px 0px 24px 0px;
+}
+
+@media (max-width: 600px) {
+  div .score-buttons-container {
+    margin-top: 36px;
+  }
 }
 
 .button-container {
@@ -23,6 +29,12 @@ h1.run-pikachu {
   font-size: 60pt;
   color: #ffcb05;
   text-shadow: 2px 2px #2e3775;
+}
+
+@media (max-width: 600px) {
+  h1.run-pikachu {
+    font-size: 48pt;
+  }
 }
 
 p.score-text {

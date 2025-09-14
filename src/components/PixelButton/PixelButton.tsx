@@ -2,13 +2,26 @@ import { type PropsWithChildren } from 'react';
 import './PixelButton.css';
 
 interface PixelButtonProps {
-  type: 'spacebar' | 'arrowDown' | 'enter';
+  type:
+    | 'spacebar'
+    | 'arrowDown'
+    | 'enter'
+    | 'Run'
+    | 'Jump'
+    | 'Board'
+    | 'Quick Drop'
+    | 'Run Again';
 }
 
 const imageMap: Record<PixelButtonProps['type'], string> = {
   spacebar: '/pixelButtons/spacebar-black.png',
   arrowDown: '/pixelButtons/arrowDown-black.png',
   enter: '/pixelButtons/enter-black.png',
+  Run: '/pixelButtons/run-black.png',
+  Jump: '/pixelButtons/jump-black.png',
+  Board: '/pixelButtons/board-black.png',
+  'Quick Drop': '/pixelButtons/quickDrop-black.png',
+  'Run Again': '/pixelButtons/runAgain-black.png',
 };
 
 const buttonHeight = 60;

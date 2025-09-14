@@ -7,12 +7,13 @@ import usePikachuJump from './hooks/usePikachuJump';
 import useGameLoop from './hooks/useGameLoop';
 import HighScoreBoard from './components/GameOverBoard/HighScoreBoard';
 import ScrollingBackground from './components/ScrollingBackground/ScrollingBackground';
-import UiSection from './components/UiSection/UiSection';
+import UpperUiSection from './components/UiSection/UpperUiSection/UpperUiSection';
 import { useLoadBgms } from './hooks/useLoadBgms';
 import { useBgmControl } from './hooks/useBgmControl';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import PreGameScreen from './components/PreGameScreen/PreGameScreen';
 import { useGameSizeControl } from './hooks/useGameSizeControl';
+import LowerUiSection from './components/UiSection/LowerUiSection/LowerUiSection';
 
 function App() {
   const { gameFundamentals, sizeParams } = useGameStore();
@@ -39,7 +40,7 @@ function App() {
           <>
             <HighScoreBoard />
 
-            <UiSection />
+            <UpperUiSection />
 
             <div className={`game-area`}>
               <ScrollingBackground
@@ -68,6 +69,8 @@ function App() {
                 />
               ))}
             </div>
+
+            <LowerUiSection />
           </>
         )}
       </div>
