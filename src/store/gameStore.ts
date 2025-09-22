@@ -135,8 +135,14 @@ export const TARGET_FPS = 120;
 export const BGM_NAMES: string[] = [
   '01-PalletTown',
   '02-LakeValor',
-  '91-Collide',
   '92-GameOver',
+];
+
+export const SOUND_EFFECT_NAMES: string[] = [
+  'jump01',
+  'collision01',
+  'buttonSound01',
+  'quickdrop01',
 ];
 
 export const OBSTACLE_SPEED_PHASES = [

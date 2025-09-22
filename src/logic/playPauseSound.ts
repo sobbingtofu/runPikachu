@@ -2,14 +2,14 @@ import { openDB, getBGM } from './manageBgmIdxDb';
 
 export async function playPauseSound(
   bgmName: string,
-  actionType: 'play' | 'pause' | 'stop',
+  actionType: 'play' | 'pause' | 'stop' | 'stopAndPlay',
   loopYN: boolean = true,
 ) {
   const db = await openDB();
   const bgmBlob = await getBGM(db, bgmName);
 
   if (!bgmBlob) {
-    // console.log(bgmName + '이 존재안함');
+    console.log(bgmName + '이 존재안함');
     return;
   }
 
@@ -32,5 +32,9 @@ export async function playPauseSound(
   } else if (actionType === 'stop') {
     audio.pause();
     audio.currentTime = 0;
+  } else if (actionType === 'stopAndPlay') {
+    audio.pause();
+    audio.currentTime = 0;
+    await audio.play();
   }
 }

@@ -1,3 +1,4 @@
+import { playPauseSound } from '../logic/playPauseSound';
 import {
   canJumpRef,
   jumpAnimationFrameIdRef,
@@ -17,6 +18,7 @@ export const useTriggerPikachuJump = () => {
         jumpAnimationFrameIdRef.current = null;
       }
       jumpCountRef.current += 1;
+      playPauseSound('jump01', 'stopAndPlay', false);
       setPikachuState({
         isJumping: true,
         jumpTrigger: Date.now(), // 매번 새로운 값

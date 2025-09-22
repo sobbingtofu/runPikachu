@@ -20,7 +20,7 @@ export const useHandleCollision = () => {
   // 충돌 시 게임 오버 처리
   useEffect(() => {
     if (isCollision && !gameFundamentals.isGameOver) {
-      playPauseSound('91-Collide', 'play', false);
+      playPauseSound('collision01', 'play', false);
       playPauseSound('02-LakeValor', 'pause');
 
       setGameFundamentals((prev) => ({
