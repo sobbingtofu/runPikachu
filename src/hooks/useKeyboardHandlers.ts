@@ -8,6 +8,7 @@ import {
 import { useCloseBoard } from './useCloseBoard';
 import { useRerunPikachu } from './useRerunPikachu';
 import { useTriggerPikachuJump } from './useTriggerPikachuJump';
+import { playPauseSound } from '../logic/playPauseSound';
 
 export const useKeyboardHandlers = () => {
   const {
@@ -49,6 +50,7 @@ export const useKeyboardHandlers = () => {
         ) {
           // 1. 게임 시작
           if (!gameFundamentals.isGameStarted && !gameFundamentals.isGameOver) {
+            playPauseSound('swift01', 'stopAndPlay', false);
             setGameFundamentals({
               isGameStarted: true,
               isGameOver: false,
@@ -58,11 +60,13 @@ export const useKeyboardHandlers = () => {
 
           // 2. 점프 시작 로직
           if (gameFundamentals.isGameStarted && !gameFundamentals.isGameOver) {
+            playPauseSound('jump01', 'stopAndPlay', false);
             triggerPikachuJump();
           }
 
           // 3. 게임 재시작 로직
           if (!gameFundamentals.isGameStarted && gameFundamentals.isGameOver) {
+            playPauseSound('swift01', 'stopAndPlay', false);
             reRunPikachu();
           }
         }
@@ -86,6 +90,7 @@ export const useKeyboardHandlers = () => {
     if (e.code === 'ArrowDown') {
       e.preventDefault();
       if (pikachuState.isJumping) {
+        playPauseSound('quickdrop01', 'stopAndPlay', false);
         isFastFallingRef.current = true;
       }
     }
@@ -101,6 +106,7 @@ export const useKeyboardHandlers = () => {
     if (e.code === 'Escape') {
       e.preventDefault();
       if (gameFundamentals.isBoardVisible) {
+        playPauseSound('collision01', 'stopAndPlay', false);
         closeBoard();
       }
     }
@@ -115,9 +121,11 @@ export const useKeyboardHandlers = () => {
         !gameFundamentals.isBoardVisible &&
         !gameFundamentals.isGameStarted
       ) {
+        playPauseSound('buttonSound01', 'stopAndPlay', false);
         setGameFundamentals({ isBoardVisible: true });
       }
       if (gameFundamentals.isBGMLoaded && gameFundamentals.isPreGameScreen) {
+        playPauseSound('buttonSound01', 'stopAndPlay', false);
         setGameFundamentals({ isPreGameScreen: false, isSoundOn: true });
       }
     }

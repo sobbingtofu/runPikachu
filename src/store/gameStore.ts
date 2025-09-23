@@ -143,6 +143,7 @@ export const SOUND_EFFECT_NAMES: string[] = [
   'collision01',
   'buttonSound01',
   'quickdrop01',
+  'swift01',
 ];
 
 export const OBSTACLE_SPEED_PHASES = [
