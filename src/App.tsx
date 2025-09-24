@@ -5,7 +5,7 @@ import { useGameStore } from './store/gameStore';
 import useGameCore from './hooks/useGameCore';
 import usePikachuJump from './hooks/usePikachuJump';
 import useGameLoop from './hooks/useGameLoop';
-import HighScoreBoard from './components/GameOverBoard/HighScoreBoard';
+import Board from './components/Board/Board';
 import ScrollingBackground from './components/ScrollingBackground/ScrollingBackground';
 import UpperUiSection from './components/UiSection/UpperUiSection/UpperUiSection';
 import { useLoadBgms } from './hooks/useLoadBgms';
@@ -14,8 +14,7 @@ import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import PreGameScreen from './components/PreGameScreen/PreGameScreen';
 import { useGameSizeControl } from './hooks/useGameSizeControl';
 import LowerUiSection from './components/UiSection/LowerUiSection/LowerUiSection';
-import { supabase } from './store/supabaseClient';
-import { useEffect } from 'react';
+import { useLoadScores } from './hooks/useLoadScores';
 
 function App() {
   const { gameFundamentals, sizeParams } = useGameStore();
@@ -26,27 +25,7 @@ function App() {
   useLoadBgms();
   useBgmControl();
   useGameSizeControl();
-
-  const fetchData = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('TB_RECORD_MASTER')
-        .select('*');
-
-      if (error) {
-        throw error;
-      }
-      console.log('데이터:', data);
-      console.log(typeof data);
-    } catch (error) {
-      console.error('데이터를 가져오는 중 오류 발생:', error);
-    } finally {
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  useLoadScores();
 
   return (
     <div className='App'>
@@ -61,7 +40,7 @@ function App() {
         <PreGameScreen />
         {gameFundamentals.isBGMLoaded && !gameFundamentals.isPreGameScreen && (
           <>
-            <HighScoreBoard />
+            <Board />
 
             <UpperUiSection />
 

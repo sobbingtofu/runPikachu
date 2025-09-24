@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import type { ObstacleType } from '../types/ObstacleType';
 import { getResponsiveSizeParams } from '../logic/getResponsiveSizeParams';
+import type { ScoreRecordType } from '../types/supabase';
 
 type GameFundamentalsType = {
   isGameStarted: boolean;
@@ -13,6 +14,7 @@ type GameFundamentalsType = {
   isBGMLoaded: boolean;
   isPreGameScreen: boolean;
   isScoreLoaded: boolean;
+  scoreArray: ScoreRecordType[];
 };
 
 export type sizeParamsType = {
@@ -87,6 +89,7 @@ export const useGameStore = create<GameState>((set) => ({
     isBGMLoaded: false,
     isPreGameScreen: true,
     isScoreLoaded: false,
+    scoreArray: [],
   },
 
   setGameFundamentals: (update) =>

@@ -14,3 +14,4 @@ https://www.youtube.com/watch?v=5UHmxWsPNzg
 
 
 supabase Db서버 설정 및 연동
+타입 연동: npx supabase gen types typescript --project-id izfxyedbhntjlkrzvnbg > src/types/supabase.ts

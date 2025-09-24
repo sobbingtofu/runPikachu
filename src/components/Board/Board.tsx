@@ -3,9 +3,9 @@ import { useRerunPikachu } from '../../hooks/useRerunPikachu';
 import { useGameStore } from '../../store/gameStore';
 import BoardButton from '../BoardButton/BoardButton';
 import ButtonContainer from '../ButtonContainer/ButtonContainer';
-import './HighScoreBoard.css';
+import './Board.css';
 
-const HighScoreBoard = () => {
+const Board = () => {
   const { closeBoard } = useCloseBoard();
   const { gameFundamentals } = useGameStore();
   const { reRunPikachu } = useRerunPikachu();
@@ -27,7 +27,11 @@ const HighScoreBoard = () => {
             <h2>High Score</h2>
             <p>하이스코어 목록 표시 예정</p>
             <p>현재 점수: {gameFundamentals.score}</p>
-
+            {gameFundamentals.scoreArray.map((record, index) => (
+              <div key={index}>
+                {index + 1}. {record.playerName} - {record.score}
+              </div>
+            ))}
             <ButtonContainer>
               <BoardButton type='rerun' onClick={reRunPikachu}>
                 다시 달리기
@@ -43,4 +47,4 @@ const HighScoreBoard = () => {
   );
 };
 
-export default HighScoreBoard;
+export default Board;
