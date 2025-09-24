@@ -12,6 +12,7 @@ type GameFundamentalsType = {
   isSoundOn: boolean;
   isBGMLoaded: boolean;
   isPreGameScreen: boolean;
+  isScoreLoaded: boolean;
 };
 
 export type sizeParamsType = {
@@ -85,6 +86,7 @@ export const useGameStore = create<GameState>((set) => ({
     isSoundOn: false,
     isBGMLoaded: false,
     isPreGameScreen: true,
+    isScoreLoaded: false,
   },
 
   setGameFundamentals: (update) =>

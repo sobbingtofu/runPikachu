@@ -14,6 +14,8 @@ import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import PreGameScreen from './components/PreGameScreen/PreGameScreen';
 import { useGameSizeControl } from './hooks/useGameSizeControl';
 import LowerUiSection from './components/UiSection/LowerUiSection/LowerUiSection';
+import { supabase } from './store/supabaseClient';
+import { useEffect } from 'react';
 
 function App() {
   const { gameFundamentals, sizeParams } = useGameStore();
@@ -24,6 +26,27 @@ function App() {
   useLoadBgms();
   useBgmControl();
   useGameSizeControl();
+
+  const fetchData = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('TB_RECORD_MASTER')
+        .select('*');
+
+      if (error) {
+        throw error;
+      }
+      console.log('데이터:', data);
+      console.log(typeof data);
+    } catch (error) {
+      console.error('데이터를 가져오는 중 오류 발생:', error);
+    } finally {
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className='App'>
