@@ -1,7 +1,7 @@
 import { type PropsWithChildren } from 'react';
 import './PixelButton.css';
 
-interface PixelButtonProps {
+export interface PixelButtonProps {
   type:
     | 'spacebar'
     | 'arrowDown'

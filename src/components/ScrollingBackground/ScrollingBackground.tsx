@@ -1,4 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  type PropsWithChildren,
+} from 'react';
 
 interface ScrollingBackgroundProps {
   src: string;
@@ -6,11 +11,11 @@ interface ScrollingBackgroundProps {
   isGameStarted: boolean;
 }
 
-const ScrollingBackground: React.FC<ScrollingBackgroundProps> = ({
+const ScrollingBackground = ({
   src,
   speed,
   isGameStarted,
-}) => {
+}: PropsWithChildren<ScrollingBackgroundProps>) => {
   const [imageWidth, setImageWidth] = useState(0);
   const xPosRef = useRef(0);
   const viewportRef = useRef<HTMLDivElement>(null);

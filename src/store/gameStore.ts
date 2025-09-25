@@ -3,7 +3,7 @@ import type { ObstacleType } from '../types/ObstacleType';
 import { getResponsiveSizeParams } from '../logic/getResponsiveSizeParams';
 import type { ScoreRecordType } from '../types/supabase';
 
-type GameFundamentalsType = {
+export type GameFundamentalsType = {
   isGameStarted: boolean;
   isGameOver: boolean;
   score: number;

@@ -15,9 +15,13 @@ import PreGameScreen from './components/PreGameScreen/PreGameScreen';
 import { useGameSizeControl } from './hooks/useGameSizeControl';
 import LowerUiSection from './components/UiSection/LowerUiSection/LowerUiSection';
 import { useLoadScores } from './hooks/useLoadScores';
+import { defineButtonDetails } from './logic/defineButtonDetails';
 
 function App() {
   const { gameFundamentals, sizeParams } = useGameStore();
+
+  const { leftButtonType, rightButtonType, leftButtonText, rightButtonText } =
+    defineButtonDetails(gameFundamentals);
 
   useGameCore();
   usePikachuJump();
@@ -42,7 +46,12 @@ function App() {
           <>
             <Board />
 
-            <UpperUiSection />
+            <UpperUiSection
+              leftButtonType={leftButtonType}
+              rightButtonType={rightButtonType}
+              leftButtonText={leftButtonText}
+              rightButtonText={rightButtonText}
+            />
 
             <div className={`game-area`}>
               <ScrollingBackground
@@ -72,7 +81,12 @@ function App() {
               ))}
             </div>
 
-            <LowerUiSection />
+            <LowerUiSection
+              leftButtonType={leftButtonType}
+              rightButtonType={rightButtonType}
+              leftButtonText={leftButtonText}
+              rightButtonText={rightButtonText}
+            />
           </>
         )}
       </div>
