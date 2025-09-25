@@ -15,7 +15,7 @@ const BoardButton = ({
 
   return (
     <button className={className} onClick={onClick}>
-      {children}
+      <p className='board-button-text'>{children}</p>
     </button>
   );
 };

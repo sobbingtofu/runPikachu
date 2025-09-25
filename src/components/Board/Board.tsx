@@ -15,6 +15,8 @@ const Board = () => {
     console.log('Registering score...');
   };
 
+  let scoreItemCount = 0;
+
   return (
     <>
       {gameFundamentals.isBoardVisible && (
@@ -24,22 +26,31 @@ const Board = () => {
               &times;
             </button>
             <h1>{gameFundamentals.isGameOver && 'Game Over'}</h1>
-            <h2>High Score</h2>
-            <p>하이스코어 목록 표시 예정</p>
-            <p>현재 점수: {gameFundamentals.score}</p>
-            {gameFundamentals.scoreArray.map((record, index) => (
-              <div key={index}>
-                {index + 1}. {record.playerName} - {record.score}
-              </div>
-            ))}
-            <ButtonContainer>
-              <BoardButton type='rerun' onClick={reRunPikachu}>
-                다시 달리기
-              </BoardButton>
-              <BoardButton type='register' onClick={handleRegister}>
-                내 점수 등록하기
-              </BoardButton>
-            </ButtonContainer>
+            <p className='my-score-text'>
+              {gameFundamentals.isGameOver &&
+                `My Score: ${gameFundamentals.score}`}
+            </p>
+            <h2>High Scores</h2>
+            <div className='score-list'>
+              {gameFundamentals.scoreArray.map((record, index) => {
+                if (scoreItemCount++ >= 5) return null;
+                return (
+                  <div className='score-item' key={index}>
+                    {index + 1}. {record.playerName} - {record.score}
+                  </div>
+                );
+              })}
+            </div>
+            {gameFundamentals.isGameOver && (
+              <ButtonContainer>
+                <BoardButton type='rerun' onClick={reRunPikachu}>
+                  Run Again
+                </BoardButton>
+                <BoardButton type='register' onClick={handleRegister}>
+                  Register My Score
+                </BoardButton>
+              </ButtonContainer>
+            )}
           </div>
         </div>
       )}

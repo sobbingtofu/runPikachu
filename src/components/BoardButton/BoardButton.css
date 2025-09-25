@@ -1,6 +1,6 @@
 .board-button {
   flex: 1;
-  margin-top: 20px;
+
   padding: 10px 20px;
   border: none;
   color: white;
@@ -24,4 +24,13 @@
 
 .board-button.register:hover {
   background-color: #1e736c;
+}
+
+p.board-button-text {
+  margin: 0px;
+  padding: 0px;
+  font-family: 'editundo', sans-serif;
+  /* font-family: 'fs-pixel-sans-unicode-regular', sans-serif; */
+  font-size: 20px;
+  color: #141414;
 }
