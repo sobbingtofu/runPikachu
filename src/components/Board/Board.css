@@ -66,18 +66,40 @@
 }
 
 div.score-list {
-  margin-top: 10px;
+  margin-top: 16px;
+  margin-bottom: 12px;
   text-align: center;
   max-height: 200px;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
 div.score-item {
-  margin: 5px 0;
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+
   font-size: 28px;
   color: #272727;
   font-family: 'editundo', sans-serif;
-  /* font-family: 'fs-pixel-sans-unicode-regular', sans-serif; */
+}
+
+span.player-rank {
+  flex: 2;
+  text-align: center;
+}
+
+span.player-name {
+  flex: 8;
+  text-align: left;
+}
+
+span.player-score {
+  flex: 3;
+  text-align: right;
 }
 
 .board-modal .close-button:hover {

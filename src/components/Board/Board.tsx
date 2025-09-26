@@ -36,7 +36,9 @@ const Board = () => {
                 if (scoreItemCount++ >= 5) return null;
                 return (
                   <div className='score-item' key={index}>
-                    {index + 1}. {record.playerName} - {record.score}
+                    <span className='player-rank'>{index + 1}</span>
+                    <span className='player-name'>{record.playerName}</span>
+                    <span className='player-score'>{record.score}</span>
                   </div>
                 );
               })}

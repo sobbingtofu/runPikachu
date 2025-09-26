@@ -31,7 +31,7 @@ export const defineButtonDetails = (
     gameFundamentals.isGameStarted ||
     gameFundamentals.isGameOverAnimationPlaying
       ? 'Quick Drop'
-      : 'Board';
+      : 'Score Board';
 
   return {
     leftButtonType,
