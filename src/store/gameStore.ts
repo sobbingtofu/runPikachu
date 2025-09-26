@@ -145,10 +145,15 @@ export const BGM_NAMES: string[] = [
 
 export const SOUND_EFFECT_NAMES: string[] = [
   'jump01',
+  'jump02',
+  'jump03',
+  'jump04',
   'collision01',
   'buttonSound01',
   'quickdrop01',
+  'quickdrop02',
   'swift01',
+  'boardClose01',
 ];
 
 export const OBSTACLE_SPEED_PHASES = [

@@ -60,7 +60,6 @@ export const useKeyboardHandlers = () => {
 
           // 2. 점프 시작 로직
           if (gameFundamentals.isGameStarted && !gameFundamentals.isGameOver) {
-            playPauseSound('jump01', 'stopAndPlay', false);
             triggerPikachuJump();
           }
 
@@ -90,7 +89,7 @@ export const useKeyboardHandlers = () => {
     if (e.code === 'ArrowDown') {
       e.preventDefault();
       if (pikachuState.isJumping) {
-        playPauseSound('quickdrop01', 'stopAndPlay', false);
+        playPauseSound('quickdrop02', 'stopAndPlay', false);
         isFastFallingRef.current = true;
       }
     }
@@ -106,7 +105,7 @@ export const useKeyboardHandlers = () => {
     if (e.code === 'Escape') {
       e.preventDefault();
       if (gameFundamentals.isBoardVisible) {
-        playPauseSound('collision01', 'stopAndPlay', false);
+        playPauseSound('boardClose01', 'stopAndPlay', false);
         closeBoard();
       }
     }

@@ -10,7 +10,8 @@ export const useLoadScores = () => {
       try {
         const { data, error } = await supabase
           .from('TB_RECORD_MASTER')
-          .select('*');
+          .select('*')
+          .order('score', { ascending: false });
 
         if (error) {
           throw error;
