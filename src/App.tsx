@@ -16,6 +16,7 @@ import { useGameSizeControl } from './hooks/useGameSizeControl';
 import LowerUiSection from './components/UiSection/LowerUiSection/LowerUiSection';
 import { useLoadScores } from './hooks/useLoadScores';
 import { defineButtonDetails } from './logic/defineButtonDetails';
+import { useUpdateLastScorePercentile } from './hooks/useUpdateLastScorePercentile';
 
 function App() {
   const { gameFundamentals, sizeParams } = useGameStore();
@@ -23,6 +24,7 @@ function App() {
   const { leftButtonType, rightButtonType, leftButtonText, rightButtonText } =
     defineButtonDetails(gameFundamentals);
 
+  useUpdateLastScorePercentile();
   useGameCore();
   usePikachuJump();
   useGameLoop();

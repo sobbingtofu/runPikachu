@@ -14,7 +14,13 @@ export type GameFundamentalsType = {
   isBGMLoaded: boolean;
   isPreGameScreen: boolean;
   isScoreLoaded: boolean;
-  scoreArray: ScoreRecordType[];
+  serverScoreRecordArray: ScoreRecordType[];
+  LastScorePercentile: number;
+};
+
+export type loadingStatesType = {
+  isScoreRecordLoading: boolean;
+  isScorePercentileLoading: boolean;
 };
 
 export type sizeParamsType = {
@@ -34,6 +40,13 @@ export type PikachuType = {
 };
 
 interface GameState {
+  loadingStates: loadingStatesType;
+  setLoadingStates: (
+    update:
+      | Partial<loadingStatesType>
+      | ((prev: loadingStatesType) => loadingStatesType),
+  ) => void;
+
   sizeParams: sizeParamsType;
   setSizeParams: (
     update:
@@ -61,6 +74,19 @@ export const initialSizeParams = {
 };
 
 export const useGameStore = create<GameState>((set) => ({
+  loadingStates: {
+    isScoreRecordLoading: false,
+    isScorePercentileLoading: false,
+  },
+
+  setLoadingStates: (update) =>
+    set((state) => {
+      const prev = state.loadingStates;
+      const next =
+        typeof update === 'function' ? update(prev) : { ...prev, ...update };
+      return { loadingStates: next };
+    }),
+
   sizeParams: {
     gameAreaWidth: getResponsiveSizeParams(
       initialSizeParams.GAME_AREA_INIT_WIDTH,
@@ -89,7 +115,8 @@ export const useGameStore = create<GameState>((set) => ({
     isBGMLoaded: false,
     isPreGameScreen: true,
     isScoreLoaded: false,
-    scoreArray: [],
+    serverScoreRecordArray: [],
+    LastScorePercentile: 0,
   },
 
   setGameFundamentals: (update) =>

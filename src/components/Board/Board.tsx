@@ -7,7 +7,7 @@ import './Board.css';
 
 const Board = () => {
   const { closeBoard } = useCloseBoard();
-  const { gameFundamentals } = useGameStore();
+  const { gameFundamentals, loadingStates } = useGameStore();
   const { reRunPikachu } = useRerunPikachu();
 
   const handleRegister = () => {
@@ -26,23 +26,36 @@ const Board = () => {
               &times;
             </button>
             <h1>{gameFundamentals.isGameOver && 'Game Over'}</h1>
+            {gameFundamentals.isGameOver && (
+              <p className='my-score-text'>
+                {loadingStates.isScoreRecordLoading
+                  ? 'Loading...'
+                  : `My Score: ${gameFundamentals.score}`}
+              </p>
+            )}
             <p className='my-score-text'>
               {gameFundamentals.isGameOver &&
-                `My Score: ${gameFundamentals.score}`}
+                `Top ${gameFundamentals.LastScorePercentile}% of Players`}
             </p>
             <h2>High Scores</h2>
-            <div className='score-list'>
-              {gameFundamentals.scoreArray.map((record, index) => {
-                if (scoreItemCount++ >= 5) return null;
-                return (
-                  <div className='score-item' key={index}>
-                    <span className='player-rank'>{index + 1}</span>
-                    <span className='player-name'>{record.playerName}</span>
-                    <span className='player-score'>{record.score}</span>
-                  </div>
-                );
-              })}
-            </div>
+            {loadingStates.isScoreRecordLoading ? (
+              <p className='my-score-text'>Loading...</p>
+            ) : (
+              <div className='score-list'>
+                {gameFundamentals.serverScoreRecordArray.map(
+                  (record, index) => {
+                    if (scoreItemCount++ >= 5) return null;
+                    return (
+                      <div className='score-item' key={index}>
+                        <span className='player-rank'>{index + 1}</span>
+                        <span className='player-name'>{record.playerName}</span>
+                        <span className='player-score'>{record.score}</span>
+                      </div>
+                    );
+                  },
+                )}
+              </div>
+            )}
             {gameFundamentals.isGameOver && (
               <ButtonContainer>
                 <BoardButton type='rerun' onClick={reRunPikachu}>
