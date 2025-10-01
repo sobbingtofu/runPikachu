@@ -3,7 +3,7 @@ import { useLoadScores } from '../../hooks/useLoadScores';
 import { useRerunPikachu } from '../../hooks/useRerunPikachu';
 import { registerScore } from '../../logic/supabaseLogics';
 import { timerPromiseLogic } from '../../logic/timerPromise';
-import { useGameStore } from '../../store/gameStore';
+import { ITEMS_PER_BOARD_PAGE, useGameStore } from '../../store/gameStore';
 import BoardButton from './BoardButton/BoardButton';
 import ButtonContainer from './BoardButtonContainer/BoardButtonContainer';
 import NameInput from '../NameInput/NameInput';
@@ -76,8 +76,11 @@ const Board = () => {
                 {gameFundamentals.serverScoreRecordArray.map(
                   (record, index) => {
                     if (
-                      index < (gameFundamentals.currentBoardPage - 1) * 7 ||
-                      index >= gameFundamentals.currentBoardPage * 7
+                      index <
+                        (gameFundamentals.currentBoardPage - 1) *
+                          ITEMS_PER_BOARD_PAGE ||
+                      index >=
+                        gameFundamentals.currentBoardPage * ITEMS_PER_BOARD_PAGE
                     )
                       return null;
                     return (
@@ -98,7 +101,8 @@ const Board = () => {
 
                 <ScoreRegisterInfoTxt />
 
-                {gameFundamentals.isNameInputShown && <NameInput />}
+                {gameFundamentals.isNameInputShown &&
+                  !loadingStates.isScoreRegisterLoading && <NameInput />}
 
                 <ButtonContainer>
                   <BoardButton

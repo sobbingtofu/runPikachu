@@ -5,7 +5,7 @@ const NameInput = () => {
   const { gameFundamentals, setGameFundamentals } = useGameStore();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const onlyEng = e.target.value.replace(/[^a-zA-Z0-9]/g, '');
+    const onlyEng = e.target.value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
     if (
       gameFundamentals.currentNameInput.length >= 15 &&
       e.target.value.length > gameFundamentals.currentNameInput.length

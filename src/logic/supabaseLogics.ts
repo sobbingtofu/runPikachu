@@ -1,11 +1,12 @@
 import { supabase } from '../../supabaseClient';
+import { ITEMS_PER_BOARD_PAGE } from '../store/gameStore';
 
 export const fetchSupabaseScores = async () => {
   const { data, error } = await supabase
     .from('TB_RECORD_MASTER')
     .select('*')
     .order('score', { ascending: false })
-    .limit(350);
+    .limit(ITEMS_PER_BOARD_PAGE * 20);
   return { data, error };
 };
 

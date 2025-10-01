@@ -4,6 +4,7 @@ import PixelButton from '../../PixelButton/PixelButton';
 import PixelButtonWrapper from '../../PixelButtonWrapper/PixelButtonWrapper';
 import type { UiSectionProps } from '../UpperUiSection/UpperUiSection';
 import './../UiSection.css';
+import { useKeyboardHandlers } from '../../../hooks/useKeyboardHandlers';
 
 const LowerUiSection = ({
   leftButtonType,
@@ -11,6 +12,9 @@ const LowerUiSection = ({
   leftButtonText,
   rightButtonText,
 }: PropsWithChildren<UiSectionProps>) => {
+  const { keyDownSpaceBarLogic, keyDownArrowDownLogic, keyDownEnterLogic } =
+    useKeyboardHandlers();
+
   return (
     <>
       <div className='lower-button-container'>

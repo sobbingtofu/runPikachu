@@ -12,6 +12,7 @@ h2.navi-header {
 }
 
 h3.navi-buttons {
+  font-size: 22px;
   margin: 0px;
   font-family: 'editundo', sans-serif;
   color: rgb(156, 156, 156);

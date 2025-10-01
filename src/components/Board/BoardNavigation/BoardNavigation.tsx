@@ -1,4 +1,4 @@
-import { useGameStore } from '../../../store/gameStore';
+import { ITEMS_PER_BOARD_PAGE, useGameStore } from '../../../store/gameStore';
 import './BoardNavigation.css';
 
 const BoardNavigation = () => {
@@ -15,7 +15,7 @@ const BoardNavigation = () => {
   const moveToNextPage = () => {
     if (
       gameFundamentals.currentBoardPage <
-      gameFundamentals.serverScoreRecordArray.length / 7
+      gameFundamentals.serverScoreRecordArray.length / ITEMS_PER_BOARD_PAGE
     ) {
       setGameFundamentals((prev) => ({
         ...prev,
@@ -34,7 +34,9 @@ const BoardNavigation = () => {
   const moveToLastPage = () => {
     setGameFundamentals((prev) => ({
       ...prev,
-      currentBoardPage: Math.ceil(prev.serverScoreRecordArray.length / 7),
+      currentBoardPage: Math.ceil(
+        prev.serverScoreRecordArray.length / ITEMS_PER_BOARD_PAGE,
+      ),
     }));
   };
 

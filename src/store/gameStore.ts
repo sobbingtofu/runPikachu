@@ -175,6 +175,8 @@ export const jumpCountRef = { current: 0 };
 export const INITIAL_GROUND_Y_VALUE = 0;
 export const TARGET_FPS = 120;
 
+export const ITEMS_PER_BOARD_PAGE = 5;
+
 export const BGM_NAMES: string[] = [
   '01-PalletTown',
   '02-LakeValor',
