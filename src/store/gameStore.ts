@@ -18,8 +18,8 @@ export type GameFundamentalsType = {
   LastScorePercentile: number;
   isNameInputShown: boolean;
   currentNameInput: string;
-
   isCurrentScoreRegistered: boolean;
+  currentBoardPage: number;
 };
 
 export type loadingStatesType = {
@@ -125,6 +125,7 @@ export const useGameStore = create<GameState>((set) => ({
     LastScorePercentile: 0,
     isNameInputShown: false,
     currentNameInput: '',
+    currentBoardPage: 1,
 
     isCurrentScoreRegistered: false,
   },

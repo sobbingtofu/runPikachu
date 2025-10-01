@@ -1,4 +1,4 @@
-import { fetchSupabaseScores } from '../logic/supbaseLogics';
+import { fetchSupabaseScores } from '../logic/supabaseLogics';
 import { useGameStore } from '../store/gameStore';
 
 export const useLoadScores = (reloadYN: boolean) => {

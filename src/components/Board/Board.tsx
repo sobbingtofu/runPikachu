@@ -1,7 +1,7 @@
 import { useCloseBoard } from '../../hooks/useCloseBoard';
 import { useLoadScores } from '../../hooks/useLoadScores';
 import { useRerunPikachu } from '../../hooks/useRerunPikachu';
-import { registerScore } from '../../logic/supbaseLogics';
+import { registerScore } from '../../logic/supabaseLogics';
 import { timerPromiseLogic } from '../../logic/timerPromise';
 import { useGameStore } from '../../store/gameStore';
 import BoardButton from './BoardButton/BoardButton';
@@ -10,6 +10,7 @@ import NameInput from '../NameInput/NameInput';
 import './Board.css';
 import GameOverScoreInfos from './GameOverInfos/GameOverScoreInfos';
 import ScoreRegisterInfoTxt from './ScoreRegisterInfoTxt/ScoreRegisterInfoTxt';
+import BoardNavigation from './BoardNavigation/BoardNavigation';
 
 const Board = () => {
   const { closeBoard } = useCloseBoard();
@@ -55,8 +56,6 @@ const Board = () => {
     });
   };
 
-  let scoreItemCount = 0;
-
   return (
     <>
       {gameFundamentals.isBoardVisible && (
@@ -68,7 +67,7 @@ const Board = () => {
 
             <h1>{gameFundamentals.isGameOver && 'Game Over'}</h1>
 
-            <h2>High Scores</h2>
+            <BoardNavigation />
 
             {loadingStates.isScoreRecordLoading ? (
               <p className='my-score-text'>Loading...</p>
@@ -76,7 +75,11 @@ const Board = () => {
               <div className='score-list'>
                 {gameFundamentals.serverScoreRecordArray.map(
                   (record, index) => {
-                    if (scoreItemCount++ >= 7) return null;
+                    if (
+                      index < (gameFundamentals.currentBoardPage - 1) * 7 ||
+                      index >= gameFundamentals.currentBoardPage * 7
+                    )
+                      return null;
                     return (
                       <div className='score-item' key={index}>
                         <span className='player-rank'>{index + 1}</span>

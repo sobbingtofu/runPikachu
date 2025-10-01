@@ -4,8 +4,8 @@ export const fetchSupabaseScores = async () => {
   const { data, error } = await supabase
     .from('TB_RECORD_MASTER')
     .select('*')
-    .order('score', { ascending: false });
-
+    .order('score', { ascending: false })
+    .limit(350);
   return { data, error };
 };
 

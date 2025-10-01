@@ -1,0 +1,27 @@
+div.board-navi-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+h2.navi-header {
+  margin: 0px;
+}
+
+h3.navi-buttons {
+  margin: 0px;
+  font-family: 'editundo', sans-serif;
+  color: rgb(156, 156, 156);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  /* background-color: aquamarine; */
+  padding: 8px;
+}
+
+h3.navi-buttons:hover {
+  color: rgb(47, 47, 47);
+  transition: all 0.2s ease;
+}
