@@ -2,7 +2,7 @@ import { type PropsWithChildren } from 'react';
 import './BoardButton.css';
 
 interface BoardButtonProps {
-  type: 'rerun' | 'register';
+  type: 'left' | 'right';
   onClick: () => void;
 }
 

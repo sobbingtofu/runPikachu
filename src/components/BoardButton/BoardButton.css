@@ -10,19 +10,19 @@
   transition: all 0.3s ease;
 }
 
-.board-button.rerun {
+.board-button.left {
   background-color: #f44336;
 }
 
-.board-button.rerun:hover {
+.board-button.left:hover {
   background-color: #981d1d;
 }
 
-.board-button.register {
+.board-button.right {
   background-color: #28b7ab;
 }
 
-.board-button.register:hover {
+.board-button.right:hover {
   background-color: #1e736c;
 }
 

@@ -3,16 +3,22 @@ import { useRerunPikachu } from '../../hooks/useRerunPikachu';
 import { useGameStore } from '../../store/gameStore';
 import BoardButton from '../BoardButton/BoardButton';
 import ButtonContainer from '../ButtonContainer/ButtonContainer';
+import NameInput from '../NameInput/NameInput';
 import './Board.css';
 
 const Board = () => {
   const { closeBoard } = useCloseBoard();
-  const { gameFundamentals, loadingStates } = useGameStore();
+  const { gameFundamentals, setGameFundamentals, loadingStates } =
+    useGameStore();
+
   const { reRunPikachu } = useRerunPikachu();
 
-  const handleRegister = () => {
-    // TODO: 내 점수 등록하기 로직 구현
-    console.log('Registering score...');
+  const handleRegisterBtnClick = () => {
+    setGameFundamentals({ isNameInputShown: true });
+  };
+
+  const exitScoreInput = () => {
+    setGameFundamentals({ isNameInputShown: false });
   };
 
   let scoreItemCount = 0;
@@ -21,22 +27,12 @@ const Board = () => {
     <>
       {gameFundamentals.isBoardVisible && (
         <div className='board-backdrop'>
-          <div className='board-modal'>
+          <div className={`board-modal`}>
             <button className='close-button' onClick={closeBoard}>
               &times;
             </button>
             <h1>{gameFundamentals.isGameOver && 'Game Over'}</h1>
-            {gameFundamentals.isGameOver && (
-              <p className='my-score-text'>
-                {loadingStates.isScoreRecordLoading
-                  ? 'Loading...'
-                  : `My Score: ${gameFundamentals.score}`}
-              </p>
-            )}
-            <p className='my-score-text'>
-              {gameFundamentals.isGameOver &&
-                `Top ${gameFundamentals.LastScorePercentile}% of Players`}
-            </p>
+
             <h2>High Scores</h2>
             {loadingStates.isScoreRecordLoading ? (
               <p className='my-score-text'>Loading...</p>
@@ -56,13 +52,40 @@ const Board = () => {
                 )}
               </div>
             )}
+
+            {gameFundamentals.isGameOver && (
+              <p className='my-score-text'>
+                {loadingStates.isScoreRecordLoading
+                  ? 'Loading...'
+                  : `My Score: ${gameFundamentals.score}`}
+              </p>
+            )}
+            {gameFundamentals.isGameOver && (
+              <p className='my-score-percentile-text'>
+                {loadingStates.isScorePercentileLoading
+                  ? 'Loading...'
+                  : `Top ${gameFundamentals.LastScorePercentile}% of Players`}
+              </p>
+            )}
+
+            {gameFundamentals.isGameOver &&
+              gameFundamentals.isNameInputShown && <NameInput />}
             {gameFundamentals.isGameOver && (
               <ButtonContainer>
-                <BoardButton type='rerun' onClick={reRunPikachu}>
-                  Run Again
+                <BoardButton
+                  type='left'
+                  onClick={
+                    gameFundamentals.isNameInputShown
+                      ? exitScoreInput
+                      : reRunPikachu
+                  }
+                >
+                  {gameFundamentals.isNameInputShown ? 'Exit' : 'Run Again'}
                 </BoardButton>
-                <BoardButton type='register' onClick={handleRegister}>
-                  Register My Score
+                <BoardButton type='right' onClick={handleRegisterBtnClick}>
+                  {gameFundamentals.isNameInputShown
+                    ? 'Register!'
+                    : 'Register My Score'}
                 </BoardButton>
               </ButtonContainer>
             )}

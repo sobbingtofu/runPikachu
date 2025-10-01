@@ -20,7 +20,7 @@ const LoadingScreen = () => {
     <>
       {!gameFundamentals.isBGMLoaded && (
         <>
-          <h1>Pikachu is on its way{loadingDots}</h1>
+          <h1 className='loading-text'>Pikachu is on its way{loadingDots}</h1>
         </>
       )}
     </>

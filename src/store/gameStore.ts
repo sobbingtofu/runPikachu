@@ -16,6 +16,8 @@ export type GameFundamentalsType = {
   isScoreLoaded: boolean;
   serverScoreRecordArray: ScoreRecordType[];
   LastScorePercentile: number;
+  isNameInputShown: boolean;
+  currentNameInput: string;
 };
 
 export type loadingStatesType = {
@@ -67,7 +69,7 @@ interface GameState {
 
 export const initialSizeParams = {
   GAME_AREA_INIT_WIDTH: 1000,
-  GAME_AREA_INIT_HEIGHT: 450,
+  GAME_AREA_INIT_HEIGHT: 400,
   PIKACHU_INIT_WIDTH: 80,
   PIKACHU_INIT_HEIGHT: 53,
   PIKACHU_INIT_JUMP_HEIGHT: 170,
@@ -117,6 +119,8 @@ export const useGameStore = create<GameState>((set) => ({
     isScoreLoaded: false,
     serverScoreRecordArray: [],
     LastScorePercentile: 0,
+    isNameInputShown: false,
+    currentNameInput: '',
   },
 
   setGameFundamentals: (update) =>

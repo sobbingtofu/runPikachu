@@ -7,7 +7,7 @@ const PreGameScreen = () => {
     <>
       {gameFundamentals.isBGMLoaded && gameFundamentals.isPreGameScreen && (
         <>
-          <h1>
+          <h1 className='pre-game-text'>
             Press <span className='highlight'>Enter</span> to Start
           </h1>
         </>

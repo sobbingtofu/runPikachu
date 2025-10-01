@@ -24,7 +24,7 @@ const imageMap: Record<PixelButtonProps['type'], string> = {
   'Run Again': '/pixelButtons/runAgain-black.png',
 };
 
-const buttonHeight = 60;
+const buttonHeight = 45;
 
 const PixelButton = ({
   type = 'spacebar',
