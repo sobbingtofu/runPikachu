@@ -1,0 +1,12 @@
+p.score-register-text {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+p.score-register-text.registering {
+  color: rgb(155, 85, 55);
+}
+
+p.score-register-text.registered {
+  color: rgb(9, 137, 210);
+}

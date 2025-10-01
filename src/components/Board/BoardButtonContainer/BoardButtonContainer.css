@@ -1,5 +1,6 @@
-.button-container {
+.board-button-container {
   display: flex;
   justify-content: space-between;
   gap: 4%;
+  margin: auto auto 5px auto;
 }

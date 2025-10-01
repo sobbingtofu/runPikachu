@@ -10,7 +10,8 @@ import {
 } from '../store/gameStore';
 
 export const useRerunPikachu = () => {
-  const { setGameFundamentals, setPikachuState } = useGameStore();
+  const { setGameFundamentals, setPikachuState, setLoadingStates } =
+    useGameStore();
 
   const reRunPikachu = () => {
     if (jumpAnimationFrameIdRef.current) {
@@ -24,12 +25,22 @@ export const useRerunPikachu = () => {
       obstacles: [],
       isGameOverAnimationPlaying: false,
       isBoardVisible: false,
+      LastScorePercentile: 0,
+      isNameInputShown: false,
+      currentNameInput: '',
+      isCurrentScoreRegistered: false,
     });
     setPikachuState({
       isJumping: false,
       pikachuValueY: INITIAL_GROUND_Y_VALUE,
       isDead: false,
     });
+
+    setLoadingStates({
+      isScoreRegisterLoading: false,
+      isScorePercentileLoading: false,
+    });
+
     jumpCountRef.current = 0;
 
     currentPikachuYRef.current = INITIAL_GROUND_Y_VALUE;

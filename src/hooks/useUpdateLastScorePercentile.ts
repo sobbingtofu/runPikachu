@@ -10,7 +10,6 @@ export const useUpdateLastScorePercentile = () => {
         const scorePercentile: number = await getScorePercentile(
           gameFundamentals.score,
         );
-        console.log(scorePercentile);
         setGameFundamentals((prev) => ({
           ...prev,
           LastScorePercentile: scorePercentile || 0,

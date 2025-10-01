@@ -18,11 +18,14 @@ export type GameFundamentalsType = {
   LastScorePercentile: number;
   isNameInputShown: boolean;
   currentNameInput: string;
+
+  isCurrentScoreRegistered: boolean;
 };
 
 export type loadingStatesType = {
   isScoreRecordLoading: boolean;
   isScorePercentileLoading: boolean;
+  isScoreRegisterLoading: boolean;
 };
 
 export type sizeParamsType = {
@@ -79,6 +82,7 @@ export const useGameStore = create<GameState>((set) => ({
   loadingStates: {
     isScoreRecordLoading: false,
     isScorePercentileLoading: false,
+    isScoreRegisterLoading: false,
   },
 
   setLoadingStates: (update) =>
@@ -121,6 +125,8 @@ export const useGameStore = create<GameState>((set) => ({
     LastScorePercentile: 0,
     isNameInputShown: false,
     currentNameInput: '',
+
+    isCurrentScoreRegistered: false,
   },
 
   setGameFundamentals: (update) =>

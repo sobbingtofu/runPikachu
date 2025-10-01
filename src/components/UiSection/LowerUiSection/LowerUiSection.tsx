@@ -13,7 +13,7 @@ const LowerUiSection = ({
 }: PropsWithChildren<UiSectionProps>) => {
   return (
     <>
-      <div className='button-container'>
+      <div className='lower-button-container'>
         <PixelButtonWrapper className='lower'>
           <PixelButton type={leftButtonType} />
           <p className='instruction-text'>{leftButtonText}</p>

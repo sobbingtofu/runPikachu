@@ -1,8 +1,8 @@
 import { type PropsWithChildren } from 'react';
-import './ButtonContainer.css';
+import './BoardButtonContainer.css';
 
 const ButtonContainer = ({ children }: PropsWithChildren<{}>) => {
-  return <div className='button-container'>{children}</div>;
+  return <div className='board-button-container'>{children}</div>;
 };
 
 export default ButtonContainer;

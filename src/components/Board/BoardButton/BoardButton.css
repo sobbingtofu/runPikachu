@@ -26,6 +26,11 @@
   background-color: #1e736c;
 }
 
+.board-button.disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
 p.board-button-text {
   margin: 0px;
   padding: 0px;

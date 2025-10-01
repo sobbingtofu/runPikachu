@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useGameStore, obstaclePositions } from '../store/gameStore'; // 공유 위치 객체 import
 import { checkCollision } from '../logic/collisionDetectionLogic';
 import { playPauseSound } from '../logic/playPauseSound';
+import { useLoadScores } from './useLoadScores';
 
 export const useHandleCollision = () => {
   const {
@@ -10,6 +11,8 @@ export const useHandleCollision = () => {
     setGameFundamentals,
     setPikachuState,
   } = useGameStore();
+
+  const { loadScores } = useLoadScores(true);
 
   const isCollision = checkCollision(
     gameFundamentals.obstacles,
@@ -20,6 +23,7 @@ export const useHandleCollision = () => {
   // 충돌 시 게임 오버 처리
   useEffect(() => {
     if (isCollision && !gameFundamentals.isGameOver) {
+      loadScores();
       playPauseSound('collision01', 'play', false);
       playPauseSound('02-LakeValor', 'pause');
 

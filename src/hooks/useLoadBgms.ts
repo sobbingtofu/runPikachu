@@ -5,6 +5,7 @@ import {
   SOUND_EFFECT_NAMES,
 } from '../store/gameStore';
 import { getBGM, openDB, putBGM } from '../logic/manageBgmIdxDb';
+import { timerPromiseLogic } from '../logic/timerPromise';
 
 export const useLoadBgms = () => {
   const { gameFundamentals, setGameFundamentals } = useGameStore();
@@ -45,9 +46,7 @@ export const useLoadBgms = () => {
         }
       };
 
-      const timerPromise = new Promise<void>((resolve) =>
-        setTimeout(resolve, 800),
-      );
+      const timerPromise = timerPromiseLogic(800);
       const bgmPromise = loadAllBgms();
 
       Promise.all([timerPromise, bgmPromise]).then(() => {

@@ -1,5 +1,6 @@
 import { type PropsWithChildren } from 'react';
 import './BoardButton.css';
+import { useGameStore } from '../../../store/gameStore';
 
 interface BoardButtonProps {
   type: 'left' | 'right';
@@ -11,10 +12,17 @@ const BoardButton = ({
   onClick,
   children,
 }: PropsWithChildren<BoardButtonProps>) => {
-  const className = `board-button ${type}`;
+  const { loadingStates } = useGameStore();
+  const className = !loadingStates.isScoreRegisterLoading
+    ? `board-button ${type}`
+    : `board-button disabled`;
 
   return (
-    <button className={className} onClick={onClick}>
+    <button
+      className={className}
+      onClick={onClick}
+      disabled={loadingStates.isScoreRegisterLoading}
+    >
       <p className='board-button-text'>{children}</p>
     </button>
   );

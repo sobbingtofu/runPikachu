@@ -5,12 +5,18 @@ const NameInput = () => {
   const { gameFundamentals, setGameFundamentals } = useGameStore();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // 영어와 숫자만 허용 (정규식)
     const onlyEng = e.target.value.replace(/[^a-zA-Z0-9]/g, '');
-    setGameFundamentals((prev) => ({
-      ...prev,
-      currentNameInput: onlyEng,
-    }));
+    if (
+      gameFundamentals.currentNameInput.length >= 15 &&
+      e.target.value.length > gameFundamentals.currentNameInput.length
+    ) {
+      return;
+    } else {
+      setGameFundamentals((prev) => ({
+        ...prev,
+        currentNameInput: onlyEng,
+      }));
+    }
   };
 
   return (

@@ -14,15 +14,22 @@ import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import PreGameScreen from './components/PreGameScreen/PreGameScreen';
 import { useGameSizeControl } from './hooks/useGameSizeControl';
 import LowerUiSection from './components/UiSection/LowerUiSection/LowerUiSection';
-import { useLoadScores } from './hooks/useLoadScores';
 import { defineButtonDetails } from './logic/defineButtonDetails';
 import { useUpdateLastScorePercentile } from './hooks/useUpdateLastScorePercentile';
+import { useLoadScores } from './hooks/useLoadScores';
+import { useEffect } from 'react';
 
 function App() {
   const { gameFundamentals, sizeParams } = useGameStore();
 
   const { leftButtonType, rightButtonType, leftButtonText, rightButtonText } =
     defineButtonDetails(gameFundamentals);
+
+  const { loadScores } = useLoadScores(true);
+
+  useEffect(() => {
+    loadScores();
+  }, []);
 
   useUpdateLastScorePercentile();
   useGameCore();
@@ -31,7 +38,6 @@ function App() {
   useLoadBgms();
   useBgmControl();
   useGameSizeControl();
-  useLoadScores();
 
   return (
     <div className='App'>
