@@ -5,7 +5,7 @@ import PixelButtonWrapper from '../../PixelButtonWrapper/PixelButtonWrapper';
 import type { UiSectionProps } from '../UpperUiSection/UpperUiSection';
 import './../UiSection.css';
 import { useKeyboardHandlers } from '../../../hooks/useKeyboardHandlers';
-import { isFastFallingRef, isSpacePressedRef } from '../../../store/gameStore';
+import { isSpacePressedRef } from '../../../store/gameStore';
 
 const LowerUiSection = ({
   leftButtonType,
