@@ -1,69 +1,28 @@
-# React + TypeScript + Vite
+# Run Pikachu! 🕹️
+A browser game built with React, TypeScript, and Vite.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Game Overview
+Control Pikachu and avoid obstacles using your keyboard or touch:
 
-Currently, two official plugins are available:
+- Enter: Start the game or open the score board
+- Spacebar: Jump
+- Arrow Down: Fast-fall while jumping
+- On mobile, tap the screen to start and play. The game is fully responsive and supports mobile devices.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Share your score with friends and compete for the highest record!
 
-## Expanding the ESLint configuration
+# Features
+- Responsive Design: Works seamlessly on desktop and mobile devices (minimum mobile compatibility implemented)
+- Keyboard & Touch Controls: Play with keyboard or touch gestures
+- Score Sharing: Share your score and challenge others
+- Animated Obstacles: Dynamic obstacle generation and collision detection
+- Sound & Music: Toggle background music and sound effects
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+# Development Structure
+- React + Vite: Fast development environment with hot module replacement
+- TypeScript: Type-safe codebase for reliability and maintainability
+- Custom Hooks: Game logic (loop, jump, collision, score) is modularized using React hooks
+- State Management: Centralized state management via Zustand
+- Responsive UI: CSS and logic for adapting to various screen sizes
+- Supabase Integration: For score storage and sharing (if enabled)
+- Asset Management: All images, sounds, and fonts are managed in the public directory
