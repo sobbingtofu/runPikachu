@@ -331,7 +331,7 @@ export const RANDOM_OBSTACLE_TYPES = [
   {
     obstacleType: 'OCTILLERY',
     width: 80,
-    height: 60,
+    height: 65,
     weight: 100,
     positionY: 0,
     hitboxWidth: 60,

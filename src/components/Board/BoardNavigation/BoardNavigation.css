@@ -20,6 +20,9 @@ h3.navi-buttons {
   transition: all 0.2s ease;
   /* background-color: aquamarine; */
   padding: 8px;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 h3.navi-buttons:hover {
