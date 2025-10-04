@@ -138,8 +138,8 @@ export const useKeyboardHandlers = () => {
     }
     if (gameFundamentals.isBGMLoaded && gameFundamentals.isPreGameScreen) {
       playPauseSound('buttonSound01', 'stopAndPlay', false);
-      // setGameFundamentals({ isPreGameScreen: false, isSoundOn: true });
-      setGameFundamentals({ isPreGameScreen: false });
+      setGameFundamentals({ isPreGameScreen: false, isSoundOn: true });
+      // setGameFundamentals({ isPreGameScreen: false });
     }
   };
 
