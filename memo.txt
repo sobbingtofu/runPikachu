@@ -1,0 +1,17 @@
+
+pallet town https://www.youtube.com/watch?v=BbpKGElLCFU
+eterna forest https://www.youtube.com/watch?v=2Hs4F1DTBb4
+lake valor https://www.youtube.com/watch?v=bqMPQWTyLz4
+marine tube https://www.youtube.com/watch?v=nHsvnfDVkKU
+unova route10 https://www.youtube.com/watch?v=GJr8XuJDYfA
+
+효과음 https://www.youtube.com/watch?v=5JgxJjF7CAY
+효과음 2 https://www.youtube.com/watch?v=qEg9wKFGtQg
+01:25 부근 점프
+
+a 키 소리
+https://www.youtube.com/watch?v=5UHmxWsPNzg
+
+
+supabase Db서버 설정 및 연동
+타입 연동: npx supabase gen types typescript --project-id izfxyedbhntjlkrzvnbg > src/types/supabase.ts

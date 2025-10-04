@@ -1,0 +1,56 @@
+/* src/components/Obstacle/Obstacle.css */
+.obstacle {
+  position: absolute;
+  box-sizing: border-box; /* 패딩, 보더를 너비/높이에 포함 */
+  z-index: 1;
+}
+
+.obstacle.diglett01 {
+  background-image: url('/assets/obstacles/diglett01.png');
+  background-size: cover;
+}
+
+.obstacle.alolanExeggutor {
+  background-image: url('/assets/obstacles/alolanExeggutor01.png');
+  background-size: cover;
+}
+
+.obstacle.ABOMASNOW {
+  background-image: url('/assets/obstacles/ABOMASNOW.png');
+  background-size: cover;
+}
+
+.obstacle.AERODACTYL {
+  background-image: url('/assets/obstacles/AERODACTYL.png');
+  background-size: cover;
+}
+
+.obstacle.XATU {
+  background-image: url('/assets/obstacles/XATU.png');
+  background-size: cover;
+}
+
+.obstacle.SLOWPOKE {
+  background-image: url('/assets/obstacles/SLOWPOKE.png');
+  background-size: cover;
+}
+
+.obstacle.bird01 {
+  background-image: url('/assets/obstacles/bird01.png');
+  background-size: cover;
+}
+
+.obstacle.DRIFBLIM {
+  background-image: url('/assets/obstacles/DRIFBLIM.png');
+  background-size: cover;
+}
+
+.obstacle.OCTILLERY {
+  background-image: url('/assets/obstacles/OCTILLERY.png');
+  background-size: cover;
+}
+
+.obstacle.GYARADOS {
+  background-image: url('/assets/obstacles/GYARADOS.png');
+  background-size: cover;
+}

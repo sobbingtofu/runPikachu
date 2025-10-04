@@ -1,0 +1,27 @@
+.pixel-button-wrapper {
+  flex-direction: column;
+  align-items: center;
+  width: 160px;
+  height: max-content;
+  gap: 4px;
+}
+
+.pixel-button-wrapper.upper {
+  display: flex;
+}
+
+@media (max-width: 600px) {
+  .pixel-button-wrapper.upper {
+    display: none;
+  }
+}
+
+.pixel-button-wrapper.lower {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .pixel-button-wrapper.lower {
+    display: flex;
+  }
+}

@@ -1,10 +1,103 @@
 import './App.css';
+import Pikachu from './components/Pikachu/Pikachu';
+import Obstacle from './components/Obstacle/Obstacle';
+import { useGameStore } from './store/gameStore';
+import useGameCore from './hooks/useGameCore';
+import usePikachuJump from './hooks/usePikachuJump';
+import useGameLoop from './hooks/useGameLoop';
+import Board from './components/Board/Board';
+import ScrollingBackground from './components/ScrollingBackground/ScrollingBackground';
+import UpperUiSection from './components/UiSection/UpperUiSection/UpperUiSection';
+import { useLoadBgms } from './hooks/useLoadBgms';
+import { useBgmControl } from './hooks/useBgmControl';
+import LoadingScreen from './components/LoadingScreen/LoadingScreen';
+import PreGameScreen from './components/PreGameScreen/PreGameScreen';
+import { useGameSizeControl } from './hooks/useGameSizeControl';
+import LowerUiSection from './components/UiSection/LowerUiSection/LowerUiSection';
+import { defineButtonDetails } from './logic/defineButtonDetails';
+import { useUpdateLastScorePercentile } from './hooks/useUpdateLastScorePercentile';
+import { useLoadScores } from './hooks/useLoadScores';
+import { useEffect } from 'react';
 
 function App() {
+  const { gameFundamentals, sizeParams } = useGameStore();
+
+  const { leftButtonType, rightButtonType, leftButtonText, rightButtonText } =
+    defineButtonDetails(gameFundamentals);
+
+  const { loadScores } = useLoadScores(true);
+
+  useEffect(() => {
+    loadScores();
+  }, []);
+
+  useUpdateLastScorePercentile();
+  useGameCore();
+  usePikachuJump();
+  useGameLoop();
+  useLoadBgms();
+  useBgmControl();
+  useGameSizeControl();
+
   return (
     <div className='App'>
-      <h1>Pikachu Run!</h1>
-      <div className='game-container'>{/* 게임 요소들이 들어갈 곳 */}</div>
+      <div
+        style={{
+          width: sizeParams.gameAreaWidth,
+          height: sizeParams.gameAreaHeight,
+        }}
+        className='game-container'
+      >
+        <LoadingScreen />
+        <PreGameScreen />
+        {gameFundamentals.isBGMLoaded && !gameFundamentals.isPreGameScreen && (
+          <>
+            <Board />
+
+            <UpperUiSection
+              leftButtonType={leftButtonType}
+              rightButtonType={rightButtonType}
+              leftButtonText={leftButtonText}
+              rightButtonText={rightButtonText}
+            />
+
+            <div className={`game-area`}>
+              <ScrollingBackground
+                src='/bg/bg-12.png'
+                speed={0.1}
+                isGameStarted={
+                  gameFundamentals.isGameStarted &&
+                  !gameFundamentals.isGameOver &&
+                  !gameFundamentals.isBoardVisible
+                }
+              />
+              <Pikachu />
+              {gameFundamentals.obstacles.map((obstacle) => (
+                <Obstacle
+                  key={obstacle.id}
+                  id={obstacle.id}
+                  initialPositionX={obstacle.positionX}
+                  positionY={obstacle.positionY}
+                  width={obstacle.width}
+                  height={obstacle.height}
+                  obstacleType={obstacle.obstacleType}
+                  hitboxWidth={obstacle.hitboxWidth}
+                  hitboxHeight={obstacle.hitboxHeight}
+                  offsetX={obstacle.offsetX}
+                  offsetY={obstacle.offsetY}
+                />
+              ))}
+            </div>
+
+            <LowerUiSection
+              leftButtonType={leftButtonType}
+              rightButtonType={rightButtonType}
+              leftButtonText={leftButtonText}
+              rightButtonText={rightButtonText}
+            />
+          </>
+        )}
+      </div>
     </div>
   );
 }

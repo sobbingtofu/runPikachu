@@ -1,0 +1,41 @@
+.board-button {
+  flex: 1;
+
+  padding: 10px 20px;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.board-button.left {
+  background-color: #f44336;
+}
+
+.board-button.left:hover {
+  background-color: #981d1d;
+}
+
+.board-button.right {
+  background-color: #28b7ab;
+}
+
+.board-button.right:hover {
+  background-color: #1e736c;
+}
+
+.board-button.disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+p.board-button-text {
+  margin: 0px;
+  padding: 0px;
+  font-family: 'editundo', sans-serif;
+  /* font-family: 'fs-pixel-sans-unicode-regular', sans-serif; */
+  font-size: 20px;
+  color: #141414;
+}

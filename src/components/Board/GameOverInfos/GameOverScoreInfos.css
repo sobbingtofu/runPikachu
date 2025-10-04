@@ -1,0 +1,15 @@
+p.my-score-text {
+  margin-top: 20px;
+  color: #494949;
+  font-family: 'editundo', sans-serif;
+  font-size: 24px;
+  word-spacing: -5px;
+}
+
+p.my-score-percentile-text {
+  margin: 10px 0px 20px 0px;
+  color: #494949;
+  font-family: 'editundo', sans-serif;
+  font-size: 16px;
+  word-spacing: -5px;
+}

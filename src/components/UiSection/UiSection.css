@@ -1,0 +1,56 @@
+div.run-pikachu-container {
+  margin-top: 10vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+div .score-buttons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: end;
+  margin: 18px 0px 24px 0px;
+}
+
+@media (max-width: 600px) {
+  div .score-buttons-container {
+    margin-top: 36px;
+  }
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  margin: 0px 0px 0px 0px;
+}
+
+.lower-button-container {
+  display: flex;
+  flex-direction: row;
+  margin: 24px 0px 0px 0px;
+  justify-content: space-between;
+}
+
+h1.run-pikachu {
+  font-size: 48pt;
+  color: #ffcb05;
+  text-shadow: 2px 2px #2e3775;
+}
+
+@media (max-width: 600px) {
+  h1.run-pikachu {
+    font-size: 48pt;
+  }
+}
+
+p.instruction-text {
+  font-size: 21pt;
+}
+p.score-text {
+  width: 120px;
+  font-size: 24pt;
+}
