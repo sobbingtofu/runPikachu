@@ -1,7 +1,8 @@
 // src/components/Obstacle/Obstacle.tsx
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Obstacle.css';
 import type { ObstacleType } from '../../types/ObstacleType';
+import { getImg, openImgDb } from '../../logic/manageImgIdxDb';
 
 // positionX를 props에서 제외합니다. 이 값은 이제 내부적으로 관리됩니다.
 type ObstacleProps = Omit<ObstacleType, 'positionX'> & {
@@ -24,6 +25,25 @@ const Obstacle: React.FC<ObstacleProps> = ({
   const obstacleClass = `obstacle ${obstacleType}`;
   const showHitbox = false;
 
+  const [imgUrl, setImgUrl] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    let url: string | undefined;
+    let isMounted = true;
+    (async () => {
+      const db = await openImgDb();
+      const blob = await getImg(db, obstacleType);
+      if (blob) {
+        url = URL.createObjectURL(blob);
+        if (isMounted) setImgUrl(url);
+      }
+    })();
+    return () => {
+      isMounted = false;
+      if (url) URL.revokeObjectURL(url);
+    };
+  }, [obstacleType]);
+
   useEffect(() => {
     if (obstacleRef.current) {
       // 컴포넌트가 처음 마운트될 때 초기 위치를 설정
@@ -44,6 +64,8 @@ const Obstacle: React.FC<ObstacleProps> = ({
         bottom: `${positionY}px`,
         width: `${width}px`,
         height: `${height}px`,
+        backgroundImage: imgUrl ? `url(${imgUrl})` : undefined,
+        backgroundSize: 'cover',
       }}
     >
       {showHitbox && (
