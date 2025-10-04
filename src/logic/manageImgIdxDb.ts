@@ -1,8 +1,8 @@
 // IndexedDB 유틸 함수
-const DB_NAME = 'bgmDB';
-const STORE_NAME = 'bgms';
+const DB_NAME = 'imgDB';
+const STORE_NAME = 'imgs';
 
-export function openBgmDb(): Promise<IDBDatabase> {
+export function openImgDb(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
     const req = indexedDB.open(DB_NAME, 1);
     req.onupgradeneeded = () => {
@@ -13,7 +13,7 @@ export function openBgmDb(): Promise<IDBDatabase> {
   });
 }
 
-export function getBGM(
+export function getImg(
   db: IDBDatabase,
   name: string,
 ): Promise<Blob | undefined> {
@@ -26,7 +26,7 @@ export function getBGM(
   });
 }
 
-export function putBGM(
+export function putImg(
   db: IDBDatabase,
   name: string,
   blob: Blob,

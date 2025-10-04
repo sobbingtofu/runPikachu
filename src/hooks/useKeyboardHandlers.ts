@@ -16,6 +16,7 @@ export const useKeyboardHandlers = () => {
     setGameFundamentals,
     pikachuState,
     setPikachuState,
+    loadingStates,
   } = useGameStore();
 
   const { closeBoard } = useCloseBoard();
@@ -136,7 +137,11 @@ export const useKeyboardHandlers = () => {
       playPauseSound('buttonSound01', 'stopAndPlay', false);
       setGameFundamentals({ isBoardVisible: true });
     }
-    if (gameFundamentals.isBGMLoaded && gameFundamentals.isPreGameScreen) {
+    if (
+      loadingStates.isBGMLoaded &&
+      loadingStates.isImgsLoaded &&
+      gameFundamentals.isPreGameScreen
+    ) {
       playPauseSound('buttonSound01', 'stopAndPlay', false);
       setGameFundamentals({ isPreGameScreen: false, isSoundOn: true });
       // setGameFundamentals({ isPreGameScreen: false });

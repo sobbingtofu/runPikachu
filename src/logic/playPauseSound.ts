@@ -1,11 +1,11 @@
-import { openDB, getBGM } from './manageBgmIdxDb';
+import { openBgmDb, getBGM } from './manageBgmIdxDb';
 
 export async function playPauseSound(
   bgmName: string,
   actionType: 'play' | 'pause' | 'stop' | 'stopAndPlay',
   loopYN: boolean = true,
 ) {
-  const db = await openDB();
+  const db = await openBgmDb();
   const bgmBlob = await getBGM(db, bgmName);
 
   if (!bgmBlob) {
