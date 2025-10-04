@@ -11,6 +11,8 @@ export interface PixelButtonProps {
     | 'Board'
     | 'Quick Drop'
     | 'Run Again';
+  onClick?: () => void;
+  clickable?: boolean;
 }
 
 const imageMap: Record<PixelButtonProps['type'], string> = {
@@ -28,6 +30,8 @@ const buttonHeight = 45;
 
 const PixelButton = ({
   type = 'spacebar',
+  onClick,
+  clickable,
 }: PropsWithChildren<PixelButtonProps>) => {
   const className = `button ${type}`;
   const imgSrc = imageMap[type];
@@ -41,7 +45,10 @@ const PixelButton = ({
           height: `${buttonHeight}px`,
           width: 'auto',
           display: 'block',
+          cursor: clickable ? 'pointer' : 'default',
         }}
+        onMouseDown={onClick}
+        onTouchStart={onClick}
       />
     </div>
   );
