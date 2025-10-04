@@ -67,6 +67,12 @@ export const useLoadImages = () => {
           '/assets/runkachu-3.png',
           '/assets/runkachu-dead.png',
           '/assets/runkachu-stop.png',
+          '/assets/bg/bg-12.png',
+          '/assets/pixelButtons/arrowDown-black.png',
+          '/assets/pixelButtons/enter-black.png.png',
+          '/assets/pixelButtons/sound-off.png',
+          '/assets/pixelButtons/sound-on.png',
+          '/assets/pixelButtons/spacebar-black.png',
         ];
 
         obstacleImages.forEach((src) => {
