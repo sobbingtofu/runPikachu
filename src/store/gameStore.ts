@@ -11,7 +11,7 @@ export type GameFundamentalsType = {
   isGameOverAnimationPlaying: boolean;
   isBoardVisible: boolean;
   isSoundOn: boolean;
-  isBGMLoaded: boolean;
+
   isPreGameScreen: boolean;
   isScoreLoaded: boolean;
   serverScoreRecordArray: ScoreRecordType[];
@@ -26,6 +26,8 @@ export type loadingStatesType = {
   isScoreRecordLoading: boolean;
   isScorePercentileLoading: boolean;
   isScoreRegisterLoading: boolean;
+  isBGMLoaded: boolean;
+  isImgsLoaded: boolean;
 };
 
 export type sizeParamsType = {
@@ -83,6 +85,8 @@ export const useGameStore = create<GameState>((set) => ({
     isScoreRecordLoading: false,
     isScorePercentileLoading: false,
     isScoreRegisterLoading: false,
+    isBGMLoaded: false,
+    isImgsLoaded: false,
   },
 
   setLoadingStates: (update) =>
@@ -118,7 +122,6 @@ export const useGameStore = create<GameState>((set) => ({
     isGameOverAnimationPlaying: false,
     isBoardVisible: false,
     isSoundOn: false,
-    isBGMLoaded: false,
     isPreGameScreen: true,
     isScoreLoaded: false,
     serverScoreRecordArray: [],

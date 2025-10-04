@@ -4,16 +4,16 @@ import {
   BGM_NAMES,
   SOUND_EFFECT_NAMES,
 } from '../store/gameStore';
-import { getBGM, openDB, putBGM } from '../logic/manageBgmIdxDb';
+import { getBGM, openBgmDb, putBGM } from '../logic/manageBgmIdxDb';
 import { timerPromiseLogic } from '../logic/timerPromise';
 
 export const useLoadBgms = () => {
-  const { gameFundamentals, setGameFundamentals } = useGameStore();
+  const { loadingStates, setLoadingStates } = useGameStore();
 
   useEffect(() => {
-    if (!gameFundamentals.isBGMLoaded) {
+    if (!loadingStates.isBGMLoaded) {
       const loadAllBgms = async () => {
-        const db = await openDB();
+        const db = await openBgmDb();
 
         for (const bgmName of BGM_NAMES) {
           const exists = await getBGM(db, bgmName);
@@ -44,8 +44,8 @@ export const useLoadBgms = () => {
       const bgmPromise = loadAllBgms();
 
       Promise.all([timerPromise, bgmPromise]).then(() => {
-        setGameFundamentals({ isBGMLoaded: true });
+        setLoadingStates({ isBGMLoaded: true });
       });
     }
-  }, [setGameFundamentals, gameFundamentals.isBGMLoaded]);
+  }, [setLoadingStates, loadingStates.isBGMLoaded]);
 };

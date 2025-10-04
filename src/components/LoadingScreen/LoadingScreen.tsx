@@ -3,7 +3,7 @@ import { useGameStore } from '../../store/gameStore';
 import './LoadingScreen.css';
 
 const LoadingScreen = () => {
-  const { gameFundamentals } = useGameStore();
+  const { loadingStates } = useGameStore();
 
   const [loadingDots, setLoadingDots] = useState('');
 
@@ -18,7 +18,7 @@ const LoadingScreen = () => {
 
   return (
     <>
-      {!gameFundamentals.isBGMLoaded && (
+      {(!loadingStates.isBGMLoaded || !loadingStates.isImgsLoaded) && (
         <>
           <h1 className='loading-text'>Pikachu is on its way{loadingDots}</h1>
         </>

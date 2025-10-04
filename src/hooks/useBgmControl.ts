@@ -3,19 +3,15 @@ import { useGameStore } from '../store/gameStore';
 import { playPauseSound } from '../logic/playPauseSound';
 
 export const useBgmControl = () => {
-  const { gameFundamentals, setGameFundamentals } = useGameStore();
+  const { gameFundamentals, loadingStates } = useGameStore();
 
   useEffect(() => {
-    if (gameFundamentals.isBGMLoaded) {
+    if (loadingStates.isBGMLoaded) {
       if (gameFundamentals.isSoundOn) {
         playPauseSound('02-LakeValor', 'play');
       } else {
         playPauseSound('02-LakeValor', 'pause');
       }
     }
-  }, [
-    gameFundamentals.isBGMLoaded,
-    gameFundamentals.isSoundOn,
-    setGameFundamentals,
-  ]);
+  }, [loadingStates.isBGMLoaded, gameFundamentals.isSoundOn]);
 };

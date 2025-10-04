@@ -18,9 +18,10 @@ import { defineButtonDetails } from './logic/defineButtonDetails';
 import { useUpdateLastScorePercentile } from './hooks/useUpdateLastScorePercentile';
 import { useLoadScores } from './hooks/useLoadScores';
 import { useEffect } from 'react';
+import { useLoadImages } from './hooks/useLoadImages';
 
 function App() {
-  const { gameFundamentals, sizeParams } = useGameStore();
+  const { gameFundamentals, sizeParams, loadingStates } = useGameStore();
 
   const { leftButtonType, rightButtonType, leftButtonText, rightButtonText } =
     defineButtonDetails(gameFundamentals);
@@ -36,6 +37,7 @@ function App() {
   usePikachuJump();
   useGameLoop();
   useLoadBgms();
+  useLoadImages();
   useBgmControl();
   useGameSizeControl();
 
@@ -50,7 +52,7 @@ function App() {
       >
         <LoadingScreen />
         <PreGameScreen />
-        {gameFundamentals.isBGMLoaded && !gameFundamentals.isPreGameScreen && (
+        {loadingStates.isBGMLoaded && !gameFundamentals.isPreGameScreen && (
           <>
             <Board />
 
