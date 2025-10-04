@@ -17,9 +17,9 @@ export const registerScore = async (name: String, score: Number) => {
     .select();
 
   if (error) {
-    console.error('Error inserting score:', error);
+    console.error('Error inserting score:', error, 'data:', data);
     return;
   } else {
-    console.log('Score inserted successfully:', data);
+    // console.log('Score inserted successfully:', data);
   }
 };

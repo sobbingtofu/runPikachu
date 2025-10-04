@@ -20,8 +20,6 @@ export const useLoadScores = (reloadYN: boolean) => {
       }
       console.error('점수 데이터 가져오는 중 오류 발생:', fetchResult.error);
     } else if (fetchResult?.data) {
-      console.log('점수 데이터 가져오기 성공:', fetchResult.data);
-
       setGameFundamentals((prev) => ({
         ...prev,
         serverScoreRecordArray: fetchResult.data || [],
