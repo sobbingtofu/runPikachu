@@ -14,3 +14,43 @@
   background-image: url('/assets/obstacles/alolanExeggutor01.png');
   background-size: cover;
 }
+
+.obstacle.ABOMASNOW {
+  background-image: url('/assets/obstacles/ABOMASNOW.png');
+  background-size: cover;
+}
+
+.obstacle.AERODACTYL {
+  background-image: url('/assets/obstacles/AERODACTYL.png');
+  background-size: cover;
+}
+
+.obstacle.XATU {
+  background-image: url('/assets/obstacles/XATU.png');
+  background-size: cover;
+}
+
+.obstacle.SLOWPOKE {
+  background-image: url('/assets/obstacles/SLOWPOKE.png');
+  background-size: cover;
+}
+
+.obstacle.bird01 {
+  background-image: url('/assets/obstacles/bird01.png');
+  background-size: cover;
+}
+
+.obstacle.DRIFBLIM {
+  background-image: url('/assets/obstacles/DRIFBLIM.png');
+  background-size: cover;
+}
+
+.obstacle.OCTILLERY {
+  background-image: url('/assets/obstacles/OCTILLERY.png');
+  background-size: cover;
+}
+
+.obstacle.GYARADOS {
+  background-image: url('/assets/obstacles/GYARADOS.png');
+  background-size: cover;
+}

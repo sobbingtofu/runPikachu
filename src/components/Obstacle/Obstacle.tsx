@@ -22,7 +22,7 @@ const Obstacle: React.FC<ObstacleProps> = ({
 }) => {
   const obstacleRef = useRef<HTMLDivElement>(null);
   const obstacleClass = `obstacle ${obstacleType}`;
-  const showHitbox = false;
+  // const showHitbox = true;
 
   useEffect(() => {
     if (obstacleRef.current) {
@@ -40,6 +40,7 @@ const Obstacle: React.FC<ObstacleProps> = ({
       id={id} // id를 DOM 요소에 직접 부여 >> useGameLoop에서 식별 가능
       className={obstacleClass}
       style={{
+        // border: '2px solid blue',
         bottom: `${positionY}px`,
         width: `${width}px`,
         height: `${height}px`,
