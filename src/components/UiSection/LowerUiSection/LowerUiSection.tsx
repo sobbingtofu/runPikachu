@@ -30,11 +30,7 @@ const LowerUiSection = ({
     <>
       <div className='lower-button-container'>
         <PixelButtonWrapper className='lower'>
-          <PixelButton
-            type={leftButtonType}
-            onClick={clickSpaceBarBtn}
-            clickable
-          />
+          <PixelButton type={leftButtonType} onClick={clickSpaceBarBtn} />
           <p className='instruction-text'>{leftButtonText}</p>
         </PixelButtonWrapper>
         <PixelButtonWrapper className='lower'>
