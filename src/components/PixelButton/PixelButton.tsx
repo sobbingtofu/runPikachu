@@ -36,6 +36,18 @@ const PixelButton = ({
   const className = `button ${type}`;
   const imgSrc = imageMap[type];
 
+  const handleTouch = () => {
+    if (onClick) {
+      onClick();
+    }
+  };
+
+  const handleMouse = () => {
+    if (!('ontouchstart' in window) && onClick) {
+      onClick();
+    }
+  };
+
   return (
     <div className={className}>
       <img
@@ -47,8 +59,8 @@ const PixelButton = ({
           display: 'block',
           cursor: clickable ? 'pointer' : 'default',
         }}
-        onMouseDown={onClick}
-        onTouchStart={onClick}
+        onTouchStart={handleTouch}
+        onMouseDown={handleMouse}
       />
     </div>
   );
