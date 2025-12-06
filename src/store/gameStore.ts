@@ -259,29 +259,6 @@ export const RANDOM_OBSTACLE_TYPES = [
     offsetX: -3,
     offsetY: 0,
   },
-  {
-    obstacleType: 'ABOMASNOW',
-    width: 125,
-    height: 125,
-    weight: 200,
-    positionY: 0,
-    hitboxWidth: 100,
-    hitboxHeight: 110,
-    offsetX: -3,
-    offsetY: -8,
-  },
-
-  {
-    obstacleType: 'AERODACTYL',
-    width: 90,
-    height: 90,
-    weight: 100,
-    positionY: 75,
-    hitboxWidth: 80,
-    hitboxHeight: 80,
-    offsetX: -3,
-    offsetY: 0,
-  },
 
   {
     obstacleType: 'XATU',
@@ -300,7 +277,7 @@ export const RANDOM_OBSTACLE_TYPES = [
     width: 80,
     height: 40,
     weight: 200,
-    positionY: 0,
+    positionY: -5,
     hitboxWidth: 80,
     hitboxHeight: 35,
     offsetX: -3,
@@ -308,39 +285,15 @@ export const RANDOM_OBSTACLE_TYPES = [
   },
 
   {
-    obstacleType: 'bird01',
+    obstacleType: 'REGICE',
     width: 150,
-    height: 100,
+    height: 120,
     weight: 100,
-    positionY: 240,
-    hitboxWidth: 150,
-    hitboxHeight: 100,
+    positionY: 60,
+    hitboxWidth: 80,
+    hitboxHeight: 90,
     offsetX: -3,
     offsetY: -6,
-  },
-
-  {
-    obstacleType: 'DRIFBLIM',
-    width: 200,
-    height: 160,
-    weight: 100,
-    positionY: 90,
-    hitboxWidth: 160,
-    hitboxHeight: 140,
-    offsetX: -3,
-    offsetY: 4,
-  },
-
-  {
-    obstacleType: 'OCTILLERY',
-    width: 80,
-    height: 65,
-    weight: 100,
-    positionY: 0,
-    hitboxWidth: 60,
-    hitboxHeight: 40,
-    offsetX: 0,
-    offsetY: 0,
   },
 
   {

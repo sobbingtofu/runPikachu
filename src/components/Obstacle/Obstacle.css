@@ -54,3 +54,8 @@
   background-image: url('/assets/obstacles/GYARADOS.png');
   background-size: cover;
 }
+
+.obstacle.REGICE {
+  background-image: url('/assets/obstacles/REGICE.png');
+  background-size: cover;
+}

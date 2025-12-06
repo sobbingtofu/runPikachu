@@ -23,7 +23,7 @@ const Obstacle: React.FC<ObstacleProps> = ({
 }) => {
   const obstacleRef = useRef<HTMLDivElement>(null);
   const obstacleClass = `obstacle ${obstacleType}`;
-  const showHitbox = false;
+  const showHitbox = true;
 
   const [imgUrl, setImgUrl] = useState<string | undefined>(undefined);
 
